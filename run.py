@@ -1,4 +1,5 @@
 # Write your code to expect a terminal of 80 characters wide and 24 rows high
+#Every input method needs a \n at the end of the text to work in heroku
 import gspread
 from google.oauth2.service_account import Credentials
 
