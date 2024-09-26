@@ -2,6 +2,7 @@
 #Every input method needs a \n at the end of the text to work in heroku
 import gspread
 from google.oauth2.service_account import Credentials
+import sys
 
 """
 Section facilitates API use to update user stats in 
@@ -87,6 +88,11 @@ class Player:
         print(f"Height: {self.height}")
         print(f"Sex: {self.sex}")
         print(f"Gold: {self.gold} pieces")
+
+# For handling game over events
+def game_over():
+    print("Game over. Thanks for playing!")
+    sys.exit()
 
 # Intro and call to adventure
 
