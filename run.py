@@ -20,7 +20,6 @@ GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('adventurer')
 
 adventurer = SHEET.worksheet('Adventurer')
-print(adventurer.row_values(1))
 
 """
 Methods for initial set-up and player creation
@@ -50,6 +49,15 @@ class Player:
             else:
                 print("Invalid height, please enter short, average or tall.")
 
+    def get_sex(self):
+        while True:
+            sexes = ["male", "female", "other"]
+            sex = input("Enter your character's sex (male, female, other): \n")
+            if sex in sexes:
+                return sex
+            else:
+                print("Invalid sex, please input male, female or other.")
+
     def show_stats(self):
         print(f"Name: {self.name}")
         print(f"Height: {self.height}")
@@ -60,9 +68,9 @@ class Player:
 player = Player("", "", "")
 name = player.get_name()
 height = player.get_height()
-
-sex = input("Enter your character's sex (male, female, other): \n")
+sex = player.get_sex()
 
 player = Player(name, height, sex)
+
 
 player.show_stats()
