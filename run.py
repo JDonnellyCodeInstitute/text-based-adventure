@@ -40,7 +40,7 @@ class Player:
         Name validation to ensure only letters are input
         """
         while True:
-            name = input("Enter your character's name (letters only): \n")
+            name = input("Enter your character's name (letters only): \n").capitalize()
             if name.isalpha():
                 return name
             else:
@@ -65,8 +65,8 @@ class Player:
         options
         """
         while True:
-            sexes = ["male", "female", "other"]
-            sex = input("Enter your character's sex (male, female, other): \n")
+            sexes = ["man", "woman", "other"]
+            sex = input("Enter your character's sex (man, woman, other): \n")
             if sex in sexes:
                 return sex
             else:
@@ -88,12 +88,12 @@ class Player:
         print(f"Sex: {self.sex}")
         print(f"Gold: {self.gold} pieces")
 
-# Intro
+# Intro and call to adventure
 
 def intro():
     """
-    Method that combines player creation and stat-display to start 
-    the game
+    Method that combines player creation, stat-display and call to
+    adventure to start the game
     """
     print("""
     Welcome intrepid adventurer! And say 'Hello World!' to the world
@@ -112,7 +112,37 @@ def intro():
     player.show_stats()
     return player
 
+def call_to_adventure(player):
+    """
+    Presents the player with the call to adventure.
+    """
+    print(f"""
+    A mysterious figure approaches you as you rest by the fire.
+    "{player.name}, I have been watching you. You seem like someone
+    destined for great things. 
+    
+    It is prophecied that a brave, {player.height}, {player.sex} like
+    you will some day make it to the Beast Lord's castle 
+    and end his tyrannous reign. 
+    
+    I can guide you to a tavern frequented by smugglers and
+    mercenaries who know ways of entering the castle.
+    
+    However, you first must make the choice. Will you answer the call 
+    to adventure, claim untold riches, and liberate the people of 
+    Pythonia or will you sit here by the fire and live a quiet life?"
+    """)
 
+    while True:
+        choice = input("Do you accept the call to adventure? (yes/no): \n").lower()
+        if choice == "yes":
+            print(f"Brave {player.name}, you will now begin your adventure!")
+            return True
+        elif choice == "no":
+            print(f"{player.name} chooses a quiet life by the fire. Game Over.")
+            return False
+        else:
+            print("Invalid input, please type 'yes' or 'no'.")
 
 
 
@@ -121,6 +151,7 @@ def main():
     Main function where all other required functions will be called
     """
     player = intro()
+    call_to_adventure(player)
 
 #Call main and play the game
 main()
