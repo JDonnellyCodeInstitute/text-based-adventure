@@ -33,6 +33,14 @@ class Player:
         self.sex = sex
         self.gold = gold
 
+    def get_name(self):
+        while True:
+            name = input("Enter your character's name (letters only): \n")
+            if name.isalpha():
+                return name
+            else:
+                print("Invalid name, please use letters only")
+
     def show_stats(self):
         print(f"Name: {self.name}")
         print(f"Height: {self.height}")
@@ -40,9 +48,12 @@ class Player:
         print(f"Gold: {self.gold} pieces")
 
 # Player creation process from user input
-name = input("Enter your character's name: \n")
-height = input("Enter your character's height: \n")
-sex = input("Enter your character's sex: \n")
+player = Player("", "", "")  # Create a temporary Player instance to call get_name
+name = player.get_name()
+
+height = input("Enter your character's height (short, average, tall): \n")
+sex = input("Enter your character's sex (male, female, other): \n")
 
 player = Player(name, height, sex)
+
 player.show_stats()
