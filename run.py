@@ -77,7 +77,7 @@ class Player:
         name = player.get_name()
         height = player.get_height()
         sex = player.get_sex()
-
+        return Player(name, height, sex)
 
     def show_stats(self):
         """
@@ -92,7 +92,8 @@ class Player:
 
 def intro():
     """
-    Method that combines player creation and stat-display
+    Method that combines player creation and stat-display to start 
+    the game
     """
     print("""
     Welcome intrepid adventurer! And say 'Hello World!' to the world
@@ -107,12 +108,19 @@ def intro():
 
     First, let's get to know who are you, and what you look like?
     """)
-    player = Player("", "", "").create_player()  # Create the player
-    player.show_stats()  # Display the player's stats
+    player = Player("", "", "").create_player()
+    player.show_stats()
     return player
 
 
-player = Player(name, height, sex)
 
 
-player.show_stats()
+
+def main():
+    """
+    Main function where all other required functions will be called
+    """
+    player = intro()
+
+#Call main and play the game
+main()
