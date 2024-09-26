@@ -41,6 +41,15 @@ class Player:
             else:
                 print("Invalid name, please use letters only")
 
+    def get_height(self):
+        while True:
+            valid_heights = ["tall", "short", "average"]
+            height = input("Enter your character's height (short, average, tall): \n").lower()
+            if height in valid_heights:
+                return height
+            else:
+                print("Invalid height, please enter short, average or tall.")
+
     def show_stats(self):
         print(f"Name: {self.name}")
         print(f"Height: {self.height}")
@@ -48,10 +57,10 @@ class Player:
         print(f"Gold: {self.gold} pieces")
 
 # Player creation process from user input
-player = Player("", "", "")  # Create a temporary Player instance to call get_name
+player = Player("", "", "")
 name = player.get_name()
+height = player.get_height()
 
-height = input("Enter your character's height (short, average, tall): \n")
 sex = input("Enter your character's sex (male, female, other): \n")
 
 player = Player(name, height, sex)
