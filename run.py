@@ -22,10 +22,7 @@ SHEET = GSPREAD_CLIENT.open('adventurer')
 
 adventurer = SHEET.worksheet('Adventurer')
 
-"""
-Methods for initial set-up and player creation
-"""
-
+#Methods for initial set-up and player creation
 class Player:
     def __init__(self, name, height, sex, gold=10):
         """
@@ -90,12 +87,37 @@ class Player:
         print(f"Gold: {self.gold} pieces")
 
 # For handling game over events
-def game_over():
-    print("Game over. Thanks for playing!")
-    sys.exit()
+def game_over(player=None):
+    """
+    Game over, with option to restart or quit
+    """
+    print("\nGAME OVER!\n")
+    while True:
+        play_again = input("Play again? (yes/no): \n").lower()
+        if play_again == "yes":
+            restart_game(player)
+        elif play_again == "no":
+            print("Thanks for playing!")
+            sys.exit()
+        else:
+            print("Invalid input, please type 'yes' or 'no'.")
+
+def restart_game(player=None):
+    """
+    Handle restarting the game with the same or new character
+    """
+    while True:
+        restart_choice = input("Do you want to restart with the same character? (yes/new): \n").lower()
+        if restart_choice == "yes":
+            call_to_adventure(player)
+            break
+        elif restart_choice == "new":
+            intro()
+            break
+        else:
+            print("Invalid input, please type 'yes' or 'new'.")
 
 # Intro and call to adventure
-
 def intro():
     """
     Method that combines player creation, stat-display and call to
@@ -116,7 +138,11 @@ def intro():
     """)
     player = Player("", "", "").create_player()
     player.show_stats()
-    return player
+    # NEED TO PICK UP FROM THIS IF STATEMENT
+    if call_to_adventure(player):
+        print("Proceeding to the tavern...")
+    else:
+        print("The game is over.")
 
 def call_to_adventure(player):
     """
