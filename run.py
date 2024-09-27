@@ -176,14 +176,39 @@ def call_to_adventure(player):
         else:
             print("Invalid input, please type 'yes' or 'no'.")
 
+# Tavern Section
+def tavern(player):
+    """
+    Includes all choices user can make in the tavern
+    """
+    initial_dialogue_tavern(player)
 
+
+def initial_dialogue_tavern(player):
+    print("""\nThe mysterious stranger leads you to a murky tavern.\n
+    As you approach you hear raucous laughter and the door swings open.
+    A rotten drunk, mostly toothless, sailor is being dragged by
+    the scruff of the neck and thrown out the door.
+    
+    'And STAY OUT!' shouts the tavern owner as he notices you and the
+    mysterious stranger.\n""")
+    if player.height == "short":
+        print("'Awoite shortarse, in or out. Same goes for your creepy mate'")
+    elif player.height == "tall":
+        print("'Awoite lanky, in or out. Same goes for your creepy mate'")
+    elif player.height == "average":
+        print("'Awoite average Joe, in or out. Same goes for your creepy mate'")
+    
+    print("""\nThe mysterious strangers bows, wishes you luck, and takes his leave.
+    You enter the tavern\n""")
 
 def main():
     """
     Main function where all other required functions will be called
     """
-    player = intro()
-    #call_to_adventure(player)
+    #player = intro()
+    player = Player("Keith", "tall", "man")
+    tavern(player)
 
 #Call main and play the game
 main()
