@@ -1,3 +1,5 @@
+BUG: FIXED// Call to adventure being called twice in case of restart with same character - Removed the redundant call to call_to_adventure in restart_game when restarting with the same character. Ensured intro() only calls call_to_adventure on new character creation.
+
 ![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
 
 Welcome,

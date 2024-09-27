@@ -109,7 +109,8 @@ def restart_game(player=None):
     while True:
         restart_choice = input("Do you want to restart with the same character? (yes/new): \n").lower()
         if restart_choice == "yes":
-            call_to_adventure(player)
+            print(f"Restarting with {player.name}.")
+            print("Proceeding to the tavern...")
             break
         elif restart_choice == "new":
             intro()
@@ -138,11 +139,10 @@ def intro():
     """)
     player = Player("", "", "").create_player()
     player.show_stats()
-    # NEED TO PICK UP FROM THIS IF STATEMENT
     if call_to_adventure(player):
         print("Proceeding to the tavern...")
     else:
-        print("The game is over.")
+        game_over(player)
 
 def call_to_adventure(player):
     """
@@ -183,7 +183,7 @@ def main():
     Main function where all other required functions will be called
     """
     player = intro()
-    call_to_adventure(player)
+    #call_to_adventure(player)
 
 #Call main and play the game
 main()
