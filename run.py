@@ -198,7 +198,6 @@ def tavern(player):
 
         choice = input("Choose an option (1-6): \n")
 
-
 def initial_dialogue_tavern(player):
     print("""\nThe mysterious stranger leads you to a murky tavern.\n
     As you approach you hear raucous laughter and the door swings open.
@@ -225,6 +224,13 @@ def drink_ale(player, min_bet):
     min_bet *= 2
     print(f"Your new minimum bet is now {min_bet} gold.")
     return min_bet
+
+def listen_for_treasure_info(player):
+    """
+    Player listens out for treasure information.
+    """
+    print(f"\n{player.name} overhears a conversation about a secret passage to the Beast Lord's castle.")
+    return True
 
 def main():
     """
