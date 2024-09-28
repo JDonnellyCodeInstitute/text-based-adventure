@@ -217,6 +217,15 @@ def initial_dialogue_tavern(player):
     print("""\nThe mysterious strangers bows, wishes you luck, and takes his leave.
     You enter the tavern\n""")
 
+def drink_ale(player, min_bet):
+    """
+    Drink ale and increase minimum bet.
+    """
+    print(f"{player.name} drinks a frothy ale. The room spins slightly.")
+    min_bet *= 2
+    print(f"Your new minimum bet is now {min_bet} gold.")
+    return min_bet
+
 def main():
     """
     Main function where all other required functions will be called
