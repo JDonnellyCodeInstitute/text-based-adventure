@@ -258,6 +258,28 @@ def bet_game(player, min_bet, game):
             player.gold -= bet
             print(f'You lose {bet} gold! You now have {player.gold} gold pieces.')
 
+    elif game == "coin flip":
+        print("You make a bet with the innkeeper that you can call a coin toss.")
+        
+        while True:
+            call = input("Call the coin flip! (heads or tails): \n").lower()
+            if call not in ["heads", "tails"]:
+                print("Invalid selection. Please input 'heads' or 'tails'.")
+            else:
+                break
+
+        coin = random.choice(["heads", "tails"])
+        print(f"The coin landed on {coin}.")
+
+        if call == coin:
+            player.gold += bet
+            print(f'You win {bet} gold! You now have {player.gold} gold pieces.')
+        else:
+            player.gold -= bet
+            print(f'You lose {bet} gold! You now have {player.gold} gold pieces.')
+
+
+
 
 def listen_for_treasure_info(player):
     """
