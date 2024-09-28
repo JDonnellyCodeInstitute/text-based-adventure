@@ -234,7 +234,7 @@ def bet_game(player, min_bet, game):
         print(f"You don't have any gold left, {player.name}. You can't place any bets.")
         return
 
-    # Prompts player to choose bet, ensuring it's validity
+    # Prompts player to choose bet, greater than or equal to min bet, less than or equal to total gold
     while True:
         try:
             bet = int(input(f"How much would you like to bet? (min: {min_bet}, max: {player.gold}): \n"))
@@ -244,6 +244,20 @@ def bet_game(player, min_bet, game):
                 print(f"Invalid bet. You must bet at least {min_bet} and no more than {player.gold}.")
         except ValueError:
             print("Invalid input. Please enter a valid number.")
+
+    # Programming for dice roll and coin flip games
+    if game == "dice":
+        print("""You challenge the barkeep to a game of dice.\n If you roll higher you win.""")
+        player_roll = random.randint(1, 6)
+        keeper_roll = random.randint(1, 6)
+        print(f'You rolled {player_roll}, the tavern keeper rolled {keeper_roll}.')
+        if player_roll > keeper_roll:
+            player.gold += bet
+            print(f'You win {bet} gold! You now have {player.gold} gold pieces.')
+        else:
+            player.gold -= bet
+            print(f'You lose {bet} gold! You now have {player.gold} gold pieces.')
+
 
 def listen_for_treasure_info(player):
     """
@@ -258,7 +272,8 @@ def main():
     """
     #player = intro()
     player = Player("Keith", "tall", "man")
-    tavern(player)
+    bet_game(player, 1, "dice")
+    #tavern(player)
 
 #Call main and play the game
 main()
