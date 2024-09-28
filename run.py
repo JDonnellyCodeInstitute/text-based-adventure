@@ -3,6 +3,7 @@
 import gspread
 from google.oauth2.service_account import Credentials
 import sys
+import random
 
 """
 Section facilitates API use to update user stats in 
@@ -224,6 +225,25 @@ def drink_ale(player, min_bet):
     min_bet *= 2
     print(f"Your new minimum bet is now {min_bet} gold.")
     return min_bet
+
+def bet_game(player, min_bet, game):
+    """
+    Handle betting on dice or coin flip, allowing the player to choose their bet.
+    """
+    if player.gold <= 0:
+        print(f"You don't have any gold left, {player.name}. You can't place any bets.")
+        return
+
+    # Prompts player to choose bet, ensuring it's validity
+    while True:
+        try:
+            bet = int(input(f"How much would you like to bet? (min: {min_bet}, max: {player.gold}): \n"))
+            if min_bet <= bet <= player.gold:
+                break
+            else:
+                print(f"Invalid bet. You must bet at least {min_bet} and no more than {player.gold}.")
+        except ValueError:
+            print("Invalid input. Please enter a valid number.")
 
 def listen_for_treasure_info(player):
     """
