@@ -285,7 +285,13 @@ def listen_for_treasure_info(player):
     """
     Player listens out for treasure information.
     """
-    print(f"\n{player.name} overhears a conversation about a secret passage to the Beast Lord's castle.")
+    print(f"""\n{player.name} overhears a drunken smuggler talking about The Beast Lord's
+    castle.\n'Hiccup!'...'That bloody guard! Hiccup!'...'I tell ya, he's got some bloody gaul!
+    Trying to take me for 50 pieces!? Pah! Doesn't he know that I know, which he don't know
+    but I do know that there's...' the smuggler takes a moment to belch loudly, 'A bloody
+    secret bloody passageway! In the shadows! On the east side of the castle! Shhhh!
+    Hiccup!'...'Trade secret that is!' He shouted, seemingly to his shadow, then drifted to sleep
+    and began to snore loudly.""")
     return True
 
 def main():
@@ -294,7 +300,7 @@ def main():
     """
     #player = intro()
     player = Player("Keith", "tall", "man")
-    bet_game(player, 1, "dice")
+    bet_game(player, 1, "coin flip")
     #tavern(player)
 
 #Call main and play the game
