@@ -194,10 +194,28 @@ def tavern(player):
         3. Bet on a coin flip
         4. Listen out for info on treasure
         5. Head for the castle (available only after hearing about the treasure)
-        6. Leave tavern and end game
         """)
 
         choice = input("Choose an option (1-6): \n")
+        if choice == "1":
+            min_bet = drink_ale(player, min_bet)
+        elif choice == "2":
+            bet_game(player, min_bet, game="dice")
+        elif choice == "3":
+            bet_game(player, min_bet, game="coin flip")
+        elif choice == "4":
+            if not heard_info:
+                heard_info = listen_for_treasure_info(player)
+            else:
+                print("You've already heard about the treasure.")
+        elif choice == "5":
+            if heard_info:
+                print(f"\n{player.name} decides to head for the castle!")
+                break  # Loop ends here to move onto next phase
+            else:
+                print("You need to gather information about the treasure first.")
+        else:
+            print("Invalid option, please choose 1-5.")
 
 def initial_dialogue_tavern(player):
     print("""\nThe mysterious stranger leads you to a murky tavern.\n
@@ -230,6 +248,8 @@ def bet_game(player, min_bet, game):
     """
     Handle betting on dice or coin flip, allowing the player to choose their bet.
     """
+    print("In each game, if you win you earn what you staked. If not, you lose it.")
+
     if player.gold <= 0:
         print(f"You don't have any gold left, {player.name}. You can't place any bets.")
         return
@@ -278,9 +298,6 @@ def bet_game(player, min_bet, game):
             player.gold -= bet
             print(f'You lose {bet} gold! You now have {player.gold} gold pieces.')
 
-
-
-
 def listen_for_treasure_info(player):
     """
     Player listens out for treasure information.
@@ -300,8 +317,7 @@ def main():
     """
     #player = intro()
     player = Player("Keith", "tall", "man")
-    bet_game(player, 1, "coin flip")
-    #tavern(player)
+    tavern(player)
 
 #Call main and play the game
 main()
