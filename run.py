@@ -182,6 +182,21 @@ def tavern(player):
     Includes all choices user can make in the tavern
     """
     initial_dialogue_tavern(player)
+    heard_info = False
+    min_bet = 1
+
+    while True:
+        print("\nWhat would you like to do in the tavern?")
+        print("""
+        1. Drink ale (increases minimum bet)
+        2. Bet on a game of dice
+        3. Bet on a coin flip
+        4. Listen out for info on treasure
+        5. Head for the castle (available only after hearing about the treasure)
+        6. Leave tavern and end game
+        """)
+
+        choice = input("Choose an option (1-6): \n")
 
 
 def initial_dialogue_tavern(player):
