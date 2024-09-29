@@ -322,6 +322,37 @@ def guard_interaction(player):
     If they can afford to pay the guard they enter the main gate,
     else they have to search for the secret entry
     """
+    bribe_required = 50
+    initial_dialogue_guard(player)
+    if player.gold >= bribe_required:
+        give_bribe = input(f"You have {player.gold} gold. Bribe guard? (yes / no)\n").lower
+        if give_bribe == "yes":
+            print(f"""'Pleasure doing business wif ya. Now move along. Before I change my mind.'
+            You enter the castle.""")
+            #enter castle method goes here
+        elif give_bribe == "no":
+            print("""'Watchu wasting my time for then pillock. Sling
+            yer hook.' 
+            
+            Head held high and moral superiority assured, you slink off in 
+            the dark and mud to the east side of the castle in search of 
+            the passageway from the drunken smuggler's ramblings.""")
+            #secret passageway method goes here
+        else:
+            print("Invalid input, please write yes or no.")
+    else:
+        print(f"""You empty your pockets. You pick a handful of buttons
+        from one, and a moth flies from the other.
+        
+        You have {player.gold} gold and can't afford to bribe the guard. 
+        
+        'Watchu wasting my time for pillock. Sling yer hook.'
+        
+        You head into the shadows, in search of the passageway
+        on the east side of the building.""")
+        #secret passageway method goes here
+
+
 
 def initial_dialogue_guard(player):
     """
