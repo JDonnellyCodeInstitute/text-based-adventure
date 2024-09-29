@@ -65,7 +65,7 @@ class Player:
         """
         while True:
             sexes = ["man", "woman", "other"]
-            sex = input("Enter your character's sex (man, woman, other): \n")
+            sex = input("Enter your character's sex (man, woman, other): \n").lower()
             if sex in sexes:
                 return sex
             else:
@@ -237,7 +237,7 @@ def initial_dialogue_tavern(player):
         print("'Awoite average Joe, in or out. Same goes for your creepy mate'")
     
     print("""\nThe mysterious strangers bows, wishes you luck, and takes his leave.
-    You enter the tavern\n""")
+    You enter the tavern""")
 
 def drink_ale(player, min_bet):
     """
@@ -315,14 +315,52 @@ def listen_for_treasure_info(player):
     and began to snore loudly.""")
     return True
 
+# Entering the castle
+def guard_interaction(player):
+    """
+    Player approaches castle gate and is pestered for a bribe.
+    If they can afford to pay the guard they enter the main gate,
+    else they have to search for the secret entry
+    """
+
+def initial_dialogue_guard(player):
+    """
+    Starting dialogue with guard
+    """
+    print("""As you approach the castle you spot a guard posted
+    at the front gate. His head droops as he appears on the verge of 
+    nodding off. A branch breaks under your foot and the guard jolts
+    awake.\n""")
+    if player.sex == "woman":
+        print("""The guard lets out a long wolf whistle. 'Well, well,
+        well. It must be my lucky day! Not often fine young ladies like 
+        yourself be approaching MY turf. You 'ere to keep me company?'
+
+        Through browned and blackened teeth the guard gives you his best
+        smile.
+        
+        You try your best to hide your anger and disgust but the guard
+        must spot it on your face as his own expression hardens.
+        
+        'You want in, it'll cost ya like everyone else. 50 pieces.
+        Otherwise, clear off!'""")
+    else:
+        print("""'Well, well, well. It must be my lucky day! You 
+        'ere to keep me company?'
+
+        Through browned and blackened teeth the guard gives you 
+        a sinister smile.
+        
+        'You want in, it'll cost ya. 50 pieces. Otherwise, clear 
+        off!'""")
+
 def main():
     """
     Main function where all other required functions will be called
     """
     player = intro()
-    #call_to_adventure(player)
-    #player = Player("Keith", "tall", "man")
     tavern(player)
+    #player = Player("Keith", "tall", "man")
 
 #Call main and play the game
 main()
