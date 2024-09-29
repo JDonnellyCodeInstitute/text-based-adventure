@@ -112,9 +112,11 @@ def restart_game(player=None):
         if restart_choice == "yes":
             print(f"Restarting with {player.name}.")
             print("Proceeding to the tavern...")
+            tavern(player)
             break
         elif restart_choice == "new":
-            intro()
+            player = intro()
+            tavern(player)
             break
         else:
             print("Invalid input, please type 'yes' or 'new'.")
@@ -144,6 +146,8 @@ def intro():
         print("Proceeding to the tavern...")
     else:
         game_over(player)
+
+    return player
 
 def call_to_adventure(player):
     """
@@ -315,8 +319,9 @@ def main():
     """
     Main function where all other required functions will be called
     """
-    #player = intro()
-    player = Player("Keith", "tall", "man")
+    player = intro()
+    #call_to_adventure(player)
+    #player = Player("Keith", "tall", "man")
     tavern(player)
 
 #Call main and play the game
