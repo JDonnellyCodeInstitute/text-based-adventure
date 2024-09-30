@@ -339,7 +339,7 @@ def guard_interaction(player):
             Head held high and moral superiority assured, you slink off in 
             the dark and mud to the east side of the castle in search of 
             the passageway from the drunken smuggler's ramblings.""")
-            #secret passageway method goes here
+            secret_passageway(player)
         else:
             print("Invalid input, please write yes or no.")
     else:
@@ -386,6 +386,11 @@ def initial_dialogue_guard(player):
         off!\n'""")
 
 # The secret entrance
+def secret_entry_full_sequence(player):
+    secret_passageway(player)
+    troll_encounter(player)
+    riddles_game(player)
+
 def secret_passageway(player):
     """
     Describes the player's journey into the secret passageway
@@ -405,8 +410,38 @@ def troll_encounter(player):
     """
     print(f"A massive, hulking figure steps out of the shadows. It's a troll! He blocks your path.")
     print("'If you want to pass, you must answer my riddles!' the troll growls.")
-    #riddles_game(player)
+    print("Or else... you'll be my dinner.")
+    riddles_game(player)
 
+def riddles_game(player):
+    """
+    Troll asks riddles, and player must answer correctly to proceed.
+    """
+    riddles = [
+        {"question": "What has keys but can't open locks?", "answer": "piano"},
+        {"question": "The more you take, the more you leave behind. What am I?", "answer": "footsteps"},
+        {"question": "What comes once in a minute, twice in a moment, but never in a thousand years?", "answer": "m"}
+    ]
+    
+    print("The troll gives you a choice of three riddles to answer.")
+    
+    correct_answers = 0
+    for riddle in riddles:
+        print(f"\nRiddle: {riddle['question']}")
+        answer = input("What is your answer? \n").lower()
+        if answer == riddle["answer"]:
+            print("Correct!")
+            correct_answers += 1
+        else:
+            print(f"Wrong! The correct answer was: {riddle['answer']}")
+    
+    if correct_answers >= 2:
+        print("\nThe troll grunts, impressed. 'Fine, you may pass.'")
+        # Enter castle method
+    else:
+        print("\nThe troll roars with laughter. 'You're too foolish to proceed!'")
+        print("The troll leaps, grabs, and gobbles you up whole. A belch echoes through the catacombs.\n")
+        game_over(player)
 
 #main
 def main():
