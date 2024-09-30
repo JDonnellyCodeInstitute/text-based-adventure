@@ -34,7 +34,7 @@ class Player:
         self.sex = sex
         self.gold = gold
 
-class PlayerDataManipulation:
+#class PlayerDataManipulation:
     def get_name(self):
         """
         Name validation to ensure only letters are input
@@ -73,6 +73,7 @@ class PlayerDataManipulation:
                 print("Invalid sex, please input male, female or other.")
 
     def create_player(self):
+        player = Player("","","")
         name = player.get_name()
         height = player.get_height()
         sex = player.get_sex()
@@ -200,7 +201,7 @@ def tavern(player):
         5. Head for the castle (available only after hearing about the treasure)
         """)
 
-        choice = input("Choose an option (1-6): \n")
+        choice = input("Choose an option (1-5): \n")
         if choice == "1":
             min_bet = drink_ale(player, min_bet)
         elif choice == "2":
@@ -215,6 +216,7 @@ def tavern(player):
         elif choice == "5":
             if heard_info:
                 print(f"\n{player.name} decides to head for the castle!")
+                guard_interaction(player)
                 break  # Loop ends here to move onto next phase
             else:
                 print("You need to gather information about the treasure first.")
@@ -350,7 +352,7 @@ def guard_interaction(player):
         
         You head into the shadows, in search of the passageway
         on the east side of the building.""")
-        #secret passageway method goes here
+        secret_passageway(player)
 
 def initial_dialogue_guard(player):
     """
@@ -383,6 +385,30 @@ def initial_dialogue_guard(player):
         'You want in, it'll cost ya. 50 pieces. Otherwise, clear 
         off!\n'""")
 
+# The secret entrance
+def secret_passageway(player):
+    """
+    Describes the player's journey into the secret passageway
+    leading to a confrontation with a troll.
+    """
+    print(f"\n{player.name} sneaks into the shadows and locates the hidden entrance on the east side.")
+    print("You find a narrow, dark passageway that seems to spiral downward into the earth.")
+    print("The air grows colder and damper as you descend.")
+    print("Suddenly, a booming voice echoes in the darkness...\n")
+    print("'WHO DARES TO ENTER MY DOMAIN?!'")
+    
+    troll_encounter(player)
+
+def troll_encounter(player):
+    """
+    Initiates the troll encounter with a riddle game.
+    """
+    print(f"A massive, hulking figure steps out of the shadows. It's a troll! He blocks your path.")
+    print("'If you want to pass, you must answer my riddles!' the troll growls.")
+    #riddles_game(player)
+
+
+#main
 def main():
     """
     Main function where all other required functions will be called
