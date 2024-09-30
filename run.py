@@ -34,6 +34,7 @@ class Player:
         self.sex = sex
         self.gold = gold
 
+class PlayerDataManipulation:
     def get_name(self):
         """
         Name validation to ensure only letters are input
@@ -72,7 +73,6 @@ class Player:
                 print("Invalid sex, please input male, female or other.")
 
     def create_player(self):
-        player = Player("", "", "")
         name = player.get_name()
         height = player.get_height()
         sex = player.get_sex()
@@ -254,8 +254,8 @@ def bet_game(player, min_bet, game):
     """
     print("In each game, if you win you earn what you staked. If not, you lose it.")
 
-    if player.gold <= 0:
-        print(f"You don't have any gold left, {player.name}. You can't place any bets.")
+    if player.gold <= 0 | player.gold < min_bet:
+        print(f"You don't have enough gold ({player.gold}) left to cover your minimum bet ({min_bet}). You can't place any bets.")
         return
 
     # Prompts player to choose bet, greater than or equal to min bet, less than or equal to total gold
@@ -325,7 +325,7 @@ def guard_interaction(player):
     bribe_required = 50
     initial_dialogue_guard(player)
     if player.gold >= bribe_required:
-        give_bribe = input(f"You have {player.gold} gold. Bribe guard? (yes / no)\n").lower
+        give_bribe = input(f"You have {player.gold} gold. Bribe guard? (yes / no)\n").lower()
         if give_bribe == "yes":
             print(f"""'Pleasure doing business wif ya. Now move along. Before I change my mind.'
             You enter the castle.""")
@@ -351,8 +351,6 @@ def guard_interaction(player):
         You head into the shadows, in search of the passageway
         on the east side of the building.""")
         #secret passageway method goes here
-
-
 
 def initial_dialogue_guard(player):
     """
@@ -383,7 +381,7 @@ def initial_dialogue_guard(player):
         a sinister smile.
         
         'You want in, it'll cost ya. 50 pieces. Otherwise, clear 
-        off!'""")
+        off!\n'""")
 
 def main():
     """
@@ -392,6 +390,7 @@ def main():
     player = intro()
     tavern(player)
     #player = Player("Keith", "tall", "man")
+    guard_interaction(player)
 
 #Call main and play the game
 main()
