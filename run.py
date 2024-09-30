@@ -339,7 +339,7 @@ def guard_interaction(player):
             Head held high and moral superiority assured, you slink off in 
             the dark and mud to the east side of the castle in search of 
             the passageway from the drunken smuggler's ramblings.""")
-            secret_passageway(player)
+            secret_entry_full_sequence(player)
         else:
             print("Invalid input, please write yes or no.")
     else:
@@ -352,7 +352,7 @@ def guard_interaction(player):
         
         You head into the shadows, in search of the passageway
         on the east side of the building.""")
-        secret_passageway(player)
+        secret_entry_full_sequence(player)
 
 def initial_dialogue_guard(player):
     """
@@ -442,6 +442,34 @@ def riddles_game(player):
         print("\nThe troll roars with laughter. 'You're too foolish to proceed!'")
         print("The troll leaps, grabs, and gobbles you up whole. A belch echoes through the catacombs.\n")
         game_over(player)
+
+# Final Showdown in the castle
+def beast_lord_speech():
+    """
+    The Beast Lord delivers a dramatic speech before the final challenge.
+    """
+    print("\nThe great doors creak open, and there he stands - The Beast Lord.")
+    print("""
+    A towering figure of shadow and flame, his eyes burn with malice and hunger for power.
+    
+    'Ah, another brave fool comes to claim my throne. Do you think you are worthy, 
+    mortal? Many have come before you, but none have succeeded.'
+    
+    He pauses, letting the weight of his words sink in.
+    
+    'Know this - those who defeat me shall rule these lands, taking all that is mine.
+    But should you fail, your soul will be forfeit, and you will suffer a fate worse 
+    than death itself.'
+    """)
+    print("""
+    He gestures toward you with a clawed hand, his grin widening.
+    
+    'Prepare yourself. You face a challenge of wits and reflexes. A simple game for a 
+    simple mind - best me in a game of Rock-Paper-Scissors, and your destiny will be yours to 
+    shape...'
+    
+    The final battle begins now!
+    """)
 
 #main
 def main():
