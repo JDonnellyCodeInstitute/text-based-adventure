@@ -2,6 +2,8 @@ BUG: FIXED// Call to adventure being called twice in case of restart with same c
 BUG: FIXED// NoneType exception occurring between the intro and call_to_adventure methods. Return of 'player' added to intro function
 BUG: FIXED// Bet maximum validation updated to ensure user can't bet if their gold is less than their minimum bet.
 
+RPS Guidance: https://www.youtube.com/watch?v=fn68QNcatfo
+
 ![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
 
 Welcome,

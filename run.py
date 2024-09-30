@@ -444,6 +444,10 @@ def riddles_game(player):
         game_over(player)
 
 # Final Showdown in the castle
+def final_showdown(player):
+    beast_lord_speech()
+    rps_battle(player)
+
 def beast_lord_speech():
     """
     The Beast Lord delivers a dramatic speech before the final challenge.
@@ -471,6 +475,77 @@ def beast_lord_speech():
     The final battle begins now!
     """)
 
+def rps_battle(player):
+    """
+    Best of three Rock-Paper-Scissors game against the Beast Lord.
+    """
+    moves = ["rock", "paper", "scissors"]
+    player_score = 0
+    beast_score = 0
+
+    print("\nThe Beast Lord readies himself for the challenge...")
+
+    while player_score < 2 and beast_score < 2:
+        player_move = input("Choose your move (rock, paper, scissors): \n").lower()
+        if player_move not in moves:
+            print("Invalid move! Please choose rock, paper, or scissors.")
+            continue
+
+        beast_move = random.choice(moves)
+        print(f"\nThe Beast Lord chooses {beast_move}.")
+
+        # Determine winner of the round
+        if player_move == beast_move:
+            print("It's a tie!")
+        elif (player_move == "rock" and beast_move == "scissors") or \
+             (player_move == "paper" and beast_move == "rock") or \
+             (player_move == "scissors" and beast_move == "paper"):
+            print("You win this round!")
+            player_score += 1
+        else:
+            print("The Beast Lord wins this round!")
+            beast_score += 1
+
+        print(f"Score - You: {player_score}, Beast Lord: {beast_score}")
+
+    # Determine final outcome
+    if player_score == 2:
+        print("\nYou've done it! The Beast Lord has fallen. You are victorious!")
+        concluding_dialogue(player)
+    else:
+        print("\nThe Beast Lord cackles triumphantly. You have been defeated.")
+        print("A chill creeps up your spine as your soul is severed from your body.")
+        print(f"{player.name}'s soul enters the abyss to experience horrors beyond mortal comprehension for eternity.")
+        game_over(player)
+
+def concluding_dialogue(player):
+    """
+    Story Conclusion
+    """
+    print(f"""
+    Countless treasures are yours. The prophecy is fulfilled, a brave, {player.height},
+    {player.sex} sits upon the throne as Lord of Pythonia.""")
+    print("\n...\n")
+    print("Years pass in relative peace. Initially you rule fairly, but you feel unexplainable change over time.")
+    print("'The people must know their place' you hear as a whisper in the air.")
+    print("\n...\n")
+    print("""You raise taxes, ban public gatherings, apart from executions, and violently
+    crush any threats to your rule, perceived or otherwise.""")
+    print("\n...\n")
+    print("How long has it been since you took the castle? Decades? You don't know.")
+    print("\n...\n")
+    print("A spike of terror runs through you as you catch a glimpse of what you're sure is The Beast Lord.")
+    print("You leap with teeth bared and hands aloft toward the spot where you saw your old enemy.")
+    print("It's a broken mirror.")
+    print("You see the beastly reflection of your jagged teeth and knifelike fingernails.")
+    print("\nYou realise what you have become.\n")
+    print("The doors of your throne room burst open.")
+    print(f"A brave, {player.height}, {player.sex} rushes in and exclaims 'Your reign of evil ends now Beast Lord!'")
+    print("A more human part of you deep down almost starts to laugh. But the influence of the beast drowns that out.")
+    print("Involuntarily you begin the speech.")
+    print("A brave fool comes to claim my throne?! Do you think you are worthy, mortal?")
+    print("\n...\n")
+
 #main
 def main():
     """
@@ -480,6 +555,7 @@ def main():
     tavern(player)
     #player = Player("Keith", "tall", "man")
     guard_interaction(player)
+    concluding_dialogue(player)
 
 #Call main and play the game
 main()
