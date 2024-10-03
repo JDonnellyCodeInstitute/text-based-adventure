@@ -334,7 +334,7 @@ def listen_for_treasure_info(player):
     print("'Trying to take me for 30 pieces!? Pah!'")
     print("'Doesn't he know that I know... which he don't know... but I do that there's...'")
     print("The smuggler took a moment to belch loudly.")
-    print("'A bloody secret bloody passageway! In the shadows! On the east side of the castle!'")
+    print("'A bloody secret passageway! In the shadows to the east side of the castle!'")
     print("'Shhhh!' *Hiccup* 'Trade secret that is!' He shouted, seemingly to himself.")
     print("His eyes drooped closed, and the smuggler began to snore loudly.")
     return True
