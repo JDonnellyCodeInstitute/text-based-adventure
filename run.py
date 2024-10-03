@@ -329,7 +329,7 @@ def listen_for_treasure_info(player):
     """
     Player listens out for treasure information.
     """
-    print("\n{player.name} overhears a drunken smuggler talking about The Beast Lord's castle.")
+    print(f"\n{player.name} overhears a drunken smuggler talking about The Beast Lord's castle.")
     print("*Hiccup* 'That bloody guard!' *Hiccup* 'I tell ya, he's got some bloody gaul!'")
     print("'Trying to take me for 30 pieces!? Pah!'")
     print("'Doesn't he know that I know... which he don't know... but I do that there's...'")
