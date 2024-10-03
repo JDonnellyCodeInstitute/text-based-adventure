@@ -1,5 +1,3 @@
-# Write your code to expect a terminal of 80 characters wide and 24 rows high
-#Every input method needs a \n at the end of the text to work in heroku
 import gspread
 from google.oauth2.service_account import Credentials
 import sys
@@ -207,7 +205,7 @@ def initial_dialogue_tavern(player):
         print("'Awoite average Joe, in or out. Same goes for your creepy mate'")
     
     print("\nThe mysterious stranger bows, wishes you luck, and takes his leave.\n")
-    print("You enter the tavern")
+    print("You enter the tavern...")
 
 def tavern_options(player):
     """
@@ -330,7 +328,7 @@ def listen_for_treasure_info(player):
     Player listens out for treasure information.
     """
     print(f"\n{player.name} overhears a drunken smuggler talking about The Beast Lord's castle.")
-    print("*Hiccup* 'That bloody guard!' *Hiccup* 'I tell ya, he's got some bloody gaul!'")
+    print("\n*Hiccup* 'That bloody guard!' *Hiccup* 'I tell ya, he's got some bloody gaul!'")
     print("'Trying to take me for 30 pieces!? Pah!'")
     print("'Doesn't he know that I know... which he don't know... but I do that there's...'")
     print("The smuggler took a moment to belch loudly.")
@@ -349,10 +347,10 @@ def guard_interaction(player):
     bribe_required = 30
     initial_dialogue_guard(player)
     if player.gold >= bribe_required:
-        give_bribe = input(f"You have {player.gold} gold. Bribe guard? (yes / no)\n").lower()
+        give_bribe = input(f"You have {player.gold} gold. Bribe guard? (yes / no): \n").lower()
         if give_bribe == "yes":
-            print("'Pleasure doing business wif ya. Now move along. Before I change my mind.'")
-            print("\nYou enter the castle.\n")
+            print("\n'Pleasure doing business wif ya. Now move along. Before I change my mind.'")
+            print("\nYou enter the castle...\n")
             final_showdown(player)
         elif give_bribe == "no":
             print("'Watchu wasting my time for then pillock. Sling yer hook.'")
@@ -366,12 +364,12 @@ def guard_interaction(player):
         print(f"\nYou have {player.gold} gold and can't afford to bribe the guard.\n")
         print("'Watchu wasting my time for then pillock. Sling yer hook.'\n")
         if player.gold > 0:
-            earn_more_gold = input("Would you like to return to the tavern to win enough gold for the bribe? (y/n)\n").lower()
-            if earn_more_gold == "y":
+            earn_more_gold = input("Would you like to return to the tavern to win enough gold for the bribe? (yes/no): \n").lower()
+            if earn_more_gold == "yes":
                 print("Returning to tavern to make enough gold to bribe the guard...")
                 player.heard_info = True
                 tavern_options(player)
-            elif earn_more_gold == "n":
+            elif earn_more_gold == "no":
                 print("You nod curtly to the guard and get out of his sight to search for the secret passage.\n")
                 secret_entry_full_sequence(player)
             else:
@@ -390,8 +388,8 @@ def initial_dialogue_guard(player):
     if player.sex == "woman":
         print("""The guard lets out a long wolf whistle. 
         
-        'Well, well, well. It must be my lucky day! Not often fine young ladies like 
-        yourself be approaching MY turf. You 'ere to keep me company?'
+        'Well, well, well. It must be my lucky day! Not often fine young ladies 
+        like yourself be approaching MY turf. You 'ere to keep me company?'
 
         Through browned and blackened teeth the guard gives you his best
         smile.
@@ -400,7 +398,7 @@ def initial_dialogue_guard(player):
         must spot it on your face as his own expression hardens.
         
         'You want in, it'll cost ya like everyone else. 30 pieces.
-        Otherwise, clear off!'""")
+        Otherwise, clear off!'\n""")
     else:
         print("""'Well, well, well. It must be my lucky day!
         You 'ere to keep me company?'
@@ -578,7 +576,7 @@ def concluding_dialogue(player):
     print("\n               'Your reign of evil ends now Beast Lord!'\n")
     print("A more human part of you deep down almost starts to laugh. But the influence of the beast drowns that out.")
     print("Involuntarily you begin the speech.")
-    print("A brave fool comes to claim my throne?! Do you think you are worthy, mortal?")
+    print("   'A brave fool comes to claim my throne?! Do you think you are worthy, mortal?'")
     print("\n...\n")
 
 #main
@@ -588,9 +586,7 @@ def main():
     """
     player = intro()
     tavern(player)
-    #player = Player("Keith", "tall", "man")
     guard_interaction(player)
-    #final_showdown(player)
 
 #Call main and play the game
 main()
