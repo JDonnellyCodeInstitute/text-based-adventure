@@ -450,7 +450,7 @@ def riddles_game(player):
         {"question": "What comes once in a minute, twice in a moment, but never in a thousand years?", "answer": "m"}
     ]
     
-    print("The troll gives you a choice of three riddles to answer.")
+    print("The troll gives you three riddles to answer.")
     
     correct_answers = 0
     for riddle in riddles:
