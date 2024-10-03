@@ -1,5 +1,6 @@
 # Write your code to expect a terminal of 80 characters wide and 24 rows high
 #Every input method needs a \n at the end of the text to work in heroku
+#chance to go back to the tavern to win more gold if guard rejeccts you
 import gspread
 from google.oauth2.service_account import Credentials
 import sys
@@ -33,6 +34,7 @@ class Player:
         self.height = height
         self.sex = sex
         self.gold = gold
+        self.heard_info = False
 
 #class PlayerDataManipulation:
     def get_name(self):
@@ -185,10 +187,33 @@ def call_to_adventure(player):
 # Tavern Section
 def tavern(player):
     """
-    Includes all choices user can make in the tavern
+    Includes full tavern sequence
     """
     initial_dialogue_tavern(player)
-    heard_info = False
+    tavern_options(player)
+    
+def initial_dialogue_tavern(player):
+    print("""\nThe mysterious stranger leads you to a murky tavern.\n
+    As you approach you hear raucous laughter and the door swings open.
+    A rotten drunk, mostly toothless, sailor is being dragged by
+    the scruff of the neck and thrown out the door.
+    
+    'And STAY OUT!' shouts the tavern owner as he notices you and the
+    mysterious stranger.\n""")
+    if player.height == "short":
+        print("'Awoite shortarse, in or out. Same goes for your creepy mate'")
+    elif player.height == "tall":
+        print("'Awoite lanky, in or out. Same goes for your creepy mate'")
+    elif player.height == "average":
+        print("'Awoite average Joe, in or out. Same goes for your creepy mate'")
+    
+    print("""\nThe mysterious strangers bows, wishes you luck, and takes his leave.
+    You enter the tavern""")
+
+def tavern_options(player):
+    """
+    Includes all choices user can make in the tavern
+    """
     min_bet = 1
 
     while True:
@@ -209,12 +234,12 @@ def tavern(player):
         elif choice == "3":
             bet_game(player, min_bet, game="coin flip")
         elif choice == "4":
-            if not heard_info:
-                heard_info = listen_for_treasure_info(player)
+            if not player.heard_info:
+                player.heard_info = listen_for_treasure_info(player)
             else:
                 print("You've already heard about the treasure.")
         elif choice == "5":
-            if heard_info:
+            if player.heard_info:
                 print(f"\n{player.name} decides to head for the castle!")
                 guard_interaction(player)
                 break  # Loop ends here to move onto next phase
@@ -222,24 +247,6 @@ def tavern(player):
                 print("You need to gather information about the treasure first.")
         else:
             print("Invalid option, please choose 1-5.")
-
-def initial_dialogue_tavern(player):
-    print("""\nThe mysterious stranger leads you to a murky tavern.\n
-    As you approach you hear raucous laughter and the door swings open.
-    A rotten drunk, mostly toothless, sailor is being dragged by
-    the scruff of the neck and thrown out the door.
-    
-    'And STAY OUT!' shouts the tavern owner as he notices you and the
-    mysterious stranger.\n""")
-    if player.height == "short":
-        print("'Awoite shortarse, in or out. Same goes for your creepy mate'")
-    elif player.height == "tall":
-        print("'Awoite lanky, in or out. Same goes for your creepy mate'")
-    elif player.height == "average":
-        print("'Awoite average Joe, in or out. Same goes for your creepy mate'")
-    
-    print("""\nThe mysterious strangers bows, wishes you luck, and takes his leave.
-    You enter the tavern""")
 
 def drink_ale(player, min_bet):
     """
@@ -310,7 +317,7 @@ def listen_for_treasure_info(player):
     """
     print(f"""\n{player.name} overhears a drunken smuggler talking about The Beast Lord's
     castle.\n'Hiccup!'...'That bloody guard! Hiccup!'...'I tell ya, he's got some bloody gaul!
-    Trying to take me for 50 pieces!? Pah! Doesn't he know that I know, which he don't know
+    Trying to take me for 30 pieces!? Pah! Doesn't he know that I know, which he don't know
     but I do know that there's...' the smuggler takes a moment to belch loudly, 'A bloody
     secret bloody passageway! In the shadows! On the east side of the castle! Shhhh!
     Hiccup!'...'Trade secret that is!' He shouted, seemingly to his shadow, then drifted to sleep
@@ -324,14 +331,14 @@ def guard_interaction(player):
     If they can afford to pay the guard they enter the main gate,
     else they have to search for the secret entry
     """
-    bribe_required = 50
+    bribe_required = 30
     initial_dialogue_guard(player)
     if player.gold >= bribe_required:
         give_bribe = input(f"You have {player.gold} gold. Bribe guard? (yes / no)\n").lower()
         if give_bribe == "yes":
             print(f"""'Pleasure doing business wif ya. Now move along. Before I change my mind.'
             You enter the castle.""")
-            #enter castle method goes here
+            final_showdown(player)
         elif give_bribe == "no":
             print("""'Watchu wasting my time for then pillock. Sling
             yer hook.' 
@@ -343,16 +350,26 @@ def guard_interaction(player):
         else:
             print("Invalid input, please write yes or no.")
     else:
-        print(f"""You empty your pockets. You pick a handful of buttons
+        print(f"""\nYou empty your pockets. You pick a handful of buttons
         from one, and a moth flies from the other.
         
         You have {player.gold} gold and can't afford to bribe the guard. 
         
-        'Watchu wasting my time for pillock. Sling yer hook.'
-        
-        You head into the shadows, in search of the passageway
-        on the east side of the building.""")
-        secret_entry_full_sequence(player)
+        'Watchu wasting my time for pillock. Sling yer hook.'""")
+        if player.gold > 0:
+            earn_more_gold = input("Would you like to return to the tavern to win enough gold for the bribe? (y/n)\n").lower()
+            if earn_more_gold == "y":
+                print("Returning to tavern to make enough gold to bribe the guard...")
+                player.heard_info = True
+                tavern_options(player)
+            elif earn_more_gold == "n":
+                print("You nod curtly to the guard and get out of his sight so you can search for the secret passage.\n")
+                secret_entry_full_sequence(player)
+            else:
+                print("Invalid input, please write 'y' or 'n'")
+        else:
+            print("You nod curtly to the guard and get out of his sight so you can search for the secret passage.\n")
+            secret_entry_full_sequence(player)
 
 def initial_dialogue_guard(player):
     """
@@ -373,7 +390,7 @@ def initial_dialogue_guard(player):
         You try your best to hide your anger and disgust but the guard
         must spot it on your face as his own expression hardens.
         
-        'You want in, it'll cost ya like everyone else. 50 pieces.
+        'You want in, it'll cost ya like everyone else. 30 pieces.
         Otherwise, clear off!'""")
     else:
         print("""'Well, well, well. It must be my lucky day! You 
@@ -382,7 +399,7 @@ def initial_dialogue_guard(player):
         Through browned and blackened teeth the guard gives you 
         a sinister smile.
         
-        'You want in, it'll cost ya. 50 pieces. Otherwise, clear 
+        'You want in, it'll cost ya. 30 pieces. Otherwise, clear 
         off!\n'""")
 
 # The secret entrance
@@ -437,7 +454,7 @@ def riddles_game(player):
     
     if correct_answers >= 2:
         print("\nThe troll grunts, impressed. 'Fine, you may pass.'")
-        # Enter castle method
+        final_showdown(player)
     else:
         print("\nThe troll roars with laughter. 'You're too foolish to proceed!'")
         print("The troll leaps, grabs, and gobbles you up whole. A belch echoes through the catacombs.\n")
@@ -452,6 +469,7 @@ def beast_lord_speech():
     """
     The Beast Lord delivers a dramatic speech before the final challenge.
     """
+    print("You make your way into the heart of the castle and approach the throne room.")
     print("\nThe great doors creak open, and there he stands - The Beast Lord.")
     print("""
     A towering figure of shadow and flame, his eyes burn with malice and hunger for power.
@@ -555,7 +573,7 @@ def main():
     tavern(player)
     #player = Player("Keith", "tall", "man")
     guard_interaction(player)
-    concluding_dialogue(player)
+    #final_showdown(player)
 
 #Call main and play the game
 main()
