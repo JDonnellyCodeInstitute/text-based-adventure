@@ -1,6 +1,5 @@
 # Write your code to expect a terminal of 80 characters wide and 24 rows high
 #Every input method needs a \n at the end of the text to work in heroku
-#chance to go back to the tavern to win more gold if guard rejeccts you
 import gspread
 from google.oauth2.service_account import Credentials
 import sys
@@ -207,8 +206,8 @@ def initial_dialogue_tavern(player):
     elif player.height == "average":
         print("'Awoite average Joe, in or out. Same goes for your creepy mate'")
     
-    print("""\nThe mysterious strangers bows, wishes you luck, and takes his leave.
-    You enter the tavern""")
+    print("\nThe mysterious stranger bows, wishes you luck, and takes his leave.\n")
+    print("You enter the tavern")
 
 def tavern_options(player):
     """
@@ -330,13 +329,14 @@ def listen_for_treasure_info(player):
     """
     Player listens out for treasure information.
     """
-    print(f"""\n{player.name} overhears a drunken smuggler talking about The Beast Lord's
-    castle.\n'Hiccup!'...'That bloody guard! Hiccup!'...'I tell ya, he's got some bloody gaul!
-    Trying to take me for 30 pieces!? Pah! Doesn't he know that I know, which he don't know
-    but I do know that there's...' the smuggler takes a moment to belch loudly, 'A bloody
-    secret bloody passageway! In the shadows! On the east side of the castle! Shhhh!
-    Hiccup!'...'Trade secret that is!' He shouted, seemingly to his shadow, then drifted to sleep
-    and began to snore loudly.""")
+    print("\n{player.name} overhears a drunken smuggler talking about The Beast Lord's castle.")
+    print("*Hiccup* 'That bloody guard!' *Hiccup* 'I tell ya, he's got some bloody gaul!'")
+    print("'Trying to take me for 30 pieces!? Pah!'")
+    print("'Doesn't he know that I know... which he don't know... but I do that there's...'")
+    print("The smuggler took a moment to belch loudly.")
+    print("'A bloody secret bloody passageway! In the shadows! On the east side of the castle!'")
+    print("'Shhhh!' *Hiccup* 'Trade secret that is!' He shouted, seemingly to himself.")
+    print("His eyes drooped closed, and the smuggler began to snore loudly.")
     return True
 
 # Entering the castle
@@ -351,26 +351,20 @@ def guard_interaction(player):
     if player.gold >= bribe_required:
         give_bribe = input(f"You have {player.gold} gold. Bribe guard? (yes / no)\n").lower()
         if give_bribe == "yes":
-            print(f"""'Pleasure doing business wif ya. Now move along. Before I change my mind.'
-            You enter the castle.""")
+            print("'Pleasure doing business wif ya. Now move along. Before I change my mind.'")
+            print("\nYou enter the castle.\n")
             final_showdown(player)
         elif give_bribe == "no":
-            print("""'Watchu wasting my time for then pillock. Sling
-            yer hook.' 
-            
-            Head held high and moral superiority assured, you slink off in 
-            the dark and mud to the east side of the castle in search of 
-            the passageway from the drunken smuggler's ramblings.""")
+            print("'Watchu wasting my time for then pillock. Sling yer hook.'")
+            print("\nHead held high and moral superiority assured, you slink off in search of the passageway")
             secret_entry_full_sequence(player)
         else:
             print("Invalid input, please write yes or no.")
     else:
-        print(f"""\nYou empty your pockets. You pick a handful of buttons
-        from one, and a moth flies from the other.
-        
-        You have {player.gold} gold and can't afford to bribe the guard. 
-        
-        'Watchu wasting my time for pillock. Sling yer hook.'""")
+        print("\nYou empty your pockets.")
+        print("You pick a handful of buttons from one, and a moth flies from the other.") 
+        print(f"\nYou have {player.gold} gold and can't afford to bribe the guard.\n")
+        print("'Watchu wasting my time for then pillock. Sling yer hook.'\n")
         if player.gold > 0:
             earn_more_gold = input("Would you like to return to the tavern to win enough gold for the bribe? (y/n)\n").lower()
             if earn_more_gold == "y":
@@ -390,13 +384,13 @@ def initial_dialogue_guard(player):
     """
     Starting dialogue with guard
     """
-    print("""As you approach the castle you spot a guard posted
-    at the front gate. His head droops as he appears on the verge of 
-    nodding off. A branch breaks under your foot and the guard jolts
-    awake.\n""")
+    print("As you approach the castle you spot a guard posted at the front gate.") 
+    print("His head droops as he appears on the verge of nodding off.")
+    print("A branch breaks under your foot and the guard jolts awake.\n")
     if player.sex == "woman":
-        print("""The guard lets out a long wolf whistle. 'Well, well,
-        well. It must be my lucky day! Not often fine young ladies like 
+        print("""The guard lets out a long wolf whistle. 
+        
+        'Well, well, well. It must be my lucky day! Not often fine young ladies like 
         yourself be approaching MY turf. You 'ere to keep me company?'
 
         Through browned and blackened teeth the guard gives you his best
@@ -408,8 +402,8 @@ def initial_dialogue_guard(player):
         'You want in, it'll cost ya like everyone else. 30 pieces.
         Otherwise, clear off!'""")
     else:
-        print("""'Well, well, well. It must be my lucky day! You 
-        'ere to keep me company?'
+        print("""'Well, well, well. It must be my lucky day!
+        You 'ere to keep me company?'
 
         Through browned and blackened teeth the guard gives you 
         a sinister smile.
@@ -440,7 +434,8 @@ def troll_encounter(player):
     """
     Initiates the troll encounter with a riddle game.
     """
-    print(f"A massive, hulking figure steps out of the shadows. It's a troll! He blocks your path.")
+    print("A massive, hulking figure steps out of the shadows.") 
+    print("It's a troll! He blocks your path.")
     print("'If you want to pass, you must answer my riddles!' the troll growls.")
     print("Or else... you'll be my dinner.")
     riddles_game(player)
@@ -468,7 +463,7 @@ def riddles_game(player):
             print(f"Wrong! The correct answer was: {riddle['answer']}")
     
     if correct_answers >= 2:
-        print("\nThe troll grunts, impressed. 'Fine, you may pass.'")
+        print("\nThe troll grunts, impressed. 'Fine, you may pass.'\n")
         final_showdown(player)
     else:
         print("\nThe troll roars with laughter. 'You're too foolish to proceed!'")
@@ -487,22 +482,26 @@ def beast_lord_speech():
     print("You make your way into the heart of the castle and approach the throne room.")
     print("\nThe great doors creak open, and there he stands - The Beast Lord.")
     print("""
-    A towering figure of shadow and flame, his eyes burn with malice and hunger for power.
+    A towering figure of shadow and flame. 
+    His eyes burn with malice and hunger for power.
     
-    'Ah, another brave fool comes to claim my throne. Do you think you are worthy, 
-    mortal? Many have come before you, but none have succeeded.'
+    'Ah, another brave fool comes to claim my throne. 
+    Do you think you are worthy, mortal? 
+    Many have come before you, but none have succeeded.'
     
     He pauses, letting the weight of his words sink in.
     
-    'Know this - those who defeat me shall rule these lands, taking all that is mine.
-    But should you fail, your soul will be forfeit, and you will suffer a fate worse 
+    'Know this - those who defeat me shall rule these lands, 
+    taking all that is mine. But should you fail, your soul will 
+    be forfeit, and you will suffer a fate worse 
     than death itself.'
     """)
     print("""
     He gestures toward you with a clawed hand, his grin widening.
     
-    'Prepare yourself. You face a challenge of wits and reflexes. A simple game for a 
-    simple mind - best me in a game of Rock-Paper-Scissors, and your destiny will be yours to 
+    'Prepare yourself. You face a challenge of wits and reflexes. 
+    A simple game for a simple mind - best me in a game of 
+    Rock-Paper-Scissors, and your destiny will be yours to 
     shape...'
     
     The final battle begins now!
@@ -545,10 +544,11 @@ def rps_battle(player):
     if player_score == 2:
         print("\nYou've done it! The Beast Lord has fallen. You are victorious!")
         concluding_dialogue(player)
+        game_over(player)
     else:
         print("\nThe Beast Lord cackles triumphantly. You have been defeated.")
         print("A chill creeps up your spine as your soul is severed from your body.")
-        print(f"{player.name}'s soul enters the abyss to experience horrors beyond mortal comprehension for eternity.")
+        print(f"{player.name}'s soul enters the abyss to experience horrors beyond mortal comprehension.")
         game_over(player)
 
 def concluding_dialogue(player):
@@ -559,7 +559,8 @@ def concluding_dialogue(player):
     Countless treasures are yours. The prophecy is fulfilled, a brave, {player.height},
     {player.sex} sits upon the throne as Lord of Pythonia.""")
     print("\n...\n")
-    print("Years pass in relative peace. Initially you rule fairly, but you feel unexplainable change over time.")
+    print("""Years pass in relative peace. 
+    Initially you rule fairly, but you feel unexplainable change over time.""")
     print("'The people must know their place' you hear as a whisper in the air.")
     print("\n...\n")
     print("""You raise taxes, ban public gatherings, apart from executions, and violently
@@ -567,13 +568,14 @@ def concluding_dialogue(player):
     print("\n...\n")
     print("How long has it been since you took the castle? Decades? You don't know.")
     print("\n...\n")
-    print("A spike of terror runs through you as you catch a glimpse of what you're sure is The Beast Lord.")
-    print("You leap with teeth bared and hands aloft toward the spot where you saw your old enemy.")
-    print("It's a broken mirror.")
+    print("A spike of terror runs through you as you catch a glimpse of The Beast Lord.")
+    print("You leap with teeth bared toward the spot where you saw your old enemy.")
+    print("\nIt's a broken mirror.\n")
     print("You see the beastly reflection of your jagged teeth and knifelike fingernails.")
     print("\nYou realise what you have become.\n")
     print("The doors of your throne room burst open.")
-    print(f"A brave, {player.height}, {player.sex} rushes in and exclaims 'Your reign of evil ends now Beast Lord!'")
+    print(f"A brave, {player.height}, {player.sex} rushes in and exclaims:") 
+    print("\n               'Your reign of evil ends now Beast Lord!'\n")
     print("A more human part of you deep down almost starts to laugh. But the influence of the beast drowns that out.")
     print("Involuntarily you begin the speech.")
     print("A brave fool comes to claim my throne?! Do you think you are worthy, mortal?")
