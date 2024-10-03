@@ -372,12 +372,12 @@ def guard_interaction(player):
                 player.heard_info = True
                 tavern_options(player)
             elif earn_more_gold == "n":
-                print("You nod curtly to the guard and get out of his sight so you can search for the secret passage.\n")
+                print("You nod curtly to the guard and get out of his sight to search for the secret passage.\n")
                 secret_entry_full_sequence(player)
             else:
                 print("Invalid input, please write 'y' or 'n'")
         else:
-            print("You nod curtly to the guard and get out of his sight so you can search for the secret passage.\n")
+            print("You nod curtly to the guard and get out of his sight to search for the secret passage.\n")
             secret_entry_full_sequence(player)
 
 def initial_dialogue_guard(player):
