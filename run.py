@@ -267,49 +267,64 @@ def bet_game(player, min_bet, game):
         print(f"You don't have enough gold ({player.gold}) left to cover your minimum bet ({min_bet}). You can't place any bets.")
         return
 
-    # Prompts player to choose bet, greater than or equal to min bet, less than or equal to total gold
+    bet = get_bet(player, min_bet)
+
+    if game == "dice":
+        dice_game(player, bet)
+    elif game == "coin flip":
+        coin_flip_game(player, bet)
+
+def get_bet(player, min_bet):
+    """Prompts player to choose bet, greater than or equal to min bet,
+    less than or equal to total gold"""
     while True:
         try:
             bet = int(input(f"How much would you like to bet? (min: {min_bet}, max: {player.gold}): \n"))
             if min_bet <= bet <= player.gold:
-                break
+                return bet
             else:
                 print(f"Invalid bet. You must bet at least {min_bet} and no more than {player.gold}.")
         except ValueError:
             print("Invalid input. Please enter a valid number.")
 
-    # Programming for dice roll and coin flip games
-    if game == "dice":
-        print("""You challenge the barkeep to a game of dice.\n If you roll higher you win.""")
-        player_roll = random.randint(1, 6)
-        keeper_roll = random.randint(1, 6)
-        print(f'You rolled {player_roll}, the tavern keeper rolled {keeper_roll}.')
-        if player_roll > keeper_roll:
-            player.gold += bet
-            print(f'You win {bet} gold! You now have {player.gold} gold pieces.')
+def dice_game(player, bet):
+    """
+    Handle the dice game logic where the player rolls against the tavern keeper.
+    """
+    print("""You challenge the barkeep to a game of dice.\n If you roll higher you win.""")
+    player_roll = random.randint(1, 6)
+    keeper_roll = random.randint(1, 6)
+    print(f'You rolled {player_roll}, the tavern keeper rolled {keeper_roll}.')
+    
+    if player_roll > keeper_roll:
+        player.gold += bet
+        print(f'You win {bet} gold! You now have {player.gold} gold pieces.')
+    else:
+        player.gold -= bet
+        print(f'You lose {bet} gold! You now have {player.gold} gold pieces.')
+
+def coin_flip_game(player, bet):
+    """
+    Handle the coin flip game where the player calls heads or tails.
+    """
+    print("You make a bet with the innkeeper that you can call a coin toss.")
+    
+    while True:
+        call = input("Call the coin flip! (heads or tails): \n").lower()
+        if call not in ["heads", "tails"]:
+            print("Invalid selection. Please input 'heads' or 'tails'.")
         else:
-            player.gold -= bet
-            print(f'You lose {bet} gold! You now have {player.gold} gold pieces.')
+            break
 
-    elif game == "coin flip":
-        print("You make a bet with the innkeeper that you can call a coin toss.")
-        
-        while True:
-            call = input("Call the coin flip! (heads or tails): \n").lower()
-            if call not in ["heads", "tails"]:
-                print("Invalid selection. Please input 'heads' or 'tails'.")
-            else:
-                break
+    coin = random.choice(["heads", "tails"])
+    print(f"The coin landed on {coin}.")
 
-        coin = random.choice(["heads", "tails"])
-        print(f"The coin landed on {coin}.")
-
-        if call == coin:
-            player.gold += bet
-            print(f'You win {bet} gold! You now have {player.gold} gold pieces.')
-        else:
-            player.gold -= bet
-            print(f'You lose {bet} gold! You now have {player.gold} gold pieces.')
+    if call == coin:
+        player.gold += bet
+        print(f'You win {bet} gold! You now have {player.gold} gold pieces.')
+    else:
+        player.gold -= bet
+        print(f'You lose {bet} gold! You now have {player.gold} gold pieces.')
 
 def listen_for_treasure_info(player):
     """
