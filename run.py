@@ -179,6 +179,10 @@ def game_over_stats(player):
     print(f"Rock-Paper-Scissors Lost: {player.rps_lost}")
     print("---------------------")
 
+# Simple pacing function to improve the user experience
+def press_enter_to_continue():
+    input("\nPress Enter to continue...\n")
+
 # Intro and call to adventure
 def intro():
     """
@@ -264,6 +268,7 @@ def initial_dialogue_tavern(player):
     
     print("\nThe mysterious stranger bows, wishes you luck, and takes his leave.\n")
     print("You enter the tavern...")
+    press_enter_to_continue()
 
 def tavern_options(player):
     """
@@ -400,6 +405,7 @@ def listen_for_treasure_info(player):
     print("'A bloody secret passageway! In the shadows to the east side of the castle!'")
     print("'Shhhh!' *Hiccup* 'Trade secret that is!' He shouted, seemingly to himself.")
     print("His eyes drooped closed, and the smuggler began to snore loudly.")
+    press_enter_to_continue()
     return True
 
 # Entering the castle
@@ -417,10 +423,12 @@ def guard_interaction(player):
             player.guard_bribed += 1
             print("\n'Pleasure doing business wif ya. Now move along. Before I change my mind.'")
             print("\nYou enter the castle...\n")
+            press_enter_to_continue()
             final_showdown(player)
         elif give_bribe == "no":
             print("'Watchu wasting my time for then pillock. Sling yer hook.'")
             print("\nHead held high and moral superiority assured, you slink off in search of the passageway")
+            press_enter_to_continue()
             secret_entry_full_sequence(player)
         else:
             print("Invalid input, please write yes or no.")
@@ -437,11 +445,13 @@ def guard_interaction(player):
                 tavern_options(player)
             elif earn_more_gold == "no":
                 print("You nod curtly to the guard and get out of his sight to search for the secret passage.\n")
+                press_enter_to_continue()
                 secret_entry_full_sequence(player)
             else:
                 print("Invalid input, please write 'y' or 'n'")
         else:
             print("You nod curtly to the guard and get out of his sight to search for the secret passage.\n")
+            press_enter_to_continue()
             secret_entry_full_sequence(player)
 
 def initial_dialogue_guard(player):
@@ -465,15 +475,19 @@ def initial_dialogue_guard(player):
         
         'You want in, it'll cost ya like everyone else. 30 pieces.
         Otherwise, clear off!'\n""")
+        press_enter_to_continue()
     else:
-        print("""'Well, well, well. It must be my lucky day!
+        print("""
+        'Well, well, well. It must be my lucky day!
         You 'ere to keep me company?'
 
         Through browned and blackened teeth the guard gives you 
         a sinister smile.
         
         'You want in, it'll cost ya. 30 pieces. Otherwise, clear 
-        off!\n'""")
+        off!\n'
+        """)
+        press_enter_to_continue()
 
 # The secret entrance
 def secret_entry_full_sequence(player):
@@ -491,7 +505,7 @@ def secret_passageway(player):
     print("The air grows colder and damper as you descend.")
     print("Suddenly, a booming voice echoes in the darkness...\n")
     print("'WHO DARES TO ENTER MY DOMAIN?!'")
-    
+    press_enter_to_continue()
     troll_encounter(player)
 
 def troll_encounter(player):
@@ -529,6 +543,7 @@ def riddles_game(player):
     
     if player.riddles_correct >= 2:
         print("\nThe troll grunts, impressed. 'Fine, you may pass.'\n")
+        press_enter_to_continue()
         final_showdown(player)
     else:
         print("\nThe troll roars with laughter. 'You're too foolish to proceed!'")
@@ -552,25 +567,24 @@ def beast_lord_speech():
     
     'Ah, another brave fool comes to claim my throne. 
     Do you think you are worthy, mortal? 
-    Many have come before you, but none have succeeded.'
-    
-    He pauses, letting the weight of his words sink in.
+    Many have come before you, but none have succeeded.'""")
+    press_enter_to_continue()
+    print("""He pauses, letting the weight of his words sink in.
     
     'Know this - those who defeat me shall rule these lands, 
     taking all that is mine. But should you fail, your soul will 
     be forfeit, and you will suffer a fate worse 
-    than death itself.'
-    """)
-    print("""
-    He gestures toward you with a clawed hand, his grin widening.
+    than death itself.'""")
+    press_enter_to_continue()
+    print("""He gestures toward you with a clawed hand, his grin widening.
     
     'Prepare yourself. You face a challenge of wits and reflexes. 
     A simple game for a simple mind - best me in a game of 
     Rock-Paper-Scissors, and your destiny will be yours to 
     shape...'
     
-    The final battle begins now!
-    """)
+    The final battle begins now!""")
+    press_enter_to_continue()
 
 def rps_battle(player):
     """
@@ -582,8 +596,8 @@ def rps_battle(player):
 
     print("\nThe Beast Lord readies himself for the challenge...")
 
-    while player_score < 2 and player.rps_lost < 2:
-        player.rps_won = input("Choose your move (rock, paper, scissors): \n").lower()
+    while player.rps_won < 2 and player.rps_lost < 2:
+        player_move = input("Choose your move (rock, paper, scissors): \n").lower()
         if player_move not in moves:
             print("Invalid move! Please choose rock, paper, or scissors.")
             continue
@@ -608,10 +622,12 @@ def rps_battle(player):
     # Determine final outcome
     if player.rps_won == 2:
         print("\nYou've done it! The Beast Lord has fallen. You are victorious!")
+        press_enter_to_continue()
         concluding_dialogue(player)
         game_over(player)
     else:
         print("\nThe Beast Lord cackles triumphantly. You have been defeated.")
+        press_enter_to_continue()
         print("A chill creeps up your spine as your soul is severed from your body.")
         print(f"{player.name}'s soul enters the abyss to experience horrors beyond mortal comprehension.")
         game_over(player)
@@ -623,16 +639,16 @@ def concluding_dialogue(player):
     print(f"""
     Countless treasures are yours. The prophecy is fulfilled, a brave, {player.height},
     {player.sex} sits upon the throne as Lord of Pythonia.""")
-    print("\n...\n")
+    press_enter_to_continue()
     print("""Years pass in relative peace. 
     Initially you rule fairly, but you feel unexplainable change over time.""")
     print("'The people must know their place' you hear as a whisper in the air.")
-    print("\n...\n")
+    press_enter_to_continue()
     print("""You raise taxes, ban public gatherings, apart from executions, and violently
     crush any threats to your rule, perceived or otherwise.""")
-    print("\n...\n")
+    press_enter_to_continue()
     print("How long has it been since you took the castle? Decades? You don't know.")
-    print("\n...\n")
+    press_enter_to_continue()
     print("A spike of terror runs through you as you catch a glimpse of The Beast Lord.")
     print("You leap with teeth bared toward the spot where you saw your old enemy.")
     print("\nIt's a broken mirror.\n")
@@ -641,10 +657,12 @@ def concluding_dialogue(player):
     print("The doors of your throne room burst open.")
     print(f"A brave, {player.height}, {player.sex} rushes in and exclaims:") 
     print("\n               'Your reign of evil ends now Beast Lord!'\n")
-    print("A more human part of you deep down almost starts to laugh. But the influence of the beast drowns that out.")
+    print("A more human part of you deep down almost starts to laugh.")
+    print("But the influence of the beast drowns that out.")
     print("Involuntarily you begin the speech.")
     print("   'A brave fool comes to claim my throne?! Do you think you are worthy, mortal?'")
     print("\n...\n")
+    press_enter_to_continue()
 
 #main
 def main():
