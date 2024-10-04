@@ -32,8 +32,28 @@ class Player:
         self.sex = sex
         self.gold = gold
         self.heard_info = False
+        # Items for endgame stats print
+        self.ales_drank = 0 
+        self.dice_wins = 0  
+        self.dice_losses = 0 
+        self.coin_wins = 0  
+        self.coin_losses = 0 
+        self.guard_bribed = 0 
+        self.riddles_correct = 0 
+        self.riddles_incorrect = 0 
+        self.rps_won = 0  
+        self.rps_lost = 0 
 
-#class PlayerDataManipulation:
+#player data manipulation
+    def show_stats(self):
+        """
+        Display user inputs and amount of gold
+        """
+        print(f"Name: {self.name}")
+        print(f"Height: {self.height}")
+        print(f"Sex: {self.sex}")
+        print(f"Gold: {self.gold} pieces")
+
     def get_name(self):
         """
         Name validation to ensure only letters are input
@@ -78,21 +98,16 @@ class Player:
         sex = player.get_sex()
         return Player(name, height, sex)
 
-    def show_stats(self):
-        """
-        Display user inputs and amount of gold
-        """
-        print(f"Name: {self.name}")
-        print(f"Height: {self.height}")
-        print(f"Sex: {self.sex}")
-        print(f"Gold: {self.gold} pieces")
-
 # For handling game over events
-def game_over(player=None):
+def game_over(player):
     """
-    Game over, with option to restart or quit
+    Game over, with option to restart or quit.
+    First saves player stats and shows them to the player.
     """
     print("\nGAME OVER!\n")
+    save_player_stats(player)
+    game_over_stats(player)
+
     while True:
         play_again = input("Play again? (yes/no): \n").lower()
         if play_again == "yes":
@@ -120,6 +135,49 @@ def restart_game(player=None):
             break
         else:
             print("Invalid input, please type 'yes' or 'new'.")
+
+def save_player_stats(player):
+    """
+    List of data created to be stored in excel file
+    """
+    data = [
+        player.name,
+        player.height,
+        player.sex,
+        player.gold,
+        player.ales_drank,  
+        player.dice_wins,   
+        player.dice_losses, 
+        player.coin_wins,   
+        player.coin_losses, 
+        player.guard_bribed, 
+        player.riddles_correct, 
+        player.riddles_incorrect, 
+        player.rps_won,      
+        player.rps_lost      
+    ]
+    adventurer.append_row(data)
+
+def game_over_stats(player):
+    """
+    Display user inputs and statistics at end of game
+    """
+    print(f"--- Player Stats ---")
+    print(f"Name: {player.name}")
+    print(f"Height: {player.height}")
+    print(f"Sex: {player.sex}")
+    print(f"Gold: {player.gold} pieces")
+    print(f"Ales Drank: {player.ales_drank}")
+    print(f"Dice Wins: {player.dice_wins}")
+    print(f"Dice Losses: {player.dice_losses}")
+    print(f"Coin Wins: {player.coin_wins}")
+    print(f"Coin Losses: {player.coin_losses}")
+    print(f"Guard Bribed: {player.guard_bribed}")
+    print(f"Riddles Correct: {player.riddles_correct}")
+    print(f"Riddles Incorrect: {player.riddles_incorrect}")
+    print(f"Rock-Paper-Scissors Won: {player.rps_won}")
+    print(f"Rock-Paper-Scissors Lost: {player.rps_lost}")
+    print("---------------------")
 
 # Intro and call to adventure
 def intro():
@@ -251,6 +309,7 @@ def drink_ale(player, min_bet):
     """
     print(f"{player.name} drinks a frothy ale. The room spins slightly.")
     min_bet *= 2
+    player.ales_drank += 1
     print(f"Your new minimum bet is now {min_bet} gold.")
     return min_bet
 
@@ -288,16 +347,20 @@ def dice_game(player, bet):
     """
     Handle the dice game logic where the player rolls against the tavern keeper.
     """
-    print("""You challenge the barkeep to a game of dice.\n If you roll higher you win.""")
+    print("""
+    You challenge the barkeep to a game of dice.If you roll higher you win.
+    """)
     player_roll = random.randint(1, 6)
     keeper_roll = random.randint(1, 6)
     print(f'You rolled {player_roll}, the tavern keeper rolled {keeper_roll}.')
     
     if player_roll > keeper_roll:
         player.gold += bet
+        player.dice_wins += 1
         print(f'You win {bet} gold! You now have {player.gold} gold pieces.')
     else:
         player.gold -= bet
+        player.dice_losses += 1
         print(f'You lose {bet} gold! You now have {player.gold} gold pieces.')
 
 def coin_flip_game(player, bet):
@@ -318,9 +381,11 @@ def coin_flip_game(player, bet):
 
     if call == coin:
         player.gold += bet
+        player.coin_wins += 1
         print(f'You win {bet} gold! You now have {player.gold} gold pieces.')
     else:
         player.gold -= bet
+        player.coin_losses += 1
         print(f'You lose {bet} gold! You now have {player.gold} gold pieces.')
 
 def listen_for_treasure_info(player):
@@ -349,6 +414,7 @@ def guard_interaction(player):
     if player.gold >= bribe_required:
         give_bribe = input(f"You have {player.gold} gold. Bribe guard? (yes / no): \n").lower()
         if give_bribe == "yes":
+            player.guard_bribed += 1
             print("\n'Pleasure doing business wif ya. Now move along. Before I change my mind.'")
             print("\nYou enter the castle...\n")
             final_showdown(player)
@@ -456,11 +522,12 @@ def riddles_game(player):
         answer = input("What is your answer? \n").lower()
         if answer == riddle["answer"]:
             print("Correct!")
-            correct_answers += 1
+            player.riddles_correct += 1
         else:
+            player.riddles_incorrect += 1
             print(f"Wrong! The correct answer was: {riddle['answer']}")
     
-    if correct_answers >= 2:
+    if player.riddles_correct >= 2:
         print("\nThe troll grunts, impressed. 'Fine, you may pass.'\n")
         final_showdown(player)
     else:
@@ -510,13 +577,13 @@ def rps_battle(player):
     Best of three Rock-Paper-Scissors game against the Beast Lord.
     """
     moves = ["rock", "paper", "scissors"]
-    player_score = 0
-    beast_score = 0
+    player.rps_won = 0
+    player.rps_lost = 0
 
     print("\nThe Beast Lord readies himself for the challenge...")
 
-    while player_score < 2 and beast_score < 2:
-        player_move = input("Choose your move (rock, paper, scissors): \n").lower()
+    while player_score < 2 and player.rps_lost < 2:
+        player.rps_won = input("Choose your move (rock, paper, scissors): \n").lower()
         if player_move not in moves:
             print("Invalid move! Please choose rock, paper, or scissors.")
             continue
@@ -524,22 +591,22 @@ def rps_battle(player):
         beast_move = random.choice(moves)
         print(f"\nThe Beast Lord chooses {beast_move}.")
 
-        # Determine winner of the round
+        # Determine winner
         if player_move == beast_move:
             print("It's a tie!")
         elif (player_move == "rock" and beast_move == "scissors") or \
              (player_move == "paper" and beast_move == "rock") or \
              (player_move == "scissors" and beast_move == "paper"):
             print("You win this round!")
-            player_score += 1
+            player.rps_won += 1
         else:
             print("The Beast Lord wins this round!")
-            beast_score += 1
+            player.rps_lost += 1
 
-        print(f"Score - You: {player_score}, Beast Lord: {beast_score}")
+        print(f"Score - You: {player.rps_won}, Beast Lord: {player.rps_lost}")
 
     # Determine final outcome
-    if player_score == 2:
+    if player.rps_won == 2:
         print("\nYou've done it! The Beast Lord has fallen. You are victorious!")
         concluding_dialogue(player)
         game_over(player)
