@@ -59,7 +59,7 @@ class Player:
         Name validation to ensure only letters are input
         """
         while True:
-            name = input("Enter your character's name (letters only): \n").capitalize()
+            name = get_input_with_length("Enter your character's name (letters only): \n").capitalize()
             if name.isalpha():
                 return name
             else:
@@ -72,7 +72,7 @@ class Player:
         """
         while True:
             valid_heights = ["tall", "short", "average"]
-            height = input("Enter your character's height (short, average, tall): \n").lower()
+            height = get_input_with_length("Enter your character's height (short, average, tall): \n").lower()
             if height in valid_heights:
                 return height
             else:
@@ -85,7 +85,7 @@ class Player:
         """
         while True:
             sexes = ["man", "woman", "other"]
-            sex = input("Enter your character's sex (man, woman, other): \n").lower()
+            sex = get_input_with_length("Enter your character's sex (man, woman, other): \n").lower()
             if sex in sexes:
                 return sex
             else:
@@ -104,12 +104,12 @@ def game_over(player):
     Game over, with option to restart or quit.
     First saves player stats and shows them to the player.
     """
-    print("\nGAME OVER!\n")
+    print("GAME OVER!\n")
     save_player_stats(player)
     game_over_stats(player)
 
     while True:
-        play_again = input("Play again? (yes/no): \n").lower()
+        play_again = get_input_with_length("Play again? (yes/no): \n").lower()
         if play_again == "yes":
             restart_game(player)
         elif play_again == "no":
@@ -123,7 +123,7 @@ def restart_game(player=None):
     Handle restarting the game with the same or new character
     """
     while True:
-        restart_choice = input("Do you want to restart with the same character? (yes/new): \n").lower()
+        restart_choice = get_input_with_length("Do you want to restart with the same character? (yes/new): \n").lower()
         if restart_choice == "yes":
             print(f"Restarting with {player.name}.")
             print("Proceeding to the tavern...")
@@ -181,7 +181,19 @@ def game_over_stats(player):
 
 # Simple pacing function to improve the user experience
 def press_enter_to_continue():
-    input("\nPress Enter to continue...\n")
+    get_input_with_length("\nPress Enter to continue...\n")
+
+# Control to stop inputs that are too long
+def get_input_with_length(prompt, max_length=25):
+    """
+    Prompts user for input and ensures the input does not exceed the max length
+    """
+    while True:
+        user_input = input(prompt)
+        if len(user_input) <= max_length:
+            return user_input
+        else:
+            print(f"Input must be {max_length} characters or less. Please try again.")
 
 # Intro and call to adventure
 def intro():
@@ -233,7 +245,7 @@ def call_to_adventure(player):
     """)
 
     while True:
-        choice = input("Do you accept the call to adventure? (yes/no): \n").lower()
+        choice = get_input_with_length("Do you accept the call to adventure? (yes/no): \n").lower()
         if choice == "yes":
             print(f"Brave {player.name}, you will now begin your adventure!")
             return True
@@ -277,7 +289,7 @@ def tavern_options(player):
     min_bet = 1
 
     while True:
-        print("\nWhat would you like to do in the tavern?")
+        print("What would you like to do in the tavern?")
         print("""
         1. Drink ale (increases minimum bet)
         2. Bet on a game of dice
@@ -286,7 +298,7 @@ def tavern_options(player):
         5. Head for the castle (available only after hearing about the treasure)
         """)
 
-        choice = input("Choose an option (1-5): \n")
+        choice = get_input_with_length("Choose an option (1-5): \n")
         if choice == "1":
             min_bet = drink_ale(player, min_bet)
         elif choice == "2":
@@ -301,6 +313,7 @@ def tavern_options(player):
         elif choice == "5":
             if player.heard_info:
                 print(f"\n{player.name} decides to head for the castle!")
+                press_enter_to_continue()
                 guard_interaction(player)
                 break  # Loop ends here to move onto next phase
             else:
@@ -312,17 +325,18 @@ def drink_ale(player, min_bet):
     """
     Drink ale and increase minimum bet.
     """
-    print(f"{player.name} drinks a frothy ale. The room spins slightly.")
+    print(f"\n{player.name} drinks a frothy ale. The room spins slightly.\n")
     min_bet *= 2
     player.ales_drank += 1
     print(f"Your new minimum bet is now {min_bet} gold.")
+    press_enter_to_continue()
     return min_bet
 
 def bet_game(player, min_bet, game):
     """
     Handle betting on dice or coin flip, allowing the player to choose their bet.
     """
-    print("In each game, if you win you earn what you staked. If not, you lose it.")
+    print("\nIn each game, if you win you earn what you staked. If not, you lose it.\n")
 
     if player.gold <= 0 | player.gold < min_bet:
         print(f"You don't have enough gold ({player.gold}) left to cover your minimum bet ({min_bet}). You can't place any bets.")
@@ -340,7 +354,7 @@ def get_bet(player, min_bet):
     less than or equal to total gold"""
     while True:
         try:
-            bet = int(input(f"How much would you like to bet? (min: {min_bet}, max: {player.gold}): \n"))
+            bet = int(get_input_with_length(f"How much would you like to bet? (min: {min_bet}, max: {player.gold}): \n"))
             if min_bet <= bet <= player.gold:
                 return bet
             else:
@@ -362,11 +376,13 @@ def dice_game(player, bet):
     if player_roll > keeper_roll:
         player.gold += bet
         player.dice_wins += 1
-        print(f'You win {bet} gold! You now have {player.gold} gold pieces.')
+        print(f'\nYou win {bet} gold! You now have {player.gold} gold pieces.')
+        press_enter_to_continue()
     else:
         player.gold -= bet
         player.dice_losses += 1
-        print(f'You lose {bet} gold! You now have {player.gold} gold pieces.')
+        print(f'\nYou lose {bet} gold! You now have {player.gold} gold pieces.')
+        press_enter_to_continue()
 
 def coin_flip_game(player, bet):
     """
@@ -375,7 +391,7 @@ def coin_flip_game(player, bet):
     print("You make a bet with the innkeeper that you can call a coin toss.")
     
     while True:
-        call = input("Call the coin flip! (heads or tails): \n").lower()
+        call = get_input_with_length("Call the coin flip! (heads or tails): \n").lower()
         if call not in ["heads", "tails"]:
             print("Invalid selection. Please input 'heads' or 'tails'.")
         else:
@@ -387,11 +403,13 @@ def coin_flip_game(player, bet):
     if call == coin:
         player.gold += bet
         player.coin_wins += 1
-        print(f'You win {bet} gold! You now have {player.gold} gold pieces.')
+        print(f'\nYou win {bet} gold! You now have {player.gold} gold pieces.')
+        press_enter_to_continue()
     else:
         player.gold -= bet
         player.coin_losses += 1
-        print(f'You lose {bet} gold! You now have {player.gold} gold pieces.')
+        print(f'\nYou lose {bet} gold! You now have {player.gold} gold pieces.')
+        press_enter_to_continue()
 
 def listen_for_treasure_info(player):
     """
@@ -418,11 +436,11 @@ def guard_interaction(player):
     bribe_required = 30
     initial_dialogue_guard(player)
     if player.gold >= bribe_required:
-        give_bribe = input(f"You have {player.gold} gold. Bribe guard? (yes / no): \n").lower()
+        give_bribe = get_input_with_length(f"You have {player.gold} gold. Bribe guard? (yes / no): \n").lower()
         if give_bribe == "yes":
             player.guard_bribed += 1
             print("\n'Pleasure doing business wif ya. Now move along. Before I change my mind.'")
-            print("\nYou enter the castle...\n")
+            print("\nYou enter the castle...")
             press_enter_to_continue()
             final_showdown(player)
         elif give_bribe == "no":
@@ -433,14 +451,15 @@ def guard_interaction(player):
         else:
             print("Invalid input, please write yes or no.")
     else:
-        print("\nYou empty your pockets.")
-        print("You pick a handful of buttons from one, and a moth flies from the other.") 
+        print("You empty your pockets.")
+        print("\nYou pick a handful of buttons from one, and a moth flies from the other.") 
         print(f"\nYou have {player.gold} gold and can't afford to bribe the guard.\n")
         print("'Watchu wasting my time for then pillock. Sling yer hook.'\n")
         if player.gold > 0:
-            earn_more_gold = input("Would you like to return to the tavern to win enough gold for the bribe? (yes/no): \n").lower()
+            earn_more_gold = get_input_with_length("Would you like to return to the tavern to win enough gold for the bribe? (yes/no): \n").lower()
             if earn_more_gold == "yes":
-                print("Returning to tavern to make enough gold to bribe the guard...")
+                print("\nReturning to tavern to make enough gold to bribe the guard...")
+                press_enter_to_continue()
                 player.heard_info = True
                 tavern_options(player)
             elif earn_more_gold == "no":
@@ -458,7 +477,7 @@ def initial_dialogue_guard(player):
     """
     Starting dialogue with guard
     """
-    print("As you approach the castle you spot a guard posted at the front gate.") 
+    print("As you approach you spot a guard posted at the front gate.") 
     print("His head droops as he appears on the verge of nodding off.")
     print("A branch breaks under your foot and the guard jolts awake.\n")
     if player.sex == "woman":
@@ -533,7 +552,7 @@ def riddles_game(player):
     correct_answers = 0
     for riddle in riddles:
         print(f"\nRiddle: {riddle['question']}")
-        answer = input("What is your answer? \n").lower()
+        answer = get_input_with_length("What is your answer? \n").lower()
         if answer == riddle["answer"]:
             print("Correct!")
             player.riddles_correct += 1
@@ -594,10 +613,10 @@ def rps_battle(player):
     player.rps_won = 0
     player.rps_lost = 0
 
-    print("\nThe Beast Lord readies himself for the challenge...")
+    print("The Beast Lord readies himself for the challenge...")
 
     while player.rps_won < 2 and player.rps_lost < 2:
-        player_move = input("Choose your move (rock, paper, scissors): \n").lower()
+        player_move = get_input_with_length("Choose your move (rock, paper, scissors): \n").lower()
         if player_move not in moves:
             print("Invalid move! Please choose rock, paper, or scissors.")
             continue
@@ -636,9 +655,8 @@ def concluding_dialogue(player):
     """
     Story Conclusion
     """
-    print(f"""
-    Countless treasures are yours. The prophecy is fulfilled, a brave, {player.height},
-    {player.sex} sits upon the throne as Lord of Pythonia.""")
+    print(f"""Countless treasures are yours. The prophecy is fulfilled, a brave,
+    {player.height}, {player.sex} sits upon the throne as Lord of Pythonia.""")
     press_enter_to_continue()
     print("""Years pass in relative peace. 
     Initially you rule fairly, but you feel unexplainable change over time.""")
@@ -653,7 +671,8 @@ def concluding_dialogue(player):
     print("You leap with teeth bared toward the spot where you saw your old enemy.")
     print("\nIt's a broken mirror.\n")
     print("You see the beastly reflection of your jagged teeth and knifelike fingernails.")
-    print("\nYou realise what you have become.\n")
+    print("\nYou realise what you have become.")
+    press_enter_to_continue()
     print("The doors of your throne room burst open.")
     print(f"A brave, {player.height}, {player.sex} rushes in and exclaims:") 
     print("\n               'Your reign of evil ends now Beast Lord!'\n")
@@ -661,7 +680,7 @@ def concluding_dialogue(player):
     print("But the influence of the beast drowns that out.")
     print("Involuntarily you begin the speech.")
     print("   'A brave fool comes to claim my throne?! Do you think you are worthy, mortal?'")
-    print("\n...\n")
+    print("\n...")
     press_enter_to_continue()
 
 #main
