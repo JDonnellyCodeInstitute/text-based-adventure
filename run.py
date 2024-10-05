@@ -318,7 +318,8 @@ def tavern_options(player):
                 guard_interaction(player)
                 break  # Loop ends here to move onto next phase
             else:
-                print("You need to gather information about the treasure first.")
+                print("\nYou need to gather information about the treasure first.")
+                press_enter_to_continue()
         else:
             print("Invalid option, please choose 1-5.")
 
@@ -394,12 +395,12 @@ def coin_flip_game(player, bet):
     while True:
         call = get_input_with_length("Call the coin flip! (heads or tails): \n").lower()
         if call not in ["heads", "tails"]:
-            print("Invalid selection. Please input 'heads' or 'tails'.")
+            print("\nInvalid selection. Please input 'heads' or 'tails'.")
         else:
             break
 
     coin = random.choice(["heads", "tails"])
-    print(f"The coin landed on {coin}.")
+    print(f"\nThe coin landed on {coin}.")
 
     if call == coin:
         player.gold += bet
@@ -465,7 +466,7 @@ def guard_interaction(player):
                 player.heard_info = True
                 tavern_options(player)
             elif earn_more_gold == "no":
-                print("\nYou nod curtly to the guard and get out of his sight to search for the secret passage.")
+                print("\nYou get out of the guard's sight to search for the secret passage.")
                 press_enter_to_continue()
                 secret_entry_full_sequence(player)
             else:
@@ -481,9 +482,10 @@ def initial_dialogue_guard(player):
     """
     print("As you approach you spot a guard posted at the front gate.") 
     print("His head droops as he appears on the verge of nodding off.")
-    print("A branch breaks under your foot and the guard jolts awake.\n")
+    print("A branch breaks under your foot and the guard jolts awake.")
     if player.sex == "woman":
-        print("""The guard lets out a long wolf whistle. 
+        print("""
+        The guard lets out a long wolf whistle. 
         
         'Well, well, well. It must be my lucky day! Not often fine young ladies 
         like yourself be approaching MY turf. You 'ere to keep me company?'
@@ -642,7 +644,7 @@ def rps_battle(player):
 
     # Determine final outcome
     if player.rps_won == 2:
-        print("\nYou've done it! The Beast Lord has fallen. You are victorious!")
+        print("You've done it! The Beast Lord has fallen. You are victorious!")
         press_enter_to_continue()
         concluding_dialogue(player)
         game_over(player)
@@ -660,11 +662,15 @@ def concluding_dialogue(player):
     print(f"""Countless treasures are yours. The prophecy is fulfilled, a brave,
     {player.height}, {player.sex} sits upon the throne as Lord of Pythonia.""")
     press_enter_to_continue()
-    print("""Years pass in relative peace. 
-    Initially you rule fairly, but you feel unexplainable change over time.""")
-    print("'The people must know their place' you hear as a whisper in the air.")
+    print("""
+    Years pass in relative peace. 
+
+    Initially you rule fairly, but you feel unexplainable change over time.
+    
+    'The people must know their place' you hear as a whisper in the air.""")
     press_enter_to_continue()
-    print("""You raise taxes, ban public gatherings, apart from executions, and violently
+    print("""
+    You raise taxes, ban public gatherings, apart from executions, and violently
     crush any threats to your rule, perceived or otherwise.""")
     press_enter_to_continue()
     print("How long has it been since you took the castle? Decades? You don't know.")
@@ -673,7 +679,7 @@ def concluding_dialogue(player):
     print("You leap with teeth bared toward the spot where you saw your old enemy.")
     print("\nIt's a broken mirror.\n")
     print("You see the beastly reflection of your jagged teeth and knifelike fingernails.")
-    print("\nYou realise what you have become.")
+    print("\nYou realise what you have become...")
     press_enter_to_continue()
     print("The doors of your throne room burst open.")
     print(f"A brave, {player.height}, {player.sex} rushes in and exclaims:") 
@@ -681,7 +687,9 @@ def concluding_dialogue(player):
     print("A more human part of you deep down almost starts to laugh.")
     print("But the influence of the beast drowns that out.")
     print("Involuntarily you begin the speech.")
-    print("   'A brave fool comes to claim my throne?! Do you think you are worthy, mortal?'")
+    print("""
+    'A brave fool comes to claim my throne?!
+    Do you think you are worthy, mortal?'""")
     print("\n...")
     press_enter_to_continue()
 
