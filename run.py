@@ -659,17 +659,17 @@ def concluding_dialogue(player):
     """
     Story Conclusion
     """
-    print(f"""Countless treasures are yours. The prophecy is fulfilled, a brave,
-    {player.height}, {player.sex} sits upon the throne as Lord of Pythonia.""")
+    print("Countless treasures are yours. The prophecy is fulfilled.") 
+    print(f"A brave, {player.height}, {player.sex} sits upon the throne as Lord of Pythonia.")
     press_enter_to_continue()
-    print("""
-    Years pass in relative peace. 
+    print("""Years pass in relative peace. 
 
     Initially you rule fairly, but you feel unexplainable change over time.
     
     'The people must know their place' you hear as a whisper in the air.""")
     press_enter_to_continue()
-    print("""
+    print("""As Lord:
+
     You raise taxes, ban public gatherings, apart from executions, and violently
     crush any threats to your rule, perceived or otherwise.""")
     press_enter_to_continue()
@@ -682,8 +682,9 @@ def concluding_dialogue(player):
     print("\nYou realise what you have become...")
     press_enter_to_continue()
     print("The doors of your throne room burst open.")
-    print(f"A brave, {player.height}, {player.sex} rushes in and exclaims:") 
-    print("\n               'Your reign of evil ends now Beast Lord!'\n")
+    print(f"""A brave, {player.height}, {player.sex} rushes in and exclaims:
+    
+    'Your reign of evil ends now Beast Lord!'""")
     print("A more human part of you deep down almost starts to laugh.")
     print("But the influence of the beast drowns that out.")
     print("Involuntarily you begin the speech.")
