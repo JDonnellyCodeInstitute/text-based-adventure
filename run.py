@@ -2,6 +2,10 @@ import gspread
 from google.oauth2.service_account import Credentials
 import sys
 import random
+import colorama
+from colorama import Fore, Back, Style
+# Initialising colorama for Windows compatibility
+colorama.init(autoreset=True)
 
 """
 Section facilitates API use to update user stats in 
