@@ -127,6 +127,7 @@ def restart_game(player=None):
         if restart_choice == "yes":
             print(f"Restarting with {player.name}.")
             print("Proceeding to the tavern...")
+            press_enter_to_continue()
             tavern(player)
             break
         elif restart_choice == "new":
@@ -247,10 +248,10 @@ def call_to_adventure(player):
     while True:
         choice = get_input_with_length("Do you accept the call to adventure? (yes/no): \n").lower()
         if choice == "yes":
-            print(f"Brave {player.name}, you will now begin your adventure!")
+            print(f"\nBrave {player.name}, you will now begin your adventure!\n")
             return True
         elif choice == "no":
-            print(f"{player.name} chooses a quiet life by the fire. Game Over.")
+            print(f"\n{player.name} chooses a quiet life by the fire.\n")
             return False
         else:
             print("Invalid input, please type 'yes' or 'no'.")
@@ -264,7 +265,7 @@ def tavern(player):
     tavern_options(player)
     
 def initial_dialogue_tavern(player):
-    print("""\nThe mysterious stranger leads you to a murky tavern.\n
+    print("""The mysterious stranger leads you to a murky tavern.\n
     As you approach you hear raucous laughter and the door swings open.
     A rotten drunk, mostly toothless, sailor is being dragged by
     the scruff of the neck and thrown out the door.
@@ -272,11 +273,11 @@ def initial_dialogue_tavern(player):
     'And STAY OUT!' shouts the tavern owner as he notices you and the
     mysterious stranger.\n""")
     if player.height == "short":
-        print("'Awoite shortarse, in or out. Same goes for your creepy mate'")
+        print("'Awoite shortarse, in or out. Same goes for your creepy mate.'")
     elif player.height == "tall":
-        print("'Awoite lanky, in or out. Same goes for your creepy mate'")
+        print("'Awoite lanky, in or out. Same goes for your creepy mate.'")
     elif player.height == "average":
-        print("'Awoite average Joe, in or out. Same goes for your creepy mate'")
+        print("'Awoite average Joe, in or out. Same goes for your creepy mate.'")
     
     print("\nThe mysterious stranger bows, wishes you luck, and takes his leave.\n")
     print("You enter the tavern...")
@@ -367,7 +368,7 @@ def dice_game(player, bet):
     Handle the dice game logic where the player rolls against the tavern keeper.
     """
     print("""
-    You challenge the barkeep to a game of dice.If you roll higher you win.
+    You challenge the barkeep to a game of dice. If you roll higher you win.
     """)
     player_roll = random.randint(1, 6)
     keeper_roll = random.randint(1, 6)
@@ -388,7 +389,7 @@ def coin_flip_game(player, bet):
     """
     Handle the coin flip game where the player calls heads or tails.
     """
-    print("You make a bet with the innkeeper that you can call a coin toss.")
+    print("\nYou make a bet with the innkeeper that you can call a coin toss.\n")
     
     while True:
         call = get_input_with_length("Call the coin flip! (heads or tails): \n").lower()
@@ -419,7 +420,7 @@ def listen_for_treasure_info(player):
     print("\n*Hiccup* 'That bloody guard!' *Hiccup* 'I tell ya, he's got some bloody gaul!'")
     print("'Trying to take me for 30 pieces!? Pah!'")
     print("'Doesn't he know that I know... which he don't know... but I do that there's...'")
-    print("The smuggler took a moment to belch loudly.")
+    print("\nThe smuggler took a moment to belch loudly.\n")
     print("'A bloody secret passageway! In the shadows to the east side of the castle!'")
     print("'Shhhh!' *Hiccup* 'Trade secret that is!' He shouted, seemingly to himself.")
     print("His eyes drooped closed, and the smuggler began to snore loudly.")
@@ -444,8 +445,9 @@ def guard_interaction(player):
             press_enter_to_continue()
             final_showdown(player)
         elif give_bribe == "no":
-            print("'Watchu wasting my time for then pillock. Sling yer hook.'")
-            print("\nHead held high and moral superiority assured, you slink off in search of the passageway")
+            print("\n'Watchu wasting my time for then pillock. Sling yer hook.'")
+            print("\nHead held high and moral superiority assured,")
+            print("you slink off in search of the passageway")
             press_enter_to_continue()
             secret_entry_full_sequence(player)
         else:
@@ -456,14 +458,14 @@ def guard_interaction(player):
         print(f"\nYou have {player.gold} gold and can't afford to bribe the guard.\n")
         print("'Watchu wasting my time for then pillock. Sling yer hook.'\n")
         if player.gold > 0:
-            earn_more_gold = get_input_with_length("Would you like to return to the tavern to win enough gold for the bribe? (yes/no): \n").lower()
+            earn_more_gold = get_input_with_length("Return to the tavern to try and win more gold? (yes/no): \n").lower()
             if earn_more_gold == "yes":
                 print("\nReturning to tavern to make enough gold to bribe the guard...")
                 press_enter_to_continue()
                 player.heard_info = True
                 tavern_options(player)
             elif earn_more_gold == "no":
-                print("You nod curtly to the guard and get out of his sight to search for the secret passage.\n")
+                print("\nYou nod curtly to the guard and get out of his sight to search for the secret passage.")
                 press_enter_to_continue()
                 secret_entry_full_sequence(player)
             else:
@@ -493,7 +495,7 @@ def initial_dialogue_guard(player):
         must spot it on your face as his own expression hardens.
         
         'You want in, it'll cost ya like everyone else. 30 pieces.
-        Otherwise, clear off!'\n""")
+        Otherwise, clear off!'""")
         press_enter_to_continue()
     else:
         print("""
@@ -504,8 +506,7 @@ def initial_dialogue_guard(player):
         a sinister smile.
         
         'You want in, it'll cost ya. 30 pieces. Otherwise, clear 
-        off!\n'
-        """)
+        off!'""")
         press_enter_to_continue()
 
 # The secret entrance
@@ -519,7 +520,7 @@ def secret_passageway(player):
     Describes the player's journey into the secret passageway
     leading to a confrontation with a troll.
     """
-    print(f"\n{player.name} sneaks into the shadows and locates the hidden entrance on the east side.")
+    print(f"{player.name} sneaks into the shadows and locates the hidden entrance on the east side.")
     print("You find a narrow, dark passageway that seems to spiral downward into the earth.")
     print("The air grows colder and damper as you descend.")
     print("Suddenly, a booming voice echoes in the darkness...\n")
@@ -534,7 +535,8 @@ def troll_encounter(player):
     print("A massive, hulking figure steps out of the shadows.") 
     print("It's a troll! He blocks your path.")
     print("'If you want to pass, you must answer my riddles!' the troll growls.")
-    print("Or else... you'll be my dinner.")
+    print("'Or else... you'll be my dinner.'")
+    press_enter_to_continue()
     riddles_game(player)
 
 def riddles_game(player):
@@ -554,14 +556,14 @@ def riddles_game(player):
         print(f"\nRiddle: {riddle['question']}")
         answer = get_input_with_length("What is your answer? \n").lower()
         if answer == riddle["answer"]:
-            print("Correct!")
+            print("\nCorrect!")
             player.riddles_correct += 1
         else:
             player.riddles_incorrect += 1
-            print(f"Wrong! The correct answer was: {riddle['answer']}")
+            print(f"\nWrong! The correct answer was: {riddle['answer']}")
     
     if player.riddles_correct >= 2:
-        print("\nThe troll grunts, impressed. 'Fine, you may pass.'\n")
+        print("\nThe troll grunts, impressed. 'Fine, you may pass.'")
         press_enter_to_continue()
         final_showdown(player)
     else:
@@ -613,7 +615,7 @@ def rps_battle(player):
     player.rps_won = 0
     player.rps_lost = 0
 
-    print("The Beast Lord readies himself for the challenge...")
+    print("The Beast Lord readies himself for the challenge...\n")
 
     while player.rps_won < 2 and player.rps_lost < 2:
         player_move = get_input_with_length("Choose your move (rock, paper, scissors): \n").lower()
@@ -622,7 +624,7 @@ def rps_battle(player):
             continue
 
         beast_move = random.choice(moves)
-        print(f"\nThe Beast Lord chooses {beast_move}.")
+        print(f"\nThe Beast Lord chooses {beast_move}.\n")
 
         # Determine winner
         if player_move == beast_move:
@@ -636,7 +638,7 @@ def rps_battle(player):
             print("The Beast Lord wins this round!")
             player.rps_lost += 1
 
-        print(f"Score - You: {player.rps_won}, Beast Lord: {player.rps_lost}")
+        print(f"\nScore - You: {player.rps_won}, Beast Lord: {player.rps_lost}\n")
 
     # Determine final outcome
     if player.rps_won == 2:
@@ -648,7 +650,7 @@ def rps_battle(player):
         print("\nThe Beast Lord cackles triumphantly. You have been defeated.")
         press_enter_to_continue()
         print("A chill creeps up your spine as your soul is severed from your body.")
-        print(f"{player.name}'s soul enters the abyss to experience horrors beyond mortal comprehension.")
+        print(f"{player.name}'s soul enters the abyss to experience horrors beyond comprehension.\n")
         game_over(player)
 
 def concluding_dialogue(player):
