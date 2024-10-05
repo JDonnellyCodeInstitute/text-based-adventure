@@ -3,7 +3,7 @@ from google.oauth2.service_account import Credentials
 import sys
 import random
 import colorama
-from colorama import Fore, Back, Style
+from colorama import Fore, Style
 # Initialising colorama for Windows compatibility
 colorama.init(autoreset=True)
 
@@ -108,7 +108,7 @@ def game_over(player):
     Game over, with option to restart or quit.
     First saves player stats and shows them to the player.
     """
-    print("GAME OVER!\n")
+    print(Fore.RED + Style.BRIGHT + "GAME OVER!\n")
     save_player_stats(player)
     game_over_stats(player)
 
