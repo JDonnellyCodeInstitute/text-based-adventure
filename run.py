@@ -126,11 +126,10 @@ def restart_game(player=None):
     Handle restarting the game with the same or new character
     """
     while True:
-        player.heard_info = False
         restart_choice = get_input_with_length("Do you want to restart with the same character? (yes/new): \n").lower()
         if restart_choice == "yes":
             player.restarts += 1
-            player.gold = 10
+            player_reset(player)
             print(f"\nRestarting with {Fore.LIGHTBLUE_EX}{Style.BRIGHT}{player.name}{Style.RESET_ALL}.")
             print(f"\nProceeding to {Fore.CYAN}{Style.BRIGHT}The Tavern...{Style.RESET_ALL}")
             press_enter_to_continue()
@@ -142,6 +141,16 @@ def restart_game(player=None):
             break
         else:
             print(Fore.RED + "Invalid input, please type 'yes' or 'new'.")
+
+def player_reset(player):
+    """
+    Resets the player stats that effect game progression upon restart
+    """
+    player.gold = 10
+    player.heard_info = False
+    player.riddles_correct = 0
+    player.guard_bribed = 0
+    player.rps_won = 0
 
 def save_player_stats(player):
     """
@@ -349,7 +358,8 @@ def bet_game(player, min_bet, game):
     Handle betting on dice or coin flip, allowing the player to choose their bet.
     """
     if player.gold <= 0 | player.gold < min_bet:
-        print(f"You don't have enough gold ({Fore.LIGHTBLUE_EX}{Style.BRIGHT}{player.gold}{Style.RESET_ALL}) left to cover your {Fore.LIGHTBLUE_EX}{Style.BRIGHT}minimum bet{Style.RESET_ALL} ({Fore.LIGHTBLUE_EX}{Style.BRIGHT}{min_bet}{Style.RESET_ALL}).\nYou can't place any bets.")
+        print(f"\nYou don't have enough gold ({Fore.LIGHTBLUE_EX}{Style.BRIGHT}{player.gold}{Style.RESET_ALL}) left to cover your {Fore.LIGHTBLUE_EX}{Style.BRIGHT}minimum bet{Style.RESET_ALL} ({Fore.LIGHTBLUE_EX}{Style.BRIGHT}{min_bet}{Style.RESET_ALL}).")
+        print("You can't place any bets.\n")
         return
 
     print("\nIn each game, if you win you earn what you staked. If not, you lose it.\n")
