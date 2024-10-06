@@ -128,7 +128,7 @@ def restart_game(player=None):
         restart_choice = get_input_with_length("Do you want to restart with the same character? (yes/new): \n").lower()
         if restart_choice == "yes":
             print(f"Restarting with {Fore.BLUE}{player.name}{Style.RESET_ALL}.")
-            print("Proceeding to the tavern...")
+            print(f"Proceeding to {Fore.CYAN}The Tavern...{Style.RESET_ALL}")
             press_enter_to_continue()
             tavern(player)
             break
@@ -192,7 +192,7 @@ def get_input_with_length(prompt, max_length=25):
     Prompts user for input and ensures the input does not exceed the max length
     """
     while True:
-        user_input = input(Fore.YELLOW + prompt)
+        user_input = input(Fore.YELLOW + prompt + Style.RESET_ALL)
         if len(user_input) <= max_length:
             return user_input
         else:
@@ -232,8 +232,8 @@ def call_to_adventure(player):
     Presents the player with the call to adventure.
     """
     print(f"""
-    A {Fore.LIGHTBLUE_EX}Mysterious Figure{Style.RESET_ALL} approaches you as you rest by the fire.
-    "{Fore.BLUE}{player.name}{Style.RESET_ALL}{Fore.LIGHTBLUE_EX}, I have been watching you. You seem like someone
+    A {Fore.LIGHTBLUE_EX}Mysterious Stranger{Style.RESET_ALL} approaches you as you rest by the fire.
+    {Fore.LIGHTBLUE_EX}"{Style.RESET_ALL}{Fore.BLUE}{player.name}{Style.RESET_ALL}{Fore.LIGHTBLUE_EX}, I have been watching you. You seem like someone
     destined for great things. 
     
     It is prophecied that a brave,{Style.RESET_ALL} {Fore.BLUE}{player.height}{Style.RESET_ALL}, {Fore.BLUE}{player.sex}{Style.RESET_ALL} {Fore.LIGHTBLUE_EX}like
@@ -268,22 +268,22 @@ def tavern(player):
     tavern_options(player)
     
 def initial_dialogue_tavern(player):
-    print("""The mysterious stranger leads you to a murky tavern.\n
+    print(f"""The {Fore.LIGHTBLUE_EX}Mysterious Stranger{Style.RESET_ALL} leads you to a murky {Fore.CYAN}Tavern{Style.RESET_ALL}.\n
     As you approach you hear raucous laughter and the door swings open.
     A rotten drunk, mostly toothless, sailor is being dragged by
     the scruff of the neck and thrown out the door.
     
-    'And STAY OUT!' shouts the tavern owner as he notices you and the
-    mysterious stranger.\n""")
+    {Fore.LIGHTGREEN_EX}'And STAY OUT!'{Style.RESET_ALL} shouts the {Fore.LIGHTGREEN_EX}Tavern Keeper{Style.RESET_ALL} as he notices you and the
+    {Fore.LIGHTBLUE_EX}Mysterious Stranger{Style.RESET_ALL}.\n""")
     if player.height == "short":
-        print("'Awoite shortarse, in or out. Same goes for your creepy mate.'")
+        print(f"{Fore.LIGHTGREEN_EX}'Awoite{Style.RESET_ALL} {Fore.BLUE}shortarse{Style.RESET_ALL}{Fore.LIGHTGREEN_EX}, in or out. Same goes for your creepy mate.'")
     elif player.height == "tall":
-        print("'Awoite lanky, in or out. Same goes for your creepy mate.'")
+        print(f"{Fore.LIGHTGREEN_EX}'Awoite{Style.RESET_ALL} {Fore.BLUE}lanky{Style.RESET_ALL}{Fore.LIGHTGREEN_EX}, in or out. Same goes for your creepy mate.'")
     elif player.height == "average":
-        print("'Awoite average Joe, in or out. Same goes for your creepy mate.'")
+        print(f"{Fore.LIGHTGREEN_EX}'Awoite{Style.RESET_ALL} {Fore.BLUE}average Joe{Style.RESET_ALL}{Fore.LIGHTGREEN_EX}, in or out. Same goes for your creepy mate.'")
     
-    print("\nThe mysterious stranger bows, wishes you luck, and takes his leave.\n")
-    print("You enter the tavern...")
+    print(f"\nThe {Fore.LIGHTBLUE_EX}Mysterious Stranger{Style.RESET_ALL} bows, wishes you luck, and takes his leave.\n")
+    print(f"You enter {Fore.CYAN}The Tavern...{Style.RESET_ALL}")
     press_enter_to_continue()
 
 def tavern_options(player):
@@ -293,13 +293,13 @@ def tavern_options(player):
     min_bet = 1
 
     while True:
-        print("What would you like to do in the tavern?")
-        print("""
-        1. Drink ale (increases minimum bet)
-        2. Bet on a game of dice
-        3. Bet on a coin flip
+        print(f"What would you like to do in {Fore.CYAN}The Tavern{Style.RESET_ALL}?")
+        print(f"""
+        1. Drink ale (increases {Fore.BLUE}minimum bet{Style.RESET_ALL})
+        2. Bet on a game of {Fore.CYAN}dice{Style.RESET_ALL}
+        3. Bet on a {Fore.CYAN}coin flip{Style.RESET_ALL}
         4. Listen out for info on treasure
-        5. Head for the castle (available only after hearing about the treasure)
+        5. Head for {Fore.CYAN}The Castle{Style.RESET_ALL} (available only after hearing about the treasure)
         """)
 
         choice = get_input_with_length("Choose an option (1-5): \n")
@@ -316,7 +316,7 @@ def tavern_options(player):
                 print("You've already heard about the treasure.")
         elif choice == "5":
             if player.heard_info:
-                print(f"\n{player.name} decides to head for the castle!")
+                print(f"\n{Fore.BLUE}{player.name}{Style.RESET_ALL} decides to head for {Fore.CYAN}The Castle{Style.RESET_ALL}!")
                 press_enter_to_continue()
                 guard_interaction(player)
                 break  # Loop ends here to move onto next phase
@@ -330,10 +330,10 @@ def drink_ale(player, min_bet):
     """
     Drink ale and increase minimum bet.
     """
-    print(f"\n{player.name} drinks a frothy ale. The room spins slightly.\n")
+    print(f"\n{Fore.BLUE}{player.name}{Style.RESET_ALL} drinks a frothy ale. The room spins slightly.\n")
     min_bet *= 2
     player.ales_drank += 1
-    print(f"Your new minimum bet is now {min_bet} gold.")
+    print(f"Your new {Fore.BLUE}minimum bet{Style.RESET_ALL} is now {Fore.BLUE}{min_bet}{Style.RESET_ALL} gold.")
     press_enter_to_continue()
     return min_bet
 
@@ -344,7 +344,7 @@ def bet_game(player, min_bet, game):
     print("\nIn each game, if you win you earn what you staked. If not, you lose it.\n")
 
     if player.gold <= 0 | player.gold < min_bet:
-        print(f"You don't have enough gold ({player.gold}) left to cover your minimum bet ({min_bet}). You can't place any bets.")
+        print(f"You don't have enough gold ({Fore.BLUE}{player.gold}{Style.RESET_ALL}) left to cover your {Fore.BLUE}minimum bet{Style.RESET_ALL} ({Fore.BLUE}{min_bet}{Style.RESET_ALL}). You can't place any bets.")
         return
 
     bet = get_bet(player, min_bet)
@@ -359,46 +359,46 @@ def get_bet(player, min_bet):
     less than or equal to total gold"""
     while True:
         try:
-            bet = int(get_input_with_length(f"How much would you like to bet? (min: {min_bet}, max: {player.gold}): \n"))
+            bet = int(get_input_with_length(f"How much would you like to bet? (min: {Fore.BLUE}{min_bet}{Style.RESET_ALL}{Fore.YELLOW}, max:{Style.RESET_ALL} {Fore.BLUE}{player.gold}{Style.RESET_ALL}): \n"))
             if min_bet <= bet <= player.gold:
                 return bet
             else:
-                print(f"Invalid bet. You must bet at least {min_bet} and no more than {player.gold}.")
+                print(f"Invalid bet. You must bet at least {Fore.BLUE}{min_bet}{Style.RESET_ALL} and no more than {Fore.BLUE}{player.gold}{Style.RESET_ALL}.")
         except ValueError:
-            print("Invalid input. Please enter a valid number.")
+            print(f"{Fore.RED}Invalid input. Please enter a valid number.")
 
 def dice_game(player, bet):
     """
     Handle the dice game logic where the player rolls against the tavern keeper.
     """
-    print("""
-    You challenge the barkeep to a game of dice. If you roll higher you win.
+    print(f"""
+    You challenge the {Fore.LIGHTGREEN_EX}Tavern Keeper{Style.RESET_ALL} to a game of {Fore.CYAN}dice{Style.RESET_ALL}. If you roll higher you win.
     """)
     player_roll = random.randint(1, 6)
     keeper_roll = random.randint(1, 6)
-    print(f'You rolled {player_roll}, the tavern keeper rolled {keeper_roll}.')
+    print(f'You rolled {player_roll}, the {Fore.LIGHTGREEN_EX}Tavern Keeper{Style.RESET_ALL} rolled {keeper_roll}.')
     
     if player_roll > keeper_roll:
         player.gold += bet
         player.dice_wins += 1
-        print(f'\nYou win {bet} gold! You now have {player.gold} gold pieces.')
+        print(f'\n{Fore.GREEN}You win {bet} gold!{Style.RESET_ALL} You now have {Fore.BLUE}{player.gold}{Style.RESET_ALL} gold pieces.')
         press_enter_to_continue()
     else:
         player.gold -= bet
         player.dice_losses += 1
-        print(f'\nYou lose {bet} gold! You now have {player.gold} gold pieces.')
+        print(f'\n{Fore.RED}You lose {bet} gold!{Style.RESET_ALL} You now have {Fore.BLUE}{player.gold}{Style.RESET_ALL} gold pieces.')
         press_enter_to_continue()
 
 def coin_flip_game(player, bet):
     """
     Handle the coin flip game where the player calls heads or tails.
     """
-    print("\nYou make a bet with the innkeeper that you can call a coin toss.\n")
+    print(f"\nYou make a bet with the {Fore.LIGHTGREEN_EX}Tavern Keeper{Style.RESET_ALL} that you can call a coin toss.\n")
     
     while True:
-        call = get_input_with_length("Call the coin flip! (heads or tails): \n").lower()
+        call = get_input_with_length(f"Call the {Fore.CYAN}coin flip{Style.RESET_ALL}! (heads or tails): \n").lower()
         if call not in ["heads", "tails"]:
-            print("\nInvalid selection. Please input 'heads' or 'tails'.")
+            print(f"\n{Fore.RED}Invalid selection. Please input 'heads' or 'tails'.")
         else:
             break
 
@@ -408,26 +408,26 @@ def coin_flip_game(player, bet):
     if call == coin:
         player.gold += bet
         player.coin_wins += 1
-        print(f'\nYou win {bet} gold! You now have {player.gold} gold pieces.')
+        print(f'\n{Fore.GREEN}You win {bet} gold!{Style.RESET_ALL} You now have {Fore.BLUE}{player.gold}{Style.RESET_ALL} gold pieces.')
         press_enter_to_continue()
     else:
         player.gold -= bet
         player.coin_losses += 1
-        print(f'\nYou lose {bet} gold! You now have {player.gold} gold pieces.')
+        print(f'\n{Fore.RED}You lose {bet} gold!{Style.RESET_ALL} You now have {Fore.BLUE}{player.gold}{Style.RESET_ALL} gold pieces.')
         press_enter_to_continue()
 
 def listen_for_treasure_info(player):
     """
     Player listens out for treasure information.
     """
-    print(f"\n{player.name} overhears a drunken smuggler talking about The Beast Lord's castle.")
-    print("\n*Hiccup* 'That bloody guard!' *Hiccup* 'I tell ya, he's got some bloody gaul!'")
-    print("'Trying to take me for 30 pieces!? Pah!'")
-    print("'Doesn't he know that I know... which he don't know... but I do that there's...'")
-    print("\nThe smuggler took a moment to belch loudly.\n")
-    print("'A bloody secret passageway! In the shadows to the east side of the castle!'")
-    print("'Shhhh!' *Hiccup* 'Trade secret that is!' He shouted, seemingly to himself.")
-    print("His eyes drooped closed, and the smuggler began to snore loudly.")
+    print(f"\n{Fore.BLUE}{player.name}{Style.RESET_ALL} overhears a {Fore.LIGHTYELLOW_EX}Drunken Smuggler{Style.RESET_ALL} talking about {Fore.RED}{Style.BRIGHT}The Beast Lord{Style.RESET_ALL}'s {Fore.CYAN}Castle{Style.RESET_ALL}.")
+    print(f"\n{Fore.LIGHTYELLOW_EX}*Hiccup* 'That bloody{Style.RESET_ALL} {Fore.LIGHTMAGENTA_EX}Guard{Style.RESET_ALL}{Fore.LIGHTYELLOW_EX}!' *Hiccup* 'I tell ya, he's got some bloody gaul!'")
+    print(f"{Fore.LIGHTYELLOW_EX}'Trying to take me for 30 pieces!? Pah!'")
+    print(f"{Fore.LIGHTYELLOW_EX}'Doesn't he know that I know... which he don't know... but I do that there's...'")
+    print("\nThe smuggler takes a moment to belch loudly.\n")
+    print(f"{Fore.LIGHTYELLOW_EX}'A bloody{Style.RESET_ALL} {Fore.CYAN}Secret Passageway{Style.RESET_ALL}{Fore.LIGHTYELLOW_EX}! In the shadows to the east side of{Style.RESET_ALL} {Fore.CYAN}The Castle{Style.RESET_ALL}{Fore.LIGHTYELLOW_EX}!'")
+    print(f"{Fore.LIGHTYELLOW_EX}'Shhhh!' *Hiccup* 'Trade secret that is!'{Style.RESET_ALL} He shouts, seemingly to himself.")
+    print("His eyes droop closed, and the smuggler begins to snore loudly.")
     press_enter_to_continue()
     return True
 
@@ -441,11 +441,11 @@ def guard_interaction(player):
     bribe_required = 30
     initial_dialogue_guard(player)
     if player.gold >= bribe_required:
-        give_bribe = get_input_with_length(f"You have {player.gold} gold. Bribe guard? (yes / no): \n").lower()
+        give_bribe = get_input_with_length(f"You have {Fore.BLUE}{player.gold}{Style.RESET_ALL} gold. Bribe guard? (yes / no): \n").lower()
         if give_bribe == "yes":
             player.guard_bribed += 1
             print("\n'Pleasure doing business wif ya. Now move along. Before I change my mind.'")
-            print("\nYou enter the castle...")
+            print(f"\nYou enter {Fore.CYAN}The Castle...{Style.RESET_ALL}")
             press_enter_to_continue()
             final_showdown(player)
         elif give_bribe == "no":
@@ -459,12 +459,12 @@ def guard_interaction(player):
     else:
         print("You empty your pockets.")
         print("\nYou pick a handful of buttons from one, and a moth flies from the other.") 
-        print(f"\nYou have {player.gold} gold and can't afford to bribe the guard.\n")
+        print(f"\nYou have {Fore.BLUE}{player.gold}{Style.RESET_ALL} gold and can't afford to bribe the guard.\n")
         print("'Watchu wasting my time for then pillock. Sling yer hook.'\n")
         if player.gold > 0:
-            earn_more_gold = get_input_with_length("Return to the tavern to try and win more gold? (yes/no): \n").lower()
+            earn_more_gold = get_input_with_length(f"Return to {Fore.CYAN}The Tavern{Style.RESET_ALL} to try and win more gold? (yes/no): \n").lower()
             if earn_more_gold == "yes":
-                print("\nReturning to tavern to make enough gold to bribe the guard...")
+                print(f"\nReturning to {Fore.CYAN}The Tavern{Style.RESET_ALL} to make enough gold to bribe the guard...")
                 press_enter_to_continue()
                 player.heard_info = True
                 tavern_options(player)
@@ -525,7 +525,7 @@ def secret_passageway(player):
     Describes the player's journey into the secret passageway
     leading to a confrontation with a troll.
     """
-    print(f"{player.name} sneaks into the shadows and locates the hidden entrance on the east side.")
+    print(f"{Fore.BLUE}{player.name}{Style.RESET_ALL} sneaks into the shadows and locates the hidden entrance on the east side.")
     print("You find a narrow, dark passageway that seems to spiral downward into the earth.")
     print("The air grows colder and damper as you descend.")
     print("Suddenly, a booming voice echoes in the darkness...\n")
@@ -585,7 +585,7 @@ def beast_lord_speech():
     """
     The Beast Lord delivers a dramatic speech before the final challenge.
     """
-    print("You make your way into the heart of the castle and approach the throne room.")
+    print(f"You make your way into the heart of {Fore.CYAN}The Castle{Style.RESET_ALL} and approach the throne room.")
     print("\nThe great doors creak open, and there he stands - The Beast Lord.")
     print("""
     A towering figure of shadow and flame. 
@@ -655,7 +655,7 @@ def rps_battle(player):
         print("\nThe Beast Lord cackles triumphantly. You have been defeated.")
         press_enter_to_continue()
         print("A chill creeps up your spine as your soul is severed from your body.")
-        print(f"{player.name}'s soul enters the abyss to experience horrors beyond comprehension.\n")
+        print(f"{Fore.BLUE}{player.name}{Style.RESET_ALL}'s soul enters the abyss to experience horrors beyond comprehension.\n")
         game_over(player)
 
 def concluding_dialogue(player):
@@ -676,7 +676,7 @@ def concluding_dialogue(player):
     You raise taxes, ban public gatherings, apart from executions, and violently
     crush any threats to your rule, perceived or otherwise.""")
     press_enter_to_continue()
-    print("How long has it been since you took the castle? Decades? You don't know.")
+    print(f"How long has it been since you took {Fore.CYAN}The Castle{Style.RESET_ALL}? Decades? You can't remember.")
     press_enter_to_continue()
     print("A spike of terror runs through you as you catch a glimpse of The Beast Lord.")
     print("You leap with teeth bared toward the spot where you saw your old enemy.")
