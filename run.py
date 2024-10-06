@@ -359,7 +359,8 @@ def bet_game(player, min_bet, game):
     """
     if player.gold <= 0 | player.gold < min_bet:
         print(f"\nYou don't have enough gold ({Fore.LIGHTBLUE_EX}{Style.BRIGHT}{player.gold}{Style.RESET_ALL}) left to cover your {Fore.LIGHTBLUE_EX}{Style.BRIGHT}minimum bet{Style.RESET_ALL} ({Fore.LIGHTBLUE_EX}{Style.BRIGHT}{min_bet}{Style.RESET_ALL}).")
-        print("You can't place any bets.\n")
+        print("\nYou can't place any bets.\n")
+        press_enter_to_continue()
         return
 
     print("\nIn each game, if you win you earn what you staked. If not, you lose it.\n")
@@ -451,49 +452,91 @@ def listen_for_treasure_info(player):
 def guard_interaction(player):
     """
     Player approaches castle gate and is pestered for a bribe.
-    If they can afford to pay the guard they enter the main gate,
-    else they have to search for the secret entry
+    Handles whether the player can afford the bribe or needs to search for another way.
+    """
+    initial_dialogue_guard(player)
+    handle_guard_bribe(player)
+
+def handle_guard_bribe(player):
+    """
+    Handle the player's choice to bribe the guard if they can afford it.
     """
     bribe_required = 30
-    initial_dialogue_guard(player)
     if player.gold >= bribe_required:
-        give_bribe = get_input_with_length(f"You have {Fore.LIGHTBLUE_EX}{Style.BRIGHT}{player.gold}{Style.RESET_ALL} gold. Bribe {Fore.LIGHTMAGENTA_EX}Guard{Style.RESET_ALL}? (yes / no): \n").lower()
-        if give_bribe == "yes":
-            player.guard_bribed += 1
-            print(f"\n{Fore.LIGHTMAGENTA_EX}'Pleasure doing business wif ya. Now move along. Before I change my mind.'")
-            print(f"\nYou enter {Fore.CYAN}{Style.BRIGHT}The Castle...{Style.RESET_ALL}")
-            press_enter_to_continue()
-            final_showdown(player)
-        elif give_bribe == "no":
-            print(f"\n{Fore.LIGHTMAGENTA_EX}'Watchu wasting my time for then pillock. Sling yer hook.'")
-            print("\nHead held high and moral superiority assured,")
-            print("you slink off in search of the passageway")
+        while True:
+            give_bribe = get_input_with_length(f"You have {Fore.LIGHTBLUE_EX}{Style.BRIGHT}{player.gold}{Style.RESET_ALL} gold. Bribe {Fore.LIGHTMAGENTA_EX}Guard{Style.RESET_ALL}? (yes / no): \n").lower()
+            if give_bribe == "yes":
+                process_bribe(player)
+                break
+            elif give_bribe == "no":
+                reject_bribe()
+                break
+            else:
+                print(f"{Fore.RED}Invalid input, please write yes or no.")
+    else:
+        handle_insufficient_gold(player)
+
+def process_bribe(player):
+    """
+    Process the player's successful bribe of the guard.
+    """
+    player.guard_bribed += 1
+    print(f"\n{Fore.LIGHTMAGENTA_EX}'Pleasure doing business wif ya. Now move along. Before I change my mind.'")
+    print(f"\nYou enter {Fore.CYAN}{Style.BRIGHT}The Castle...{Style.RESET_ALL}")
+    press_enter_to_continue()
+    final_showdown(player)
+
+def reject_bribe():
+    """
+    Handle the player's rejection of the bribe offer.
+    """
+    print(f"\n{Fore.LIGHTMAGENTA_EX}'Watchu wasting my time for then pillock. Sling yer hook.'")
+    print("\nHead held high and moral superiority assured,")
+    print("you slink off in search of the passageway.")
+    press_enter_to_continue()
+    secret_entry_full_sequence(player)
+
+def handle_insufficient_gold(player):
+    """
+    Handle the case where the player cannot afford the bribe.
+    """
+    print("You empty your pockets.")
+    print("\nYou pick a handful of buttons from one, and a moth flies from the other.") 
+    print(f"\nYou have {Fore.LIGHTBLUE_EX}{Style.BRIGHT}{player.gold}{Style.RESET_ALL} gold and can't afford to bribe the {Fore.LIGHTMAGENTA_EX}Guard{Style.RESET_ALL}.\n")
+    print(f"{Fore.LIGHTMAGENTA_EX}'Watchu wasting my time for then pillock. Sling yer hook.'\n")
+
+    if player.gold > 0:
+        offer_tavern_option(player)
+    else:
+        print(f"You get out of sight of the {Fore.LIGHTMAGENTA_EX}Guard{Style.RESET_ALL} to search for {Fore.CYAN}{Style.BRIGHT}The Secret Passageway{Style.RESET_ALL}.")
+        press_enter_to_continue()
+        secret_entry_full_sequence(player)
+
+def offer_tavern_option(player):
+    """
+    Offer the player the choice to return to the tavern to earn more gold.
+    """
+    while True:
+        earn_more_gold = get_input_with_length(f"Return to {Fore.CYAN}{Style.BRIGHT}The Tavern{Style.RESET_ALL} {Fore.YELLOW}to try and win more gold? (yes/no): \n", max_length=3).lower()
+        if earn_more_gold == "yes":
+            return_to_tavern(player)
+            break
+        elif earn_more_gold == "no":
+            print(f"\nYou get out of the {Fore.LIGHTMAGENTA_EX}Guard{Style.RESET_ALL}'s sight to search for {Fore.CYAN}{Style.BRIGHT}The Secret Passageway{Style.RESET_ALL}.")
             press_enter_to_continue()
             secret_entry_full_sequence(player)
+            break
         else:
             print(f"{Fore.RED}Invalid input, please write yes or no.")
-    else:
-        print("You empty your pockets.")
-        print("\nYou pick a handful of buttons from one, and a moth flies from the other.") 
-        print(f"\nYou have {Fore.LIGHTBLUE_EX}{Style.BRIGHT}{player.gold}{Style.RESET_ALL} gold and can't afford to bribe the {Fore.LIGHTMAGENTA_EX}Guard{Style.RESET_ALL}.\n")
-        print(f"{Fore.LIGHTMAGENTA_EX}'Watchu wasting my time for then pillock. Sling yer hook.'\n")
-        if player.gold > 0:
-            earn_more_gold = get_input_with_length(f"Return to {Fore.CYAN}{Style.BRIGHT}The Tavern{Style.RESET_ALL} {Fore.YELLOW}to try and win more gold? (yes/no): \n").lower()
-            if earn_more_gold == "yes":
-                print(f"\nReturning to {Fore.CYAN}{Style.BRIGHT}The Tavern{Style.RESET_ALL} to make enough gold to bribe the {Fore.LIGHTMAGENTA_EX}Guard{Style.RESET_ALL}...")
-                press_enter_to_continue()
-                player.heard_info = True
-                tavern_options(player)
-            elif earn_more_gold == "no":
-                print(f"\nYou get out of the {Fore.LIGHTMAGENTA_EX}Guard{Style.RESET_ALL}'s sight to search for {Fore.CYAN}{Style.BRIGHT}The Secret Passageway{Style.RESET_ALL}.")
-                press_enter_to_continue()
-                secret_entry_full_sequence(player)
-            else:
-                print(f"{Fore.RED}Invalid input, please write 'y' or 'n'")
-        else:
-            print(f"You get out of sight of the {Fore.LIGHTMAGENTA_EX}Guard{Style.RESET_ALL} to search for {Fore.CYAN}{Style.BRIGHT}The Secret Passageway{Style.RESET_ALL}.")
-            press_enter_to_continue()
-            secret_entry_full_sequence(player)
+
+def return_to_tavern(player):
+    """
+    Handle the player's decision to return to the tavern to gamble for more gold.
+    """
+    print(f"\nReturning to {Fore.CYAN}{Style.BRIGHT}The Tavern{Style.RESET_ALL} to make enough gold to bribe the {Fore.LIGHTMAGENTA_EX}Guard{Style.RESET_ALL}...")
+    press_enter_to_continue()
+    player.heard_info = True
+    tavern_options(player)
 
 def initial_dialogue_guard(player):
     """
