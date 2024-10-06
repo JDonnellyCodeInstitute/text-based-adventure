@@ -441,41 +441,41 @@ def guard_interaction(player):
     bribe_required = 30
     initial_dialogue_guard(player)
     if player.gold >= bribe_required:
-        give_bribe = get_input_with_length(f"You have {Fore.BLUE}{player.gold}{Style.RESET_ALL} gold. Bribe guard? (yes / no): \n").lower()
+        give_bribe = get_input_with_length(f"You have {Fore.BLUE}{player.gold}{Style.RESET_ALL} gold. Bribe {Fore.LIGHTMAGENTA_EX}Guard{Style.RESET_ALL}? (yes / no): \n").lower()
         if give_bribe == "yes":
             player.guard_bribed += 1
-            print("\n'Pleasure doing business wif ya. Now move along. Before I change my mind.'")
+            print(f"\n{Fore.LIGHTMAGENTA_EX}'Pleasure doing business wif ya. Now move along. Before I change my mind.'")
             print(f"\nYou enter {Fore.CYAN}The Castle...{Style.RESET_ALL}")
             press_enter_to_continue()
             final_showdown(player)
         elif give_bribe == "no":
-            print("\n'Watchu wasting my time for then pillock. Sling yer hook.'")
+            print(f"\n{Fore.LIGHTMAGENTA_EX}'Watchu wasting my time for then pillock. Sling yer hook.'")
             print("\nHead held high and moral superiority assured,")
             print("you slink off in search of the passageway")
             press_enter_to_continue()
             secret_entry_full_sequence(player)
         else:
-            print("Invalid input, please write yes or no.")
+            print(f"{Fore.RED}Invalid input, please write yes or no.")
     else:
         print("You empty your pockets.")
         print("\nYou pick a handful of buttons from one, and a moth flies from the other.") 
-        print(f"\nYou have {Fore.BLUE}{player.gold}{Style.RESET_ALL} gold and can't afford to bribe the guard.\n")
-        print("'Watchu wasting my time for then pillock. Sling yer hook.'\n")
+        print(f"\nYou have {Fore.BLUE}{player.gold}{Style.RESET_ALL} gold and can't afford to bribe the {Fore.LIGHTMAGENTA_EX}Guard{Style.RESET_ALL}.\n")
+        print(f"{Fore.LIGHTMAGENTA_EX}'Watchu wasting my time for then pillock. Sling yer hook.'\n")
         if player.gold > 0:
             earn_more_gold = get_input_with_length(f"Return to {Fore.CYAN}The Tavern{Style.RESET_ALL} to try and win more gold? (yes/no): \n").lower()
             if earn_more_gold == "yes":
-                print(f"\nReturning to {Fore.CYAN}The Tavern{Style.RESET_ALL} to make enough gold to bribe the guard...")
+                print(f"\nReturning to {Fore.CYAN}The Tavern{Style.RESET_ALL} to make enough gold to bribe the {Fore.LIGHTMAGENTA_EX}Guard{Style.RESET_ALL}...")
                 press_enter_to_continue()
                 player.heard_info = True
                 tavern_options(player)
             elif earn_more_gold == "no":
-                print("\nYou get out of the guard's sight to search for the secret passage.")
+                print(f"\nYou get out of the {Fore.LIGHTMAGENTA_EX}Guard{Style.RESET_ALL}'s sight to search for {Fore.CYAN}The Secret Passage{Style.RESET_ALL}.")
                 press_enter_to_continue()
                 secret_entry_full_sequence(player)
             else:
-                print("Invalid input, please write 'y' or 'n'")
+                print(f"{Fore.RED}Invalid input, please write 'y' or 'n'")
         else:
-            print("You nod curtly to the guard and get out of his sight to search for the secret passage.\n")
+            print(f"You nod curtly to the {Fore.LIGHTMAGENTA_EX}Guard{Style.RESET_ALL} and get out of his sight to search for {Fore.CYAN}The Secret Passage{Style.RESET_ALL}.\n")
             press_enter_to_continue()
             secret_entry_full_sequence(player)
 
@@ -483,34 +483,34 @@ def initial_dialogue_guard(player):
     """
     Starting dialogue with guard
     """
-    print("As you approach you spot a guard posted at the front gate.") 
+    print(f"As you approach you spot a {Fore.LIGHTMAGENTA_EX}Guard{Style.RESET_ALL} posted at the front gate.") 
     print("His head droops as he appears on the verge of nodding off.")
-    print("A branch breaks under your foot and the guard jolts awake.")
+    print(f"A branch breaks under your foot and the {Fore.LIGHTMAGENTA_EX}Guard{Style.RESET_ALL} jolts awake.")
     if player.sex == "woman":
-        print("""
-        The guard lets out a long wolf whistle. 
+        print(f"""
+        The {Fore.LIGHTMAGENTA_EX}Guard{Style.RESET_ALL} lets out a long wolf whistle. 
         
-        'Well, well, well. It must be my lucky day! Not often fine young ladies 
-        like yourself be approaching MY turf. You 'ere to keep me company?'
+        {Fore.LIGHTMAGENTA_EX}'Well, well, well. It must be my lucky day! Not often fine young ladies 
+        like yourself be approaching MY turf. You 'ere to keep me company?'{Style.RESET_ALL}
 
-        Through browned and blackened teeth the guard gives you his best
+        Through browned and blackened teeth the {Fore.LIGHTMAGENTA_EX}Guard{Style.RESET_ALL} gives you his best
         smile.
         
-        You try your best to hide your anger and disgust but the guard
+        You try your best to hide your anger and disgust but the {Fore.LIGHTMAGENTA_EX}Guard{Style.RESET_ALL}
         must spot it on your face as his own expression hardens.
         
-        'You want in, it'll cost ya like everyone else. 30 pieces.
+        {Fore.LIGHTMAGENTA_EX}'You want in, it'll cost ya like everyone else. 30 pieces.
         Otherwise, clear off!'""")
         press_enter_to_continue()
     else:
-        print("""
-        'Well, well, well. It must be my lucky day!
-        You 'ere to keep me company?'
+        print(f"""
+        {Fore.LIGHTMAGENTA_EX}'Well, well, well. It must be my lucky day!
+        You 'ere to keep me company?'{Style.RESET_ALL}
 
-        Through browned and blackened teeth the guard gives you 
+        Through browned and blackened teeth the {Fore.LIGHTMAGENTA_EX}Guard{Style.RESET_ALL} gives you 
         a sinister smile.
         
-        'You want in, it'll cost ya. 30 pieces. Otherwise, clear 
+        {Fore.LIGHTMAGENTA_EX}'You want in, it'll cost ya. 30 pieces. Otherwise, clear 
         off!'""")
         press_enter_to_continue()
 
@@ -525,11 +525,11 @@ def secret_passageway(player):
     Describes the player's journey into the secret passageway
     leading to a confrontation with a troll.
     """
-    print(f"{Fore.BLUE}{player.name}{Style.RESET_ALL} sneaks into the shadows and locates the hidden entrance on the east side.")
+    print(f"{Fore.BLUE}{player.name}{Style.RESET_ALL} sneaks into the shadows and locates {Fore.CYAN}The Secret Passageway{Style.RESET_ALL} on the east side.")
     print("You find a narrow, dark passageway that seems to spiral downward into the earth.")
     print("The air grows colder and damper as you descend.")
     print("Suddenly, a booming voice echoes in the darkness...\n")
-    print("'WHO DARES TO ENTER MY DOMAIN?!'")
+    print(f"{Fore.GREEN}{Style.DIM}'WHO DARES TO ENTER MY DOMAIN?!'{Style.RESET_ALL}")
     press_enter_to_continue()
     troll_encounter(player)
 
@@ -538,9 +538,9 @@ def troll_encounter(player):
     Initiates the troll encounter with a riddle game.
     """
     print("A massive, hulking figure steps out of the shadows.") 
-    print("It's a troll! He blocks your path.")
-    print("'If you want to pass, you must answer my riddles!' the troll growls.")
-    print("'Or else... you'll be my dinner.'")
+    print(f"It's a {Fore.GREEN}{Style.DIM}Troll{Style.RESET_ALL}! He blocks your path.")
+    print(f"{Fore.GREEN}{Style.DIM}'If you want to pass, you must answer my riddles!'{Style.RESET_ALL} the {Fore.GREEN}{Style.DIM}Troll{Style.RESET_ALL} growls.")
+    print(f"{Fore.GREEN}{Style.DIM}'Or else... you'll be my dinner.'")
     press_enter_to_continue()
     riddles_game(player)
 
@@ -554,26 +554,26 @@ def riddles_game(player):
         {"question": "What comes once in a minute, twice in a moment, but never in a thousand years?", "answer": "m"}
     ]
     
-    print("The troll gives you three riddles to answer.")
+    print(f"The {Fore.MAGENTA}{Style.DIM}Troll{Style.RESET_ALL} gives you three riddles to answer.")
     
     correct_answers = 0
     for riddle in riddles:
-        print(f"\nRiddle: {riddle['question']}")
+        print(f"\nRiddle: {Fore.GREEN}{Style.DIM}{riddle['question']}{Style.RESET_ALL}")
         answer = get_input_with_length("What is your answer? \n").lower()
         if answer == riddle["answer"]:
-            print("\nCorrect!")
+            print(Fore.GREEN + "\nCorrect!")
             player.riddles_correct += 1
         else:
             player.riddles_incorrect += 1
-            print(f"\nWrong! The correct answer was: {riddle['answer']}")
+            print(f"\n{Fore.RED}Wrong!{Style.RESET_ALL} The correct answer was: {riddle['answer']}")
     
     if player.riddles_correct >= 2:
-        print("\nThe troll grunts, impressed. 'Fine, you may pass.'")
+        print(f"\nThe {Fore.GREEN}{Style.DIM}Troll{Style.RESET_ALL} grunts, impressed. {Fore.GREEN}{Style.DIM}'Fine, you may pass.'{Style.RESET_ALL}")
         press_enter_to_continue()
         final_showdown(player)
     else:
-        print("\nThe troll roars with laughter. 'You're too foolish to proceed!'")
-        print("The troll leaps, grabs, and gobbles you up whole. A belch echoes through the catacombs.\n")
+        print(f"\nThe {Fore.GREEN}{Style.DIM}Troll{Style.RESET_ALL} roars with laughter. {Fore.GREEN}{Style.DIM}'You're too foolish to proceed!'{Style.RESET_ALL}")
+        print(f"{Fore.RED}The{Style.RESET_ALL} {Fore.GREEN}{Style.DIM}Troll{Style.RESET_ALL} {Fore.RED}leaps, grabs, and gobbles you up whole. A belch echoes through the catacombs.\n")
         game_over(player)
 
 # Final Showdown in the castle
@@ -586,28 +586,28 @@ def beast_lord_speech():
     The Beast Lord delivers a dramatic speech before the final challenge.
     """
     print(f"You make your way into the heart of {Fore.CYAN}The Castle{Style.RESET_ALL} and approach the throne room.")
-    print("\nThe great doors creak open, and there he stands - The Beast Lord.")
-    print("""
+    print(f"\nThe great doors creak open, and there he stands - {Fore.RED}{Style.BRIGHT}The Beast Lord{Style.RESET_ALL}.")
+    print(f"""
     A towering figure of shadow and flame. 
     His eyes burn with malice and hunger for power.
     
-    'Ah, another brave fool comes to claim my throne. 
+    {Fore.RED}{Style.BRIGHT}'Ah, another brave fool comes to claim my throne. 
     Do you think you are worthy, mortal? 
     Many have come before you, but none have succeeded.'""")
     press_enter_to_continue()
-    print("""He pauses, letting the weight of his words sink in.
+    print(f"""He pauses, letting the weight of his words sink in.
     
-    'Know this - those who defeat me shall rule these lands, 
+    {Fore.RED}{Style.BRIGHT}'Know this - those who defeat me shall rule these lands, 
     taking all that is mine. But should you fail, your soul will 
     be forfeit, and you will suffer a fate worse 
     than death itself.'""")
     press_enter_to_continue()
-    print("""He gestures toward you with a clawed hand, his grin widening.
+    print(f"""He gestures toward you with a clawed hand, his grin widening.
     
-    'Prepare yourself. You face a challenge of wits and reflexes. 
+    {Fore.RED}{Style.BRIGHT}'Prepare yourself. You face a challenge of wits and reflexes. 
     A simple game for a simple mind - best me in a game of 
     Rock-Paper-Scissors, and your destiny will be yours to 
-    shape...'
+    shape...'{Style.RESET_ALL}
     
     The final battle begins now!""")
     press_enter_to_continue()
@@ -620,16 +620,16 @@ def rps_battle(player):
     player.rps_won = 0
     player.rps_lost = 0
 
-    print("The Beast Lord readies himself for the challenge...\n")
+    print(f"{Fore.RED}{Style.BRIGHT}The Beast Lord{Style.RESET_ALL} readies himself for the challenge...\n")
 
     while player.rps_won < 2 and player.rps_lost < 2:
         player_move = get_input_with_length("Choose your move (rock, paper, scissors): \n").lower()
         if player_move not in moves:
-            print("Invalid move! Please choose rock, paper, or scissors.")
+            print(Fore.RED + "Invalid move! Please choose rock, paper, or scissors.")
             continue
 
         beast_move = random.choice(moves)
-        print(f"\nThe Beast Lord chooses {beast_move}.\n")
+        print(f"\n{Fore.RED}{Style.BRIGHT}The Beast Lord{Style.RESET_ALL} chooses {beast_move}.\n")
 
         # Determine winner
         if player_move == beast_move:
@@ -637,25 +637,25 @@ def rps_battle(player):
         elif (player_move == "rock" and beast_move == "scissors") or \
              (player_move == "paper" and beast_move == "rock") or \
              (player_move == "scissors" and beast_move == "paper"):
-            print("You win this round!")
+            print(Fore.GREEN + "You win this round!")
             player.rps_won += 1
         else:
-            print("The Beast Lord wins this round!")
+            print(f"{Fore.RED}{Style.BRIGHT}The Beast Lord{Style.RESET_ALL} {Fore.RED}wins this round!")
             player.rps_lost += 1
 
-        print(f"\nScore - You: {player.rps_won}, Beast Lord: {player.rps_lost}\n")
+        print(f"\nScore - You: {player.rps_won}, {Fore.RED}{Style.BRIGHT}Beast Lord{Style.RESET_ALL}: {player.rps_lost}\n")
 
     # Determine final outcome
     if player.rps_won == 2:
-        print("You've done it! The Beast Lord has fallen. You are victorious!")
+        print(f"{Fore.GREEN}You've done it!{Style.RESET_ALL} {Fore.RED}{Style.BRIGHT}The Beast Lord{Style.RESET_ALL} {Fore.GREEN}has fallen. You are victorious!")
         press_enter_to_continue()
         concluding_dialogue(player)
         game_over(player)
     else:
-        print("\nThe Beast Lord cackles triumphantly. You have been defeated.")
+        print(f"\n{Fore.RED}{Style.BRIGHT}The Beast Lord{Style.RESET_ALL} cackles triumphantly. {Fore.RED}You have been defeated.")
         press_enter_to_continue()
-        print("A chill creeps up your spine as your soul is severed from your body.")
-        print(f"{Fore.BLUE}{player.name}{Style.RESET_ALL}'s soul enters the abyss to experience horrors beyond comprehension.\n")
+        print(f"{Fore.RED}A chill creeps up your spine as your soul is severed from your body.")
+        print(f"{Fore.BLUE}{player.name}{Style.RESET_ALL}{Fore.RED}'s soul enters the abyss to experience horrors beyond comprehension.\n")
         game_over(player)
 
 def concluding_dialogue(player):
@@ -663,13 +663,13 @@ def concluding_dialogue(player):
     Story Conclusion
     """
     print("Countless treasures are yours. The prophecy is fulfilled.") 
-    print(f"A brave, {player.height}, {player.sex} sits upon the throne as Lord of {Fore.LIGHTMAGENTA_EX}Pythonia{Style.RESET_ALL}.")
+    print(f"A brave, {Fore.BLUE}{player.height}{Style.RESET_ALL}, {Fore.BLUE}{player.sex}{Style.RESET_ALL} sits upon the throne as Lord of {Fore.LIGHTMAGENTA_EX}Pythonia{Style.RESET_ALL}.")
     press_enter_to_continue()
-    print("""Years pass in relative peace. 
+    print(f"""Years pass in relative peace. 
 
     Initially you rule fairly, but you feel unexplainable change over time.
     
-    'The people must know their place' you hear as a whisper in the air.""")
+    {Fore.RED}{Style.BRIGHT}'The people must know their place'{Style.RESET_ALL} you hear as a whisper in the air.""")
     press_enter_to_continue()
     print("""As Lord:
 
@@ -678,21 +678,21 @@ def concluding_dialogue(player):
     press_enter_to_continue()
     print(f"How long has it been since you took {Fore.CYAN}The Castle{Style.RESET_ALL}? Decades? You can't remember.")
     press_enter_to_continue()
-    print("A spike of terror runs through you as you catch a glimpse of The Beast Lord.")
+    print(f"A spike of terror runs through you as you catch a glimpse of {Fore.RED}{Style.BRIGHT}The Beast Lord{Style.RESET_ALL}.")
     print("You leap with teeth bared toward the spot where you saw your old enemy.")
     print("\nIt's a broken mirror.\n")
     print("You see the beastly reflection of your jagged teeth and knifelike fingernails.")
     print("\nYou realise what you have become...")
     press_enter_to_continue()
     print("The doors of your throne room burst open.")
-    print(f"""A brave, {player.height}, {player.sex} rushes in and exclaims:
+    print(f"""A brave, {Fore.BLUE}{player.height}{Style.RESET_ALL}, {Fore.BLUE}{player.sex}{Style.RESET_ALL} rushes in and exclaims:
     
-    'Your reign of evil ends now Beast Lord!'""")
-    print("A more human part of you deep down almost starts to laugh.")
+    {Fore.LIGHTWHITE_EX}{Style.BRIGHT}'Your reign of evil ends now{Style.RESET_ALL} {Fore.RED}{Style.BRIGHT}Beast Lord{Style.RESET_ALL}{Fore.LIGHTWHITE_EX}{Style.BRIGHT}!'""")
+    print("\nA more human part of you deep down almost starts to laugh.")
     print("But the influence of the beast drowns that out.")
     print("Involuntarily you begin the speech.")
-    print("""
-    'A brave fool comes to claim my throne?!
+    print(f"""
+    {Fore.RED}{Style.BRIGHT}'A brave fool comes to claim my throne?!
     Do you think you are worthy, mortal?'""")
     print("\n...")
     press_enter_to_continue()
