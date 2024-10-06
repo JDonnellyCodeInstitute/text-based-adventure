@@ -118,7 +118,7 @@ def game_over(player):
             print("Thanks for playing!")
             sys.exit()
         else:
-            print("Invalid input, please type 'yes' or 'no'.")
+            print(Fore.RED + "Invalid input, please type 'yes' or 'no'.")
 
 def restart_game(player=None):
     """
@@ -127,7 +127,7 @@ def restart_game(player=None):
     while True:
         restart_choice = get_input_with_length("Do you want to restart with the same character? (yes/new): \n").lower()
         if restart_choice == "yes":
-            print(f"Restarting with {player.name}.")
+            print(f"Restarting with {Fore.BLUE}{player.name}{Style.RESET_ALL}.")
             print("Proceeding to the tavern...")
             press_enter_to_continue()
             tavern(player)
@@ -137,7 +137,7 @@ def restart_game(player=None):
             tavern(player)
             break
         else:
-            print("Invalid input, please type 'yes' or 'new'.")
+            print(Fore.RED + "Invalid input, please type 'yes' or 'new'.")
 
 def save_player_stats(player):
     """
@@ -165,22 +165,22 @@ def game_over_stats(player):
     """
     Display user inputs and statistics at end of game
     """
-    print(f"--- Player Stats ---")
-    print(f"Name: {player.name}")
-    print(f"Height: {player.height}")
-    print(f"Sex: {player.sex}")
-    print(f"Gold: {player.gold} pieces")
-    print(f"Ales Drank: {player.ales_drank}")
-    print(f"Dice Wins: {player.dice_wins}")
-    print(f"Dice Losses: {player.dice_losses}")
-    print(f"Coin Wins: {player.coin_wins}")
-    print(f"Coin Losses: {player.coin_losses}")
-    print(f"Guard Bribed: {player.guard_bribed}")
-    print(f"Riddles Correct: {player.riddles_correct}")
-    print(f"Riddles Incorrect: {player.riddles_incorrect}")
-    print(f"Rock-Paper-Scissors Won: {player.rps_won}")
-    print(f"Rock-Paper-Scissors Lost: {player.rps_lost}")
-    print("---------------------")
+    print(Fore.BLUE + "--- Player Stats ---")
+    print(Fore.BLUE + f"Name: {player.name}")
+    print(Fore.BLUE + f"Height: {player.height}")
+    print(Fore.BLUE + f"Sex: {player.sex}")
+    print(Fore.BLUE + f"Gold: {player.gold} pieces")
+    print(Fore.BLUE + f"Ales Drank: {player.ales_drank}")
+    print(Fore.BLUE + f"Dice Wins: {player.dice_wins}")
+    print(Fore.BLUE + f"Dice Losses: {player.dice_losses}")
+    print(Fore.BLUE + f"Coin Wins: {player.coin_wins}")
+    print(Fore.BLUE + f"Coin Losses: {player.coin_losses}")
+    print(Fore.BLUE + f"Guard Bribed: {player.guard_bribed}")
+    print(Fore.BLUE + f"Riddles Correct: {player.riddles_correct}")
+    print(Fore.BLUE + f"Riddles Incorrect: {player.riddles_incorrect}")
+    print(Fore.BLUE + f"Rock-Paper-Scissors Won: {player.rps_won}")
+    print(Fore.BLUE + f"Rock-Paper-Scissors Lost: {player.rps_lost}")
+    print(Fore.BLUE + "---------------------")
 
 # Simple pacing function to improve the user experience
 def press_enter_to_continue():
@@ -204,15 +204,15 @@ def intro():
     Method that combines player creation, stat-display and call to
     adventure to start the game
     """
-    print("""
-    Welcome intrepid adventurer! And say 'Hello World!' to the world
-    of Pythonia! You, a daring youth in search of your fortune,
-    may one day soon be asked to answer the call to adventure.
+    print(f"""
+    Welcome intrepid adventurer! And say '{Fore.LIGHTGREEN_EX}Hello World!{Style.RESET_ALL}' to the world
+    of {Fore.LIGHTMAGENTA_EX}Pythonia{Style.RESET_ALL}! You, a daring youth in search of your fortune,
+    may one day soon be asked to answer {Fore.CYAN}The Call to Adventure{Style.RESET_ALL}.
     
-    Off in distant lands riches and danger await. In Pythonia,
+    Off in distant lands riches and danger await. In {Fore.LIGHTMAGENTA_EX}Pythonia{Style.RESET_ALL},
     bravery, wit, and a little bit of luck will determine your fate. 
     
-    A treasure lies hidden in the depths of a haunted castle,
+    A treasure lies hidden in the depths of a {Fore.CYAN}Haunted Castle{Style.RESET_ALL},
     but only those strong enough to overcome the challenges may claim it.
 
     First, let's get to know who are you, and what you look like?
@@ -220,7 +220,8 @@ def intro():
     player = Player("", "", "").create_player()
     player.show_stats()
     if call_to_adventure(player):
-        print("Proceeding to the tavern...")
+        print(f"Proceeding to {Fore.CYAN}The Tavern...{Style.RESET_ALL}")
+        press_enter_to_continue()
     else:
         game_over(player)
 
@@ -231,32 +232,32 @@ def call_to_adventure(player):
     Presents the player with the call to adventure.
     """
     print(f"""
-    A mysterious figure approaches you as you rest by the fire.
-    "{player.name}, I have been watching you. You seem like someone
+    A {Fore.LIGHTBLUE_EX}Mysterious Figure{Style.RESET_ALL} approaches you as you rest by the fire.
+    "{Fore.BLUE}{player.name}{Style.RESET_ALL}{Fore.LIGHTBLUE_EX}, I have been watching you. You seem like someone
     destined for great things. 
     
-    It is prophecied that a brave, {player.height}, {player.sex} like
-    you will some day make it to the Beast Lord's castle 
-    and end his tyrannous reign. 
+    It is prophecied that a brave,{Style.RESET_ALL} {Fore.BLUE}{player.height}{Style.RESET_ALL}, {Fore.BLUE}{player.sex}{Style.RESET_ALL} {Fore.LIGHTBLUE_EX}like
+    you will some day make it to the{Style.RESET_ALL} {Fore.RED}{Style.BRIGHT}Beast Lord{Style.RESET_ALL}{Fore.LIGHTBLUE_EX}'s{Style.RESET_ALL} {Fore.CYAN}Castle{Style.RESET_ALL} 
+    {Fore.LIGHTBLUE_EX}and end his tyrannous reign. 
     
-    I can guide you to a tavern frequented by smugglers and
-    mercenaries who know ways of entering the castle.
+    I can guide you to a{Style.RESET_ALL} {Fore.CYAN}Tavern{Style.RESET_ALL} {Fore.LIGHTBLUE_EX}frequented by smugglers and
+    mercenaries who know ways of entering{Style.RESET_ALL} {Fore.CYAN}The Castle{Style.RESET_ALL}{Fore.LIGHTBLUE_EX}.
     
-    However, you first must make the choice. Will you answer the call 
-    to adventure, claim untold riches, and liberate the people of 
-    Pythonia or will you sit here by the fire and live a quiet life?"
+    However, you first must make the choice. Will you answer{Style.RESET_ALL} {Fore.CYAN}The Call 
+    To Adventure{Style.RESET_ALL}{Fore.LIGHTBLUE_EX}, claim untold riches, and liberate the people of{Style.RESET_ALL} 
+    {Fore.LIGHTMAGENTA_EX}Pythonia{Style.RESET_ALL} {Fore.LIGHTBLUE_EX}or will you sit here by the fire and live a quiet life?"
     """)
 
     while True:
-        choice = get_input_with_length("Do you accept the call to adventure? (yes/no): \n").lower()
+        choice = get_input_with_length(f"Do you accept {Fore.CYAN}The Call to Adventure{Style.RESET_ALL}? (yes/no): \n").lower()
         if choice == "yes":
-            print(f"\nBrave {player.name}, you will now begin your adventure!\n")
+            print(f"\nBrave {Fore.BLUE}{player.name}{Style.RESET_ALL}, you will now begin your adventure!\n")
             return True
         elif choice == "no":
-            print(f"\n{player.name} chooses a quiet life by the fire.\n")
+            print(f"\n{Fore.BLUE}{player.name}{Style.RESET_ALL} chooses a quiet life by the fire.\n")
             return False
         else:
-            print("Invalid input, please type 'yes' or 'no'.")
+            print(f"{Fore.RED}Invalid input, please type 'yes' or 'no'.")
 
 # Tavern Section
 def tavern(player):
@@ -662,7 +663,7 @@ def concluding_dialogue(player):
     Story Conclusion
     """
     print("Countless treasures are yours. The prophecy is fulfilled.") 
-    print(f"A brave, {player.height}, {player.sex} sits upon the throne as Lord of Pythonia.")
+    print(f"A brave, {player.height}, {player.sex} sits upon the throne as Lord of {Fore.LIGHTMAGENTA_EX}Pythonia{Style.RESET_ALL}.")
     press_enter_to_continue()
     print("""Years pass in relative peace. 
 
