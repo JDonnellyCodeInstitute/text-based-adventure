@@ -54,7 +54,7 @@ class Player:
         """
         Display user inputs and amount of gold
         """
-        print(Fore.LIGHTBLUE_EX + Style.BRIGHT + f"Name: {self.name}")
+        print(Fore.LIGHTBLUE_EX + Style.BRIGHT + f"\nName: {self.name}")
         print(Fore.LIGHTBLUE_EX + Style.BRIGHT + f"Height: {self.height}")
         print(Fore.LIGHTBLUE_EX + Style.BRIGHT + f"Sex: {self.sex}")
         print(Fore.LIGHTBLUE_EX + Style.BRIGHT + f"Gold: {self.gold} pieces")
@@ -130,8 +130,8 @@ def restart_game(player=None):
         restart_choice = get_input_with_length("Do you want to restart with the same character? (yes/new): \n").lower()
         if restart_choice == "yes":
             player.restarts += 1
-            print(f"Restarting with {Fore.LIGHTBLUE_EX}{Style.BRIGHT}{player.name}{Style.RESET_ALL}.")
-            print(f"Proceeding to {Fore.CYAN}{Style.BRIGHT}The Tavern...{Style.RESET_ALL}")
+            print(f"\nRestarting with {Fore.LIGHTBLUE_EX}{Style.BRIGHT}{player.name}{Style.RESET_ALL}.")
+            print(f"\nProceeding to {Fore.CYAN}{Style.BRIGHT}The Tavern...{Style.RESET_ALL}")
             press_enter_to_continue()
             tavern(player)
             break
@@ -192,7 +192,7 @@ def press_enter_to_continue():
     get_input_with_length("\nPress Enter to continue...\n")
 
 # Control to stop inputs that are too long
-def get_input_with_length(prompt, max_length=25):
+def get_input_with_length(prompt, max_length=10):
     """
     Prompts user for input and ensures the input does not exceed the max length
     """
@@ -318,7 +318,7 @@ def tavern_options(player):
             if not player.heard_info:
                 player.heard_info = listen_for_treasure_info(player)
             else:
-                print("You've already heard about the treasure.")
+                print("\nYou've already heard about the treasure.\n")
         elif choice == "5":
             if player.heard_info:
                 print(f"\n{Fore.LIGHTBLUE_EX}{Style.BRIGHT}{player.name}{Style.RESET_ALL} decides to head for {Fore.CYAN}{Style.BRIGHT}The Castle{Style.RESET_ALL}!")
@@ -376,11 +376,11 @@ def dice_game(player, bet):
     """
     Handle the dice game logic where the player rolls against the tavern keeper.
     """
-    print(f"You challenge the {Fore.LIGHTGREEN_EX}Tavern Keeper{Style.RESET_ALL} to a game of {Fore.CYAN}{Style.BRIGHT}dice{Style.RESET_ALL}.") 
-    print("If you roll higher you win.")
+    print(f"\nYou challenge the {Fore.LIGHTGREEN_EX}Tavern Keeper{Style.RESET_ALL} to a game of {Fore.CYAN}{Style.BRIGHT}dice{Style.RESET_ALL}.") 
+    print("\nIf you roll higher you win.")
     player_roll = random.randint(1, 6)
     keeper_roll = random.randint(1, 6)
-    print(f'You rolled {player_roll}, the {Fore.LIGHTGREEN_EX}Tavern Keeper{Style.RESET_ALL} rolled {keeper_roll}.')
+    print(f'\nYou rolled {player_roll}, the {Fore.LIGHTGREEN_EX}Tavern Keeper{Style.RESET_ALL} rolled {keeper_roll}.')
     
     if player_roll > keeper_roll:
         player.gold += bet
@@ -529,7 +529,7 @@ def secret_passageway(player):
     Describes the player's journey into the secret passageway
     leading to a confrontation with a troll.
     """
-    print(f"{Fore.LIGHTBLUE_EX}{Style.BRIGHT}{player.name}{Style.RESET_ALL} sneaks into the shadows and locates {Fore.CYAN}{Style.BRIGHT}The Secret Passageway{Style.RESET_ALL} on the east side.")
+    print(f"You sneak into the shadows and find {Fore.CYAN}{Style.BRIGHT}The Secret Passageway{Style.RESET_ALL} on the east side.")
     print("You find a narrow, dark passageway that seems to spiral downward into the earth.")
     print("The air grows colder and damper as you descend.")
     print("Suddenly, a booming voice echoes in the darkness...\n")
@@ -658,7 +658,8 @@ def rps_battle(player):
     else:
         print(f"\n{Fore.RED}{Style.BRIGHT}The Beast Lord{Style.RESET_ALL} cackles triumphantly. {Fore.RED}You have been defeated.")
         press_enter_to_continue()
-        print(f"{Fore.RED}A chill creeps up your spine as your soul is severed from your body.\n")
+        print(f"{Fore.RED}A chill creeps up your spine as your soul is severed from your body.")
+        press_enter_to_continue()
         game_over(player)
 
 def concluding_dialogue(player):
