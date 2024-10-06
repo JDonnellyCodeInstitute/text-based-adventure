@@ -130,6 +130,7 @@ def restart_game(player=None):
         restart_choice = get_input_with_length("Do you want to restart with the same character? (yes/new): \n").lower()
         if restart_choice == "yes":
             player.restarts += 1
+            player.gold = 10
             print(f"\nRestarting with {Fore.LIGHTBLUE_EX}{Style.BRIGHT}{player.name}{Style.RESET_ALL}.")
             print(f"\nProceeding to {Fore.CYAN}{Style.BRIGHT}The Tavern...{Style.RESET_ALL}")
             press_enter_to_continue()
@@ -242,7 +243,7 @@ def call_to_adventure(player):
     {Fore.LIGHTCYAN_EX}"{Style.RESET_ALL}{Fore.LIGHTBLUE_EX}{Style.BRIGHT}{player.name}{Style.RESET_ALL}{Fore.LIGHTCYAN_EX}, I have been watching you. You seem like someone
     destined for great things. 
     
-    It is prophecied that a brave,{Style.RESET_ALL} {Fore.LIGHTBLUE_EX}{Style.BRIGHT}{player.height}{Style.RESET_ALL}, {Fore.LIGHTBLUE_EX}{Style.BRIGHT}{player.sex}{Style.RESET_ALL} {Fore.LIGHTCYAN_EX}like
+    It is prophecied that a brave,{Style.RESET_ALL} {Fore.LIGHTBLUE_EX}{Style.BRIGHT}{player.height}{Style.RESET_ALL}{Fore.LIGHTCYAN_EX},{Style.RESET_ALL} {Fore.LIGHTBLUE_EX}{Style.BRIGHT}{player.sex}{Style.RESET_ALL} {Fore.LIGHTCYAN_EX}like
     you will some day make it to the{Style.RESET_ALL} {Fore.RED}{Style.BRIGHT}Beast Lord{Style.RESET_ALL}{Fore.LIGHTCYAN_EX}'s{Style.RESET_ALL} {Fore.CYAN}{Style.BRIGHT}Castle{Style.RESET_ALL} 
     {Fore.LIGHTCYAN_EX}and end his tyrannous reign. 
     
@@ -260,7 +261,7 @@ def call_to_adventure(player):
             print(f"\nBrave {Fore.LIGHTBLUE_EX}{Style.BRIGHT}{player.name}{Style.RESET_ALL}, you will now begin your adventure!\n")
             return True
         elif choice == "no":
-            print(f"\n{Fore.LIGHTBLUE_EX}{Style.BRIGHT}{player.name}{Style.RESET_ALL} chooses a quiet life by the fire.\n")
+            print(f"\n{Fore.LIGHTBLUE_EX}{Style.BRIGHT}{player.name}{Style.RESET_ALL} chooses a quiet life by the fire.")
             return False
         else:
             print(f"{Fore.RED}Invalid input, please type 'yes' or 'no'.")
@@ -347,11 +348,11 @@ def bet_game(player, min_bet, game):
     """
     Handle betting on dice or coin flip, allowing the player to choose their bet.
     """
-    print("\nIn each game, if you win you earn what you staked. If not, you lose it.\n")
-
     if player.gold <= 0 | player.gold < min_bet:
-        print(f"You don't have enough gold ({Fore.LIGHTBLUE_EX}{Style.BRIGHT}{player.gold}{Style.RESET_ALL}) left to cover your {Fore.LIGHTBLUE_EX}{Style.BRIGHT}minimum bet{Style.RESET_ALL} ({Fore.LIGHTBLUE_EX}{Style.BRIGHT}{min_bet}{Style.RESET_ALL}). You can't place any bets.")
+        print(f"You don't have enough gold ({Fore.LIGHTBLUE_EX}{Style.BRIGHT}{player.gold}{Style.RESET_ALL}) left to cover your {Fore.LIGHTBLUE_EX}{Style.BRIGHT}minimum bet{Style.RESET_ALL} ({Fore.LIGHTBLUE_EX}{Style.BRIGHT}{min_bet}{Style.RESET_ALL}).\nYou can't place any bets.")
         return
+
+    print("\nIn each game, if you win you earn what you staked. If not, you lose it.\n")
 
     bet = get_bet(player, min_bet)
 
@@ -480,7 +481,7 @@ def guard_interaction(player):
             else:
                 print(f"{Fore.RED}Invalid input, please write 'y' or 'n'")
         else:
-            print(f"You nod curtly to the {Fore.LIGHTMAGENTA_EX}Guard{Style.RESET_ALL} and get out of his sight to search for {Fore.CYAN}{Style.BRIGHT}The Secret Passageway{Style.RESET_ALL}.\n")
+            print(f"You get out of sight of the {Fore.LIGHTMAGENTA_EX}Guard{Style.RESET_ALL} to search for {Fore.CYAN}{Style.BRIGHT}The Secret Passageway{Style.RESET_ALL}.")
             press_enter_to_continue()
             secret_entry_full_sequence(player)
 
@@ -578,7 +579,7 @@ def riddles_game(player):
         final_showdown(player)
     else:
         print(f"\nThe {Fore.LIGHTGREEN_EX}{Style.BRIGHT}Troll{Style.RESET_ALL} roars with laughter. {Fore.LIGHTGREEN_EX}{Style.BRIGHT}'You're too foolish to proceed!'{Style.RESET_ALL}")
-        print(f"{Fore.RED}The{Style.RESET_ALL} {Fore.LIGHTGREEN_EX}{Style.BRIGHT}Troll{Style.RESET_ALL} {Fore.RED}leaps, grabs, and gobbles you up whole. A belch echoes through the catacombs.\n")
+        print(f"{Fore.RED}The{Style.RESET_ALL} {Fore.LIGHTGREEN_EX}{Style.BRIGHT}Troll{Style.RESET_ALL} {Fore.RED}leaps, grabs, and gobbles you up whole. A belch echoes through the catacombs.")
         press_enter_to_continue()
         game_over(player)
 
@@ -658,7 +659,7 @@ def rps_battle(player):
         concluding_dialogue(player)
         game_over(player)
     else:
-        print(f"\n{Fore.RED}{Style.BRIGHT}The Beast Lord{Style.RESET_ALL} cackles triumphantly. {Fore.RED}You have been defeated.")
+        print(f"{Fore.RED}{Style.BRIGHT}The Beast Lord{Style.RESET_ALL} cackles triumphantly. {Fore.RED}You have been defeated.")
         press_enter_to_continue()
         print(f"{Fore.RED}A chill creeps up your spine as your soul is severed from your body.")
         press_enter_to_continue()
