@@ -53,10 +53,10 @@ class Player:
         """
         Display user inputs and amount of gold
         """
-        print(f"Name: {self.name}")
-        print(f"Height: {self.height}")
-        print(f"Sex: {self.sex}")
-        print(f"Gold: {self.gold} pieces")
+        print(Fore.BLUE + f"Name: {self.name}")
+        print(Fore.BLUE + f"Height: {self.height}")
+        print(Fore.BLUE + f"Sex: {self.sex}")
+        print(Fore.BLUE + f"Gold: {self.gold} pieces")
 
     def get_name(self):
         """
@@ -67,12 +67,11 @@ class Player:
             if name.isalpha():
                 return name
             else:
-                print("Invalid name, please use letters only")
+                print(Fore.RED + "Invalid name, please use letters only.")
 
     def get_height(self):
         """
-        Height validation to ensure users input only from the three
-        options
+        Height validation to ensure users input only from the three options
         """
         while True:
             valid_heights = ["tall", "short", "average"]
@@ -80,12 +79,11 @@ class Player:
             if height in valid_heights:
                 return height
             else:
-                print("Invalid height, please enter short, average or tall.")
+                print(Fore.RED + "Invalid height, please enter short, average or tall.")
 
     def get_sex(self):
         """
-        Sex validation to ensure users input only from the three
-        options
+        Sex validation to ensure users input only from the three options
         """
         while True:
             sexes = ["man", "woman", "other"]
@@ -93,7 +91,7 @@ class Player:
             if sex in sexes:
                 return sex
             else:
-                print("Invalid sex, please input male, female or other.")
+                print(Fore.RED + "Invalid sex, please input man, woman or other.")
 
     def create_player(self):
         player = Player("","","")
@@ -194,11 +192,11 @@ def get_input_with_length(prompt, max_length=25):
     Prompts user for input and ensures the input does not exceed the max length
     """
     while True:
-        user_input = input(prompt)
+        user_input = input(Fore.YELLOW + prompt)
         if len(user_input) <= max_length:
             return user_input
         else:
-            print(f"Input must be {max_length} characters or less. Please try again.")
+            print(Fore.RED + f"Input must be {max_length} characters or less. Please try again.")
 
 # Intro and call to adventure
 def intro():
