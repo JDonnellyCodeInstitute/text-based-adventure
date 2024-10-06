@@ -131,7 +131,7 @@ def restart_game(player=None):
         if restart_choice == "yes":
             player.restarts += 1
             print(f"Restarting with {Fore.LIGHTBLUE_EX}{Style.BRIGHT}{player.name}{Style.RESET_ALL}.")
-            print(f"Proceeding to {Fore.CYAN}{Style.BRIGHT}{Style.BRIGHT}The Tavern...{Style.RESET_ALL}")
+            print(f"Proceeding to {Fore.CYAN}{Style.BRIGHT}The Tavern...{Style.RESET_ALL}")
             press_enter_to_continue()
             tavern(player)
             break
@@ -211,13 +211,13 @@ def intro():
     """
     print(f"""
     Welcome intrepid adventurer! And say '{Fore.LIGHTGREEN_EX}Hello World!{Style.RESET_ALL}' to the world
-    of {Fore.MAGENTA}Pythonia{Style.RESET_ALL}! You, a daring youth in search of your fortune,
-    may one day soon be asked to answer {Fore.CYAN}{Style.BRIGHT}{Style.BRIGHT}The Call to Adventure{Style.RESET_ALL}.
+    of {Fore.MAGENTA}{Style.BRIGHT}Pythonia{Style.RESET_ALL}! You, a daring youth in search of your fortune,
+    may one day soon be asked to answer {Fore.CYAN}{Style.BRIGHT}The Call to Adventure{Style.RESET_ALL}.
     
-    Off in distant lands riches and danger await. In {Fore.MAGENTA}Pythonia{Style.RESET_ALL},
+    Off in distant lands riches and danger await. In {Fore.MAGENTA}{Style.BRIGHT}Pythonia{Style.RESET_ALL},
     bravery, wit, and a little bit of luck will determine your fate. 
     
-    A treasure lies hidden in the depths of a {Fore.CYAN}{Style.BRIGHT}{Style.BRIGHT}Haunted Castle{Style.RESET_ALL},
+    A treasure lies hidden in the depths of a {Fore.CYAN}{Style.BRIGHT}Haunted Castle{Style.RESET_ALL},
     but only those strong enough to overcome the challenges may claim it.
 
     First, let's get to know who are you, and what you look like?
@@ -225,7 +225,7 @@ def intro():
     player = Player("", "", "").create_player()
     player.show_stats()
     if call_to_adventure(player):
-        print(f"Proceeding to {Fore.CYAN}{Style.BRIGHT}{Style.BRIGHT}The Tavern...{Style.RESET_ALL}")
+        print(f"Proceeding to {Fore.CYAN}{Style.BRIGHT}The Tavern...{Style.RESET_ALL}")
         press_enter_to_continue()
     else:
         game_over(player)
@@ -242,15 +242,15 @@ def call_to_adventure(player):
     destined for great things. 
     
     It is prophecied that a brave,{Style.RESET_ALL} {Fore.LIGHTBLUE_EX}{Style.BRIGHT}{player.height}{Style.RESET_ALL}, {Fore.LIGHTBLUE_EX}{Style.BRIGHT}{player.sex}{Style.RESET_ALL} {Fore.LIGHTWHITE_EX}like
-    you will some day make it to the{Style.RESET_ALL} {Fore.RED}{Style.BRIGHT}Beast Lord{Style.RESET_ALL}{Fore.LIGHTWHITE_EX}'s{Style.RESET_ALL} {Fore.CYAN}{Style.BRIGHT}{Style.BRIGHT}Castle{Style.RESET_ALL} 
+    you will some day make it to the{Style.RESET_ALL} {Fore.RED}{Style.BRIGHT}Beast Lord{Style.RESET_ALL}{Fore.LIGHTWHITE_EX}'s{Style.RESET_ALL} {Fore.CYAN}{Style.BRIGHT}Castle{Style.RESET_ALL} 
     {Fore.LIGHTWHITE_EX}and end his tyrannous reign. 
     
-    I can guide you to a{Style.RESET_ALL} {Fore.CYAN}{Style.BRIGHT}{Style.BRIGHT}Tavern{Style.RESET_ALL} {Fore.LIGHTWHITE_EX}frequented by smugglers and
-    mercenaries who know ways of entering{Style.RESET_ALL} {Fore.CYAN}{Style.BRIGHT}{Style.BRIGHT}The Castle{Style.RESET_ALL}{Fore.LIGHTWHITE_EX}.
+    I can guide you to a{Style.RESET_ALL} {Fore.CYAN}{Style.BRIGHT}Tavern{Style.RESET_ALL} {Fore.LIGHTWHITE_EX}frequented by smugglers and
+    mercenaries who know ways of entering{Style.RESET_ALL} {Fore.CYAN}{Style.BRIGHT}The Castle{Style.RESET_ALL}{Fore.LIGHTWHITE_EX}.
     
     However, you first must make the choice. Will you answer{Style.RESET_ALL} {Fore.CYAN}{Style.BRIGHT}The Call 
     To Adventure{Style.RESET_ALL}{Fore.LIGHTWHITE_EX}, claim untold riches, and liberate the people of{Style.RESET_ALL} 
-    {Fore.MAGENTA}Pythonia{Style.RESET_ALL} {Fore.LIGHTWHITE_EX}or will you sit here by the fire and live a quiet life?"
+    {Fore.MAGENTA}{Style.BRIGHT}Pythonia{Style.RESET_ALL} {Fore.LIGHTWHITE_EX}or will you sit here by the fire and live a quiet life?"
     """)
 
     while True:
@@ -529,7 +529,7 @@ def secret_passageway(player):
     Describes the player's journey into the secret passageway
     leading to a confrontation with a troll.
     """
-    print(f"{Fore.LIGHTBLUE_EX}{Style.BRIGHT}{player.name}{Style.RESET_ALL} sneaks into the shadows and locates {Fore.CYAN}{Style.BRIGHT}{Style.BRIGHT}The Secret Passageway{Style.RESET_ALL} on the east side.")
+    print(f"{Fore.LIGHTBLUE_EX}{Style.BRIGHT}{player.name}{Style.RESET_ALL} sneaks into the shadows and locates {Fore.CYAN}{Style.BRIGHT}The Secret Passageway{Style.RESET_ALL} on the east side.")
     print("You find a narrow, dark passageway that seems to spiral downward into the earth.")
     print("The air grows colder and damper as you descend.")
     print("Suddenly, a booming voice echoes in the darkness...\n")
@@ -589,7 +589,7 @@ def beast_lord_speech():
     """
     The Beast Lord delivers a dramatic speech before the final challenge.
     """
-    print(f"You make your way into the heart of {Fore.CYAN}{Style.BRIGHT}{Style.BRIGHT}The Castle{Style.RESET_ALL} and approach the throne room.")
+    print(f"You make your way into the heart of {Fore.CYAN}{Style.BRIGHT}The Castle{Style.RESET_ALL} and approach the throne room.")
     print(f"\nThe great doors creak open, and there he stands - {Fore.RED}{Style.BRIGHT}The Beast Lord{Style.RESET_ALL}.")
     print(f"""
     A towering figure of shadow and flame. 
@@ -666,7 +666,7 @@ def concluding_dialogue(player):
     Story Conclusion
     """
     print("Countless treasures are yours. The prophecy is fulfilled.") 
-    print(f"A brave, {Fore.LIGHTBLUE_EX}{Style.BRIGHT}{player.height}{Style.RESET_ALL}, {Fore.LIGHTBLUE_EX}{Style.BRIGHT}{player.sex}{Style.RESET_ALL} sits upon the throne as Lord of {Fore.MAGENTA}Pythonia{Style.RESET_ALL}.")
+    print(f"A brave, {Fore.LIGHTBLUE_EX}{Style.BRIGHT}{player.height}{Style.RESET_ALL}, {Fore.LIGHTBLUE_EX}{Style.BRIGHT}{player.sex}{Style.RESET_ALL} sits upon the throne as Lord of {Fore.MAGENTA}{Style.BRIGHT}Pythonia{Style.RESET_ALL}.")
     press_enter_to_continue()
     print(f"""Years pass in relative peace. 
 
