@@ -237,20 +237,20 @@ def call_to_adventure(player):
     Presents the player with the call to adventure.
     """
     print(f"""
-    A {Fore.LIGHTWHITE_EX}Mysterious Stranger{Style.RESET_ALL} approaches you as you rest by the fire.
-    {Fore.LIGHTWHITE_EX}"{Style.RESET_ALL}{Fore.LIGHTBLUE_EX}{Style.BRIGHT}{player.name}{Style.RESET_ALL}{Fore.LIGHTWHITE_EX}, I have been watching you. You seem like someone
+    A {Fore.LIGHTBLACK_EX}{Style.BRIGHT}Mysterious Stranger{Style.RESET_ALL} approaches you as you rest by the fire.
+    {Fore.LIGHTBLACK_EX}{Style.BRIGHT}"{Style.RESET_ALL}{Fore.LIGHTBLUE_EX}{Style.BRIGHT}{player.name}{Style.RESET_ALL}{Fore.LIGHTBLACK_EX}{Style.BRIGHT}, I have been watching you. You seem like someone
     destined for great things. 
     
-    It is prophecied that a brave,{Style.RESET_ALL} {Fore.LIGHTBLUE_EX}{Style.BRIGHT}{player.height}{Style.RESET_ALL}, {Fore.LIGHTBLUE_EX}{Style.BRIGHT}{player.sex}{Style.RESET_ALL} {Fore.LIGHTWHITE_EX}like
-    you will some day make it to the{Style.RESET_ALL} {Fore.RED}{Style.BRIGHT}Beast Lord{Style.RESET_ALL}{Fore.LIGHTWHITE_EX}'s{Style.RESET_ALL} {Fore.CYAN}{Style.BRIGHT}Castle{Style.RESET_ALL} 
-    {Fore.LIGHTWHITE_EX}and end his tyrannous reign. 
+    It is prophecied that a brave,{Style.RESET_ALL} {Fore.LIGHTBLUE_EX}{Style.BRIGHT}{player.height}{Style.RESET_ALL}, {Fore.LIGHTBLUE_EX}{Style.BRIGHT}{player.sex}{Style.RESET_ALL} {Fore.LIGHTBLACK_EX}{Style.BRIGHT}like
+    you will some day make it to the{Style.RESET_ALL} {Fore.RED}{Style.BRIGHT}Beast Lord{Style.RESET_ALL}{Fore.LIGHTBLACK_EX}{Style.BRIGHT}'s{Style.RESET_ALL} {Fore.CYAN}{Style.BRIGHT}Castle{Style.RESET_ALL} 
+    {Fore.LIGHTBLACK_EX}{Style.BRIGHT}and end his tyrannous reign. 
     
-    I can guide you to a{Style.RESET_ALL} {Fore.CYAN}{Style.BRIGHT}Tavern{Style.RESET_ALL} {Fore.LIGHTWHITE_EX}frequented by smugglers and
-    mercenaries who know ways of entering{Style.RESET_ALL} {Fore.CYAN}{Style.BRIGHT}The Castle{Style.RESET_ALL}{Fore.LIGHTWHITE_EX}.
+    I can guide you to a{Style.RESET_ALL} {Fore.CYAN}{Style.BRIGHT}Tavern{Style.RESET_ALL} {Fore.LIGHTBLACK_EX}{Style.BRIGHT}frequented by smugglers and
+    mercenaries who know ways of entering{Style.RESET_ALL} {Fore.CYAN}{Style.BRIGHT}The Castle{Style.RESET_ALL}{Fore.LIGHTBLACK_EX}{Style.BRIGHT}.
     
     However, you first must make the choice. Will you answer{Style.RESET_ALL} {Fore.CYAN}{Style.BRIGHT}The Call 
-    To Adventure{Style.RESET_ALL}{Fore.LIGHTWHITE_EX}, claim untold riches, and liberate the people of{Style.RESET_ALL} 
-    {Fore.MAGENTA}{Style.BRIGHT}Pythonia{Style.RESET_ALL} {Fore.LIGHTWHITE_EX}or will you sit here by the fire and live a quiet life?"
+    To Adventure{Style.RESET_ALL}{Fore.LIGHTBLACK_EX}{Style.BRIGHT}, claim untold riches, and liberate the people of{Style.RESET_ALL} 
+    {Fore.MAGENTA}{Style.BRIGHT}Pythonia{Style.RESET_ALL} {Fore.LIGHTBLACK_EX}{Style.BRIGHT}or will you sit here by the fire and live a quiet life?"
     """)
 
     while True:
@@ -273,13 +273,13 @@ def tavern(player):
     tavern_options(player)
     
 def initial_dialogue_tavern(player):
-    print(f"""The {Fore.LIGHTWHITE_EX}Mysterious Stranger{Style.RESET_ALL} leads you to a murky {Fore.CYAN}{Style.BRIGHT}Tavern{Style.RESET_ALL}.\n
+    print(f"""The {Fore.LIGHTBLACK_EX}{Style.BRIGHT}Mysterious Stranger{Style.RESET_ALL} leads you to a murky {Fore.CYAN}{Style.BRIGHT}Tavern{Style.RESET_ALL}.\n
     As you approach you hear raucous laughter and the door swings open.
     A rotten drunk, mostly toothless, sailor is being dragged by
     the scruff of the neck and thrown out the door.
     
     {Fore.LIGHTGREEN_EX}'And STAY OUT!'{Style.RESET_ALL} shouts the {Fore.LIGHTGREEN_EX}Tavern Keeper{Style.RESET_ALL} as he notices you and the
-    {Fore.LIGHTWHITE_EX}Mysterious Stranger{Style.RESET_ALL}.\n""")
+    {Fore.LIGHTBLACK_EX}{Style.BRIGHT}Mysterious Stranger{Style.RESET_ALL}.\n""")
     if player.height == "short":
         print(f"{Fore.LIGHTGREEN_EX}'Awoite{Style.RESET_ALL} {Fore.LIGHTBLUE_EX}{Style.BRIGHT}shortarse{Style.RESET_ALL}{Fore.LIGHTGREEN_EX}, in or out. Same goes for your creepy mate.'")
     elif player.height == "tall":
@@ -287,7 +287,7 @@ def initial_dialogue_tavern(player):
     elif player.height == "average":
         print(f"{Fore.LIGHTGREEN_EX}'Awoite{Style.RESET_ALL} {Fore.LIGHTBLUE_EX}{Style.BRIGHT}average Joe{Style.RESET_ALL}{Fore.LIGHTGREEN_EX}, in or out. Same goes for your creepy mate.'")
     
-    print(f"\nThe {Fore.LIGHTWHITE_EX}Mysterious Stranger{Style.RESET_ALL} bows, wishes you luck, and takes his leave.\n")
+    print(f"\nThe {Fore.LIGHTBLACK_EX}{Style.BRIGHT}Mysterious Stranger{Style.RESET_ALL} bows, wishes you luck, and takes his leave.\n")
     print(f"You enter {Fore.CYAN}{Style.BRIGHT}The Tavern...{Style.RESET_ALL}")
     press_enter_to_continue()
 
