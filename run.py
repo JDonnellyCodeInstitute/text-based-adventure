@@ -47,6 +47,7 @@ class Player:
         self.riddles_incorrect = 0 
         self.rps_won = 0  
         self.rps_lost = 0 
+        self.restarts = 0
 
 #player data manipulation
     def show_stats(self):
@@ -125,8 +126,10 @@ def restart_game(player=None):
     Handle restarting the game with the same or new character
     """
     while True:
+        player.heard_info = False
         restart_choice = get_input_with_length("Do you want to restart with the same character? (yes/new): \n").lower()
         if restart_choice == "yes":
+            player.restarts += 1
             print(f"Restarting with {Fore.BLUE}{player.name}{Style.RESET_ALL}.")
             print(f"Proceeding to {Fore.CYAN}The Tavern...{Style.RESET_ALL}")
             press_enter_to_continue()
@@ -157,7 +160,8 @@ def save_player_stats(player):
         player.riddles_correct, 
         player.riddles_incorrect, 
         player.rps_won,      
-        player.rps_lost      
+        player.rps_lost,
+        player.restarts      
     ]
     adventurer.append_row(data)
 
@@ -180,6 +184,7 @@ def game_over_stats(player):
     print(Fore.BLUE + f"Riddles Incorrect: {player.riddles_incorrect}")
     print(Fore.BLUE + f"Rock-Paper-Scissors Won: {player.rps_won}")
     print(Fore.BLUE + f"Rock-Paper-Scissors Lost: {player.rps_lost}")
+    print(Fore.BLUE + f"Restarts: {player.restarts}")
     print(Fore.BLUE + "---------------------")
 
 # Simple pacing function to improve the user experience
