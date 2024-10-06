@@ -228,6 +228,7 @@ def intro():
         print(f"Proceeding to {Fore.CYAN}{Style.BRIGHT}The Tavern...{Style.RESET_ALL}")
         press_enter_to_continue()
     else:
+        press_enter_to_continue()
         game_over(player)
 
     return player
@@ -578,6 +579,7 @@ def riddles_game(player):
     else:
         print(f"\nThe {Fore.LIGHTGREEN_EX}{Style.BRIGHT}Troll{Style.RESET_ALL} roars with laughter. {Fore.LIGHTGREEN_EX}{Style.BRIGHT}'You're too foolish to proceed!'{Style.RESET_ALL}")
         print(f"{Fore.RED}The{Style.RESET_ALL} {Fore.LIGHTGREEN_EX}{Style.BRIGHT}Troll{Style.RESET_ALL} {Fore.RED}leaps, grabs, and gobbles you up whole. A belch echoes through the catacombs.\n")
+        press_enter_to_continue()
         game_over(player)
 
 # Final Showdown in the castle
