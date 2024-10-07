@@ -82,7 +82,7 @@ class Player:
             if height in valid_heights:
                 return height
             else:
-                print(Fore.RED + "Either short, average or tall.")
+                print(Fore.RED + "Input short, average or tall.")
 
     def get_sex(self):
         """
@@ -281,8 +281,9 @@ def call_to_adventure(player):
     Presents the player with the call to adventure.
     """
     print(f"""
-A mysterious stranger approaches you as you rest by the fire.
-{Fore.LIGHTCYAN_EX}
+As you rest by the fire you are approached by a
+{Fore.LIGHTCYAN_EX}Mysterious Stranger
+
 'Brave {player.name}, I have been watching you.
 You seem like someone destined for great things.
 
@@ -453,7 +454,7 @@ def dice_game(player, bet):
     """
     Handle the dice game logic where the player rolls against the Innkeeper.
     """
-    print(f"""
+    print("""
 You challenge the Innkeeper to a game of dice.
 """)
     print("If you roll higher you win.")
@@ -475,7 +476,8 @@ You now have {player.gold} gold pieces.""")
     else:
         player.gold -= bet
         player.dice_losses += 1
-        print(f"""{Fore.RED}You lose {bet} gold!{Style.RESET_ALL}
+        print(f"""
+{Fore.RED}You lose {bet} gold!{Style.RESET_ALL}
 
 You now have {player.gold} gold pieces.""")
         press_enter_to_continue()
@@ -485,9 +487,8 @@ def coin_flip_game(player, bet):
     """
     Handle the coin flip game where the player calls heads or tails.
     """
-    print(f"""
-You bet the Innkeeper that you can call a coin toss.
-""")
+    print("""
+You bet the Innkeeper that you can call a coin toss.""")
 
     while True:
         call = get_input_with_length("""
@@ -506,13 +507,15 @@ Call the coin flip! (heads or tails):
         player.coin_wins += 1
         print(f"""
 {Fore.GREEN}{Style.BRIGHT}You win {bet} gold!{Style.RESET_ALL}
+
 You now have {player.gold} gold pieces.""")
         press_enter_to_continue()
     else:
         player.gold -= bet
         player.coin_losses += 1
         print(f"""
-\n{Fore.RED}You lose {bet} gold!{Style.RESET_ALL}
+{Fore.RED}You lose {bet} gold!{Style.RESET_ALL}
+
 You now have {player.gold} gold pieces.""")
         press_enter_to_continue()
 
@@ -526,15 +529,15 @@ You overhear a {Fore.LIGHTYELLOW_EX}Drunken Smuggler{Style.RESET_ALL}
 talking about {Fore.RED}{Style.BRIGHT}The Beast Lord's Castle{Style.RESET_ALL}.
 
 {Fore.LIGHTYELLOW_EX}*Hiccup* 'That bloody Guard!' *Hiccup*
-'I tell ya, he's got some bloody gaul!'
-'Trying to take me for 30 pieces!? Pah!'
-'Doesn't he know...
+'I tell ya, he's got some bloody gaul!
+Trying to take me for 30 pieces!? Pah!
+Doesn't he know...
 that I know...
 which he don't know...
 but I do that there's...'""")
     print("\nThe smuggler takes a moment to belch loudly.")
-    print(f"""
-{Fore.LIGHTYELLOW_EX}'A bloody Secret Passageway!
+    print(f"""{Fore.LIGHTYELLOW_EX}
+'A bloody Secret Passageway!
 In the shadows to the east side of The Castle!'
 'Shhhh!' *Hiccup* 'Trade secret that is!'""")
     print("He shouts, seemingly to himself.")
@@ -612,7 +615,7 @@ def handle_insufficient_gold(player):
     print(f"\nYou have {player.gold} gold and can't afford the bribe.")
     print(f"""
 {Fore.LIGHTMAGENTA_EX}'Watchu wasting my time for then pillock.
-Sling yer hook.'\n""")
+Sling yer hook.'""")
 
     if player.gold > 0:
         # If player has gold left they can return to the tavern to make more
@@ -662,8 +665,8 @@ def initial_dialogue_guard(player):
     """
     Starting dialogue with guard
     """
-    print(f"""
-You spot a {Fore.LIGHTMAGENTA_EX}Guard{Style.RESET_ALL} posted at the gate.
+    print(f"""As you approach the castle you spot a solitary
+{Fore.LIGHTMAGENTA_EX}Guard{Style.RESET_ALL} posted at the gate.
 """)
     print("His head droops as he appears on the verge of nodding off.")
     print("A branch breaks under your foot and he jolts awake.")
