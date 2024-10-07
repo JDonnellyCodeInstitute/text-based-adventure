@@ -383,7 +383,8 @@ def tavern_options(player):
             if not player.heard_info:
                 player.heard_info = listen_for_treasure_info(player)
             else:
-                print("\nYou've already heard about the treasure.\n")
+                print("\nYou've already heard about the treasure.")
+                press_enter_to_continue()
         elif choice == "5":
             if player.heard_info:
                 print(f"""
@@ -395,7 +396,7 @@ You head for {Fore.CYAN}The Castle{Style.RESET_ALL}!""")
                 print("\nYou need to gather information first.")
                 press_enter_to_continue()
         else:
-            print("Invalid option, please choose 1-5.")
+            print(f"{Fore.RED}Invalid option, please choose 1-5.")
 
 
 def drink_ale(player, min_bet):
@@ -418,8 +419,8 @@ def bet_game(player, min_bet, game):
     # Blocker so player can't attempt to bet with no gold
     if player.gold <= 0 | player.gold < min_bet:
         print(f"""
-\nNot enough gold ({player.gold}) to cover your min bet ({min_bet}).""")
-        print("\nYou can't place any bets.\n")
+Not enough gold ({player.gold}) to cover your min bet ({min_bet}).""")
+        print("\nYou can't place any bets.")
         press_enter_to_continue()
         return
 
@@ -564,15 +565,15 @@ def handle_guard_bribe(player):
     bribe_required = 30
     if player.gold >= bribe_required:
         while True:  # While loop to fix Game Over logic
-            give_bribe = get_input_with_length(f"""
-You have {player.gold} gold.
+            give_bribe = get_input_with_length(f"""You have {player.gold} gold.
+
 Bribe {Fore.LIGHTMAGENTA_EX}Guard{Style.RESET_ALL}?
 (yes / no): \n""").lower()
             if give_bribe == "yes":
                 process_bribe(player)
                 break
             elif give_bribe == "no":
-                reject_bribe()
+                reject_bribe(player)
                 break
             else:
                 print(f"{Fore.RED}Invalid input, please write yes or no.")
@@ -585,6 +586,8 @@ def process_bribe(player):
     Process the player's successful bribe of the guard.
     """
     player.guard_bribed += 1
+    player.gold -= 30
+    print(f"\nYou now have {player.gold} gold.")
     print(f"""
 {Fore.LIGHTMAGENTA_EX}'Pleasure doing business wif ya. Now move along.
 Before I change my mind.'""")
@@ -623,7 +626,7 @@ Sling yer hook.'""")
     else:
         print(f"""
 You get out of sight of the {Fore.LIGHTMAGENTA_EX}Guard{Style.RESET_ALL}
-to search for The Secret Passageway.""")
+to search for {Fore.CYAN}The Secret Passageway{Style.RESET_ALL}.""")
         press_enter_to_continue()
         secret_entry_full_sequence(player)
 
@@ -692,7 +695,7 @@ Otherwise, clear off!'""")
 You 'ere to keep me company?'{Style.RESET_ALL}
 
 Through browned and blackened teeth the {Fore.LIGHTMAGENTA_EX}Guard
-{Style.RESET_ALL} gives you a sinister smile.
+{Style.RESET_ALL}gives you a sinister smile.
 
 {Fore.LIGHTMAGENTA_EX}'You want in, it'll cost ya. 30 pieces.
 Otherwise, clear off!'""")
@@ -711,9 +714,10 @@ def secret_passageway(player):
     Describes the player's journey into the secret passageway
     leading to a confrontation with a troll.
     """
-    print(f"""
-You sneak into the shadows and find the passageway on the east side.
-You find a narrow, dark passageway that spirals downward into the earth.
+    print(f"""You sneak into the shadows and find
+the passageway on the east side.
+You find a narrow, dark passageway
+that spirals downward into the earth.
 The air grows colder and damper as you descend.
 Suddenly, a booming voice echoes in the darkness...
 {Fore.LIGHTGREEN_EX}{Style.BRIGHT}
@@ -802,8 +806,8 @@ def beast_lord_speech():
     The Beast Lord delivers a dramatic
     speech before the final challenge.
     """
-    print(f"""
-You make your way into the heart of The Castle and approach the throne room.
+    print(f"""You make your way into the heart of The Castle
+and approach the throne room.
 The great doors creak open, and there he stands -
 
 {Fore.RED}{Style.BRIGHT}The Beast Lord{Style.RESET_ALL}.
@@ -815,8 +819,7 @@ His eyes burn with malice and hunger for power.
 Do you think you are worthy, mortal?
 Many have come before you, but none have succeeded.""")
     press_enter_to_continue()
-    print(f"""
-He pauses, letting the weight of his words sink in.
+    print(f"""He pauses, letting the weight of his words sink in.
 {Fore.RED}{Style.BRIGHT}
 'Know this - those who defeat me shall rule these lands,
 taking all that is mine. But should you fail, your soul will
@@ -849,9 +852,9 @@ def rps_battle(player):
 
     while player.rps_won < 2 and player.rps_lost < 2:
         turn += 1
-        print(f"Turn: {turn}\n")
+        print(f"Turn: {turn}")
         player_move = get_input_with_length("""
-        Choose your move (rock, paper, scissors):
+Choose your move (rock, paper, scissors):
         """).lower()
         if player_move not in moves:
             turn -= 1  # Stops invalid entries from adding to turn count
@@ -908,30 +911,28 @@ def concluding_dialogue(player):
     print("Countless treasures are yours. The prophecy is fulfilled.")
     print(f"""
 {Fore.LIGHTBLUE_EX}A brave, {player.height}, {player.sex} sits upon the
-throne {Style.RESET_ALL}.""")
+throne{Style.RESET_ALL}.""")
     press_enter_to_continue()
     print(f"""Years pass in relative peace.
 
-    Initially you rule fairly, but you feel unexplainable change over time.
+Initially you rule fairly, but you feel unexplainable change over time.
 
-    {Fore.RED}{Style.BRIGHT}'The people must know their place'{Style.RESET_ALL}
+{Fore.RED}{Style.BRIGHT}'The people must know their place'{Style.RESET_ALL}
 
-    you hear as a whisper in the air.""")
+you hear as a whisper in the air.""")
     press_enter_to_continue()
     print("""As Lord:
 
     You raise taxes, ban public gatherings, except executions, and violently
     crush any threats to your rule, perceived or otherwise.""")
     press_enter_to_continue()
-    print(f"""
-How long has it been since you took {Fore.CYAN}The Castle{Style.RESET_ALL}?
+    print(f"""How long has it been since you took the Castle?
 
 Decades?
 
 You can't remember.""")
     press_enter_to_continue()
-    print(f"""
-A spike of terror runs through you!
+    print(f"""A spike of terror runs through you!
 {Fore.RED}{Style.BRIGHT}
 The Beast Lord{Style.RESET_ALL} appeared in the corner
 of your eye.
@@ -966,9 +967,12 @@ def main():
     """
     Main function where all other required functions will be called
     """
-    player = intro()
-    tavern(player)
-    guard_interaction(player)
+    player = Player("Nombre", "tall", "man")
+    player.gold = 0
+    secret_entry_full_sequence(player) # Test only - to be removed
+    # player = intro()
+    # tavern(player)
+    # guard_interaction(player)
 
 
 # Call main and play the game
