@@ -94,7 +94,8 @@ class Player:
             else:
                 print(Fore.RED + "Invalid sex, please input man, woman or other.")
 
-    def create_player(self):
+    @staticmethod
+    def create_player():
         player = Player("","","")
         name = player.get_name()
         height = player.get_height()
@@ -108,15 +109,15 @@ def game_over(player):
     First saves player stats and shows them to the player.
     """
     print(Fore.RED + Style.BRIGHT + "GAME OVER!\n")
-    save_player_stats(player)
-    game_over_stats(player)
+    save_player_stats(player) # Sends player stats to the Google sheet via API
+    game_over_stats(player) # Prints player stats in the terminal
 
     while True:
         play_again = get_input_with_length("Play again? (yes/no): \n").lower()
         if play_again == "yes":
             restart_game(player)
         elif play_again == "no":
-            print("Thanks for playing!")
+            print("\nThanks for playing!\n")
             sys.exit()
         else:
             print(Fore.RED + "Invalid input, please type 'yes' or 'no'.")
@@ -129,11 +130,11 @@ def restart_game(player=None):
         restart_choice = get_input_with_length("Do you want to restart with the same character? (yes/new): \n").lower()
         if restart_choice == "yes":
             player.restarts += 1
-            player_reset(player)
+            player_reset(player) # Resets the properties affecting game progression
             print(f"\nRestarting with {Fore.LIGHTBLUE_EX}{Style.BRIGHT}{player.name}{Style.RESET_ALL}.")
             print(f"\nProceeding to {Fore.CYAN}{Style.BRIGHT}The Tavern...{Style.RESET_ALL}")
             press_enter_to_continue()
-            tavern(player)
+            tavern(player) # Goes to Tavern rather than call to adventure for fluidity
             break
         elif restart_choice == "new":
             player = intro()
@@ -232,7 +233,7 @@ def intro():
 
     First, let's get to know who are you, and what you look like?
     """)
-    player = Player("", "", "").create_player()
+    player = Player.create_player()
     player.show_stats()
     if call_to_adventure(player):
         print(f"Proceeding to {Fore.CYAN}{Style.BRIGHT}The Tavern...{Style.RESET_ALL}")
@@ -271,7 +272,7 @@ def call_to_adventure(player):
             return True
         elif choice == "no":
             print(f"\n{Fore.LIGHTBLUE_EX}{Style.BRIGHT}{player.name}{Style.RESET_ALL} chooses a quiet life by the fire.")
-            return False
+            return False # Incurs first Game Over
         else:
             print(f"{Fore.RED}Invalid input, please type 'yes' or 'no'.")
 
@@ -357,7 +358,7 @@ def bet_game(player, min_bet, game):
     """
     Handle betting on dice or coin flip, allowing the player to choose their bet.
     """
-    if player.gold <= 0 | player.gold < min_bet:
+    if player.gold <= 0 | player.gold < min_bet: # Blocker so player can't attempt to bet with no gold
         print(f"\nYou don't have enough gold ({Fore.LIGHTBLUE_EX}{Style.BRIGHT}{player.gold}{Style.RESET_ALL}) left to cover your {Fore.LIGHTBLUE_EX}{Style.BRIGHT}minimum bet{Style.RESET_ALL} ({Fore.LIGHTBLUE_EX}{Style.BRIGHT}{min_bet}{Style.RESET_ALL}).")
         print("\nYou can't place any bets.\n")
         press_enter_to_continue()
@@ -463,7 +464,7 @@ def handle_guard_bribe(player):
     """
     bribe_required = 30
     if player.gold >= bribe_required:
-        while True:
+        while True: # While loop incorporated to fix Game Over logic restarting upon invalid input at this point
             give_bribe = get_input_with_length(f"You have {Fore.LIGHTBLUE_EX}{Style.BRIGHT}{player.gold}{Style.RESET_ALL} gold. Bribe {Fore.LIGHTMAGENTA_EX}Guard{Style.RESET_ALL}? (yes / no): \n").lower()
             if give_bribe == "yes":
                 process_bribe(player)
@@ -506,7 +507,7 @@ def handle_insufficient_gold(player):
     print(f"{Fore.LIGHTMAGENTA_EX}'Watchu wasting my time for then pillock. Sling yer hook.'\n")
 
     if player.gold > 0:
-        offer_tavern_option(player)
+        offer_tavern_option(player) # As long as the player has some gold left they can return to the tavern to make more
     else:
         print(f"You get out of sight of the {Fore.LIGHTMAGENTA_EX}Guard{Style.RESET_ALL} to search for {Fore.CYAN}{Style.BRIGHT}The Secret Passageway{Style.RESET_ALL}.")
         press_enter_to_continue()
@@ -517,7 +518,7 @@ def offer_tavern_option(player):
     Offer the player the choice to return to the tavern to earn more gold.
     """
     while True:
-        earn_more_gold = get_input_with_length(f"Return to {Fore.CYAN}{Style.BRIGHT}The Tavern{Style.RESET_ALL} {Fore.YELLOW}to try and win more gold? (yes/no): \n", max_length=3).lower()
+        earn_more_gold = get_input_with_length(f"Return to {Fore.CYAN}{Style.BRIGHT}The Tavern{Style.RESET_ALL} {Fore.YELLOW}to try and win more gold? (yes/no): \n").lower()
         if earn_more_gold == "yes":
             return_to_tavern(player)
             break
@@ -535,7 +536,7 @@ def return_to_tavern(player):
     """
     print(f"\nReturning to {Fore.CYAN}{Style.BRIGHT}The Tavern{Style.RESET_ALL} to make enough gold to bribe the {Fore.LIGHTMAGENTA_EX}Guard{Style.RESET_ALL}...")
     press_enter_to_continue()
-    player.heard_info = True
+    player.heard_info = True # So the user doesn't have to listen out for info again
     tavern_options(player)
 
 def initial_dialogue_guard(player):
@@ -625,6 +626,7 @@ def riddles_game(player):
         else:
             player.riddles_incorrect += 1
             print(f"\n{Fore.RED}Wrong!{Style.RESET_ALL} The correct answer was: {riddle['answer']}")
+            # Simple right or wrong validation here as theoretically a riddle answer could be anything, and players can pass if they don't know by inputting nothing
     
     if player.riddles_correct >= 2:
         print(f"\nThe {Fore.LIGHTGREEN_EX}{Style.BRIGHT}Troll{Style.RESET_ALL} grunts, impressed. {Fore.LIGHTGREEN_EX}{Style.BRIGHT}'Fine, you may pass.'{Style.RESET_ALL}")
@@ -679,12 +681,16 @@ def rps_battle(player):
     moves = ["rock", "paper", "scissors"]
     player.rps_won = 0
     player.rps_lost = 0
+    turn = 0
 
     print(f"{Fore.RED}{Style.BRIGHT}The Beast Lord{Style.RESET_ALL} readies himself for the challenge...\n")
 
     while player.rps_won < 2 and player.rps_lost < 2:
+        turn += 1
+        print(f"Turn: {turn}\n")
         player_move = get_input_with_length("Choose your move (rock, paper, scissors): \n").lower()
         if player_move not in moves:
+            turn -= 1
             print(Fore.RED + "Invalid move! Please choose rock, paper, or scissors.")
             continue
 

@@ -2,6 +2,7 @@ BUG: UNFIXABLE BY ME// Occassionally an error will come through when the run is 
 BUG: FIXED// Call to adventure being called twice in case of restart with same character - Removed the redundant call to call_to_adventure in restart_game when restarting with the same character. Ensured intro() only calls call_to_adventure on new character creation.
 BUG: FIXED// NoneType exception occurring between the intro and call_to_adventure methods. Return of 'player' added to intro function
 BUG: FIXED// Bet maximum validation updated to ensure user can't bet if their gold is less than their minimum bet.
+BUG: FIXED// Game over loop issue was affecting the guard interaction, specifically if the user restarted with the same character, had enough gold to bribe the guard and made an incorrect input when asked to decide whether they wanted to go through with the bribe. Guard interaction vaildations all put within while loops to correct.
 
 RPS Guidance: https://www.youtube.com/watch?v=fn68QNcatfo
 
