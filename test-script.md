@@ -16,6 +16,7 @@ User is asked to answer the Call to Adventure and responds 'no' | The program pr
 User is asked to answer the Call to Adventure and responds anything other than 'yes' or 'no' | User receives a validation error message | Pass
 Game Over Tests |  | 
 User incurs a Game Over | Page should display 'GAME OVER!', should list player stats, and should point users to the URL for the Adventure google sheets page | Pass
+User incurs a Game Over | The adventurer google sheet connected to the project via API is updated with all the relevant player stats | Pass
 User is asked if they want to Play again and says 'no' | Program should end along with a thanks for playing message | Pass
 User is asked if they want to Play again and says 'yes' | Player should be asked if they want to restart with the same character | Pass
 User is asked if they want to Play again and says neither 'yes' or 'no' | Player receives validation error message | Pass
