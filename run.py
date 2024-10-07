@@ -766,7 +766,8 @@ def evaluate_answer(player, answer, correct_answer):
         player.rid_won += 1
     else:
         player.rid_lost += 1
-        print(f"""{Fore.RED}Wrong!
+        print(f"""
+{Fore.RED}Wrong!
 
 The correct answer was: {correct_answer}""")
 
@@ -778,16 +779,19 @@ def conclude_riddles(player):
     """
     if player.rid_won >= 2:
         print(f"""{Fore.LIGHTGREEN_EX}{Style.BRIGHT}
-The Troll{Style.RESET_ALL} grunts, impressed.
+The Troll grunts, impressed.
 'Fine, you may pass.'""")
         press_enter_to_continue()
         final_showdown(player)
     else:
+        press_enter_to_continue()
+        print("Your slow mind finally catches up to your grave situation.")
         print(f"""{Fore.LIGHTGREEN_EX}{Style.BRIGHT}
-The Troll{Style.RESET_ALL} roars with laughter.
+The Troll roars with laughter.
 'You're too foolish to proceed!'""")
         print(f"""{Fore.RED}
 The Troll leaps, grabs, and gobbles you up whole.
+
 A belch echoes through the catacombs.""")
         press_enter_to_continue()
         game_over(player)

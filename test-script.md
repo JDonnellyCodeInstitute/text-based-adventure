@@ -59,6 +59,11 @@ Player is asked if they want to return to the Tavern and says anything other tha
 User initiates the guard interaction with 0 gold | Player receives a blunt dismissal from the guard and proceeds to the secret passageway | Pass
 Secret Passageway Tests |  |
 Secret Passageway Section initiated | Terminal displays passageway introduction | Pass
+The troll asks his riddle and user responds with correct answer | Player informed they were correct | Pass
+The troll asks his riddle and user responds with incorrect answer | Player informed they were wrong and of the correct answer | Pass
+The troll asks his riddle and user responds with anything other than letters | Validation error message | Pass
+User gets at least two riddles correct | Troll lets them pass and they move on to the final boss | Pass
+User gets at least two riddles incorrect | Troll eats the player and the user sees the game over sequence | Pass
 
 
 Browsers: 
