@@ -871,11 +871,11 @@ def rps_battle(player):
     player.rps_lost = 0
     turn = 0
 
-    print(f"{Fore.RED}The Beast Lord{Style.RESET_ALL} readies himself...\n")
+    print(f"{Fore.RED}The Beast Lord{Style.RESET_ALL} readies himself...")
 
     while player.rps_won < 2 and player.rps_lost < 2:
         turn += 1
-        print(f"Turn: {turn}")
+        print(f"\nTurn: {turn}")
         player_move = get_input_with_length("""
 Choose your move (rock, paper, scissors):
 """).lower()
