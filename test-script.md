@@ -58,7 +58,8 @@ Player is asked if they want to return to the Tavern and says 'yes' | Player pro
 Player is asked if they want to return to the Tavern and says anything other than 'yes' or 'no' | Player receives validation error message | Pass
 User initiates the guard interaction with 0 gold | Player receives a blunt dismissal from the guard and proceeds to the secret passageway | Pass
 Secret Passageway Tests |  |
-Secret Passageway Section initiated 
+Secret Passageway Section initiated | Terminal displays passageway introduction | Pass
+
 
 Browsers: 
 

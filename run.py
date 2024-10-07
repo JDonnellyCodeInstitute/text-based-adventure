@@ -730,25 +730,74 @@ def troll_encounter(player):
     """
     Initiates the troll encounter with a riddle game.
     """
-    print(f"""
-A massive, hulking figure steps out of the shadows.
+    print(f"""A massive, hulking figure steps out of the shadows.
 It's a {Fore.LIGHTGREEN_EX}{Style.BRIGHT}Troll{Style.RESET_ALL}!
 He blocks your path.
 {Fore.LIGHTGREEN_EX}{Style.BRIGHT}
 'If you want to pass, you must answer my riddles!'
 {Style.RESET_ALL}
 the {Fore.LIGHTGREEN_EX}{Style.BRIGHT}Troll{Style.RESET_ALL} growls.
-{Fore.LIGHTGREEN_EX}{Style.BRIGHT}'Or else... you'll be my dinner.'
-""")
+{Fore.LIGHTGREEN_EX}{Style.BRIGHT}
+'Or else... you'll be my dinner.'""")
     press_enter_to_continue()
     riddles_game(player)
+
+
+def ask_riddle(riddle):
+    """
+    Ask a riddle and validate the answer input.
+    """
+    print(f"\nRiddle: {Style.BRIGHT}{riddle['question']}")
+    while True:
+        answer = get_input_with_length("What is your answer? \n").lower()
+        if answer.isalpha():
+            return answer
+        else:
+            print(f"{Fore.RED}Please enter letters only.{Style.RESET_ALL}")
+
+
+def evaluate_answer(player, answer, correct_answer):
+    """
+    Evaluate if the player's answer is right or wrong,
+    and update their stats.
+    """
+    if answer == correct_answer:
+        print(Fore.GREEN + Style.BRIGHT + "\nCorrect!" + Style.RESET_ALL)
+        player.rid_won += 1
+    else:
+        player.rid_lost += 1
+        print(f"""{Fore.RED}Wrong!
+
+The correct answer was: {correct_answer}""")
+
+
+def conclude_riddles(player):
+    """
+    Decide if the player proceeds or faces
+    game over based on riddle performance.
+    """
+    if player.rid_won >= 2:
+        print(f"""{Fore.LIGHTGREEN_EX}{Style.BRIGHT}
+The Troll{Style.RESET_ALL} grunts, impressed.
+'Fine, you may pass.'""")
+        press_enter_to_continue()
+        final_showdown(player)
+    else:
+        print(f"""{Fore.LIGHTGREEN_EX}{Style.BRIGHT}
+The Troll{Style.RESET_ALL} roars with laughter.
+'You're too foolish to proceed!'""")
+        print(f"""{Fore.RED}
+The Troll leaps, grabs, and gobbles you up whole.
+A belch echoes through the catacombs.""")
+        press_enter_to_continue()
+        game_over(player)
 
 
 def riddles_game(player):
     """
     Troll asks riddles, and player must answer correctly to proceed.
     """
-    riddles = [
+    riddles = riddles = [
         {"question": ("What has keys but can't open locks?"),
          "answer": "piano"},
         {"question": ("The more you take, the more you leave behind. "
@@ -759,40 +808,13 @@ def riddles_game(player):
          "answer": "m"}
     ]
 
-    print(f"""{Fore.LIGHTGREEN_EX}{Style.BRIGHT}
-The Troll{Style.RESET_ALL} asks you three riddles.""")
+    print(f"{Fore.LIGHTGREEN_EX}{Style.BRIGHT}The Troll asks his riddles.")
 
     for riddle in riddles:
-        print(f"""
-Riddle: {Fore.LIGHTGREEN_EX}{Style.BRIGHT}{riddle['question']}""")
-        answer = get_input_with_length("What is your answer? \n").lower()
-        if answer == riddle["answer"]:
-            print(Fore.GREEN + Style.BRIGHT + "\nCorrect!")
-            player.rid_won += 1
-        else:
-            player.rid_lost += 1
-            print(f"""
-{Fore.RED}Wrong!{Style.RESET_ALL}
-The correct answer was: {riddle['answer']}""")
-            # Simple right or wrong validation
+        answer = ask_riddle(riddle)
+        evaluate_answer(player, answer, riddle["answer"])
 
-    if player.rid_won >= 2:
-        print(f"""{Fore.LIGHTGREEN_EX}{Style.BRIGHT}
-The Troll{Style.RESET_ALL} grunts, impressed.
-{Fore.LIGHTGREEN_EX}{Style.BRIGHT}
-'Fine, you may pass.'{Style.RESET_ALL}""")
-        press_enter_to_continue()
-        final_showdown(player)
-    else:
-        print(f"""{Fore.LIGHTGREEN_EX}{Style.BRIGHT}
-The Troll{Style.RESET_ALL} roars with laughter.
-{Fore.LIGHTGREEN_EX}{Style.BRIGHT}'You're too foolish to proceed!'
-{Style.RESET_ALL}""")
-        print(f"""{Fore.RED}
-The Troll leaps, grabs, and gobbles you up whole.
-A belch echoes through the catacombs.""")
-        press_enter_to_continue()
-        game_over(player)
+    conclude_riddles(player)
 
 
 # Final Showdown in the castle
@@ -926,7 +948,7 @@ you hear as a whisper in the air.""")
     You raise taxes, ban public gatherings, except executions, and violently
     crush any threats to your rule, perceived or otherwise.""")
     press_enter_to_continue()
-    print(f"""How long has it been since you took the Castle?
+    print("""How long has it been since you took the Castle?
 
 Decades?
 
@@ -969,7 +991,7 @@ def main():
     """
     player = Player("Nombre", "tall", "man")
     player.gold = 0
-    secret_entry_full_sequence(player) # Test only - to be removed
+    secret_entry_full_sequence(player)  # Test only - to be removed
     # player = intro()
     # tavern(player)
     # guard_interaction(player)
