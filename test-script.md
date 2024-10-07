@@ -12,7 +12,7 @@ User is asked to input sex | Player is given 3 options, if they input one they p
 User is asked to input height | Player is given 3 options, if they input one they proceed, if they input anything else they'll receive a validation notification | Pass
 The Player is created using the user's inputs | Player basic stats are displayed along with the call to adventure proving the player variable has been created and passed between the functions as required | Pass
 User is asked to answer the Call to Adventure and responds 'yes' | The player adventure begins and the program continues toward the tavern | Pass
-User is asked to answer the Call to Adventure and responds 'no' | The program proceed toward Game Over functions | Pass
+User is asked to answer the Call to Adventure and responds 'no' | The program proceeds toward Game Over functions | Pass
 User is asked to answer the Call to Adventure and responds anything other than 'yes' or 'no' | User receives a validation error message | Pass
 Game Over Tests |  | 
 User incurs a Game Over | Page should display 'GAME OVER!', should list player stats, and should point users to the URL for the Adventure google sheets page | Pass
@@ -25,6 +25,8 @@ User is asked if they want to Restart with same character and says neither 'yes'
 Player properties relevant to game progression are reset when user restarts | Gold reverts to 10, heard_info to false, riddles and rps won to 0 | Pass
 Input Length Validation |  | 
 User should not be able to do inputs over 10 Characters | The get_input_with_length() was created to be used instead of standard inputs, it takes a parameter for number of characters which is set to ten. If user inputs more than 10 characters they will be notified that they are over the limit | Pass
+Colorama Tests | |
+User comes across coloured section of text | Colours should match those input in the source code | Pass
 Tavern Tests |  | 
 Tavern section begins and player height is short | User sees interaction with tavern keeper and is insulted for their height | Pass
 Tavern section begins and player height is tall | User sees interaction with tavern keeper and is insulted for their height | Pass
@@ -63,8 +65,16 @@ The troll asks his riddle and user responds with correct answer | Player informe
 The troll asks his riddle and user responds with incorrect answer | Player informed they were wrong and of the correct answer | Pass
 The troll asks his riddle and user responds with anything other than letters | Validation error message | Pass
 User gets at least two riddles correct | Troll lets them pass and they move on to the final boss | Pass
-User gets at least two riddles incorrect | Troll eats the player and the user sees the game over sequence | Pass
-
+User gets at least two riddles incorrect | Troll eats the player and the user proceeds to the game over sequence | Pass
+The Beast Lord Sequence Tests | |
+Beast Lord Sequence begins | Beast Lord's speech is printed to the terminal | Pass
+Rock Paper Scissors (RPS) begins - User inputs anything other than 'rock' 'paper' or 'scissors' | Validation error prints and they're asked again for input - Turn counter remains unchanged in the terminal | Pass
+RPS user makes a valid input | Turn counter increases by 1 next turn | Pass
+RPS user makes a valid input and wins | Notified in console they win the round, scores displayed | Pass
+RPS user makes a valid input and loses | Notified in console they lose the round, scores displayed | Pass
+RPS user makes a valid input and ties | Notified in console they draw the round, scores displayed | Pass
+User wins two games of RPS | The console is populated with the closing sequence of text followed by a game over | Pass
+User loses two games of RPS | Player gets a game over | Pass
 
 Browsers: 
 

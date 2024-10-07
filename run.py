@@ -872,16 +872,14 @@ def rps_battle(player):
     player.rps_lost = 0
     turn = 0
 
-    print(f"""
-{Fore.RED}{Style.BRIGHT}The Beast Lord{Style.RESET_ALL} readies himself...
-""")
+    print(f"{Fore.RED}The Beast Lord{Style.RESET_ALL} readies himself...\n")
 
     while player.rps_won < 2 and player.rps_lost < 2:
         turn += 1
         print(f"Turn: {turn}")
         player_move = get_input_with_length("""
 Choose your move (rock, paper, scissors):
-        """).lower()
+""").lower()
         if player_move not in moves:
             turn -= 1  # Stops invalid entries from adding to turn count
             print(Fore.RED + "Please choose rock, paper, or scissors.")
@@ -889,7 +887,7 @@ Choose your move (rock, paper, scissors):
 
         beast_move = random.choice(moves)
         print(f"""{Fore.RED}{Style.BRIGHT}
-The Beast Lord{Style.RESET_ALL} chooses {beast_move}.\n""")
+The Beast Lord{Style.RESET_ALL} chooses {beast_move}.""")
 
         # Determine winner
         if player_move == beast_move:
@@ -897,7 +895,7 @@ The Beast Lord{Style.RESET_ALL} chooses {beast_move}.\n""")
         elif (player_move == "rock" and beast_move == "scissors") or \
              (player_move == "paper" and beast_move == "rock") or \
              (player_move == "scissors" and beast_move == "paper"):
-            print(Fore.GREEN + Style.BRIGHT + "You win this round!")
+            print(Fore.GREEN + Style.BRIGHT + "\nYou win this round!")
             player.rps_won += 1
         else:
             print(f"""{Fore.RED}{Style.BRIGHT}
@@ -906,7 +904,7 @@ The Beast Lord{Style.RESET_ALL} {Fore.RED}wins this round!""")
 
         print(f"""
         Score - You: {player.rps_won}, {Fore.RED}{Style.BRIGHT}
-        Beast Lord{Style.RESET_ALL}: {player.rps_lost}\n""")
+        Beast Lord{Style.RESET_ALL}: {player.rps_lost}""")
 
     # Determine final outcome
     if player.rps_won == 2:
@@ -949,7 +947,7 @@ you hear as a whisper in the air.""")
     press_enter_to_continue()
     print("""As Lord:
 
-    You raise taxes, ban public gatherings, except executions, and violently
+    You raise taxes, ban public gatherings except executions, and violently
     crush any threats to your rule, perceived or otherwise.""")
     press_enter_to_continue()
     print("""How long has it been since you took the Castle?
@@ -993,12 +991,9 @@ def main():
     """
     Main function where all other required functions will be called
     """
-    player = Player("Nombre", "tall", "man")
-    player.gold = 0
-    secret_entry_full_sequence(player)  # Test only - to be removed
-    # player = intro()
-    # tavern(player)
-    # guard_interaction(player)
+    player = intro()
+    tavern(player)
+    guard_interaction(player)
 
 
 # Call main and play the game
