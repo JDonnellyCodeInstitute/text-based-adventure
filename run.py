@@ -3,7 +3,7 @@ from google.oauth2.service_account import Credentials
 import sys
 import random
 import colorama
-from colorama import Fore, Style
+from colorama import Fore, Style, Back
 # Initialising colorama for Windows compatibility
 colorama.init(autoreset=True)
 
@@ -111,6 +111,8 @@ def game_over(player):
     print(Fore.RED + Style.BRIGHT + "GAME OVER!\n")
     save_player_stats(player) # Sends player stats to the Google sheet via API
     game_over_stats(player) # Prints player stats in the terminal
+    print("\nSee historic stats at:\n")
+    print(f"{Back.WHITE}{Fore.BLACK}https://docs.google.com/spreadsheets/d/1_FmMhmWtP10EMdpJXYXwIjeL_j1A50UksDBUsE7np2w/edit?gid=0#gid=0{Style.RESET_ALL}\n")
 
     while True:
         play_again = get_input_with_length("Play again? (yes/no): \n").lower()
@@ -690,7 +692,7 @@ def rps_battle(player):
         print(f"Turn: {turn}\n")
         player_move = get_input_with_length("Choose your move (rock, paper, scissors): \n").lower()
         if player_move not in moves:
-            turn -= 1
+            turn -= 1 # Stops invalid selections from adding to the turn count from user's perspective
             print(Fore.RED + "Invalid move! Please choose rock, paper, or scissors.")
             continue
 
