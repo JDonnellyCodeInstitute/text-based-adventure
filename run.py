@@ -145,8 +145,7 @@ def restart_game(player=None):
             player.restarts += 1
             player_reset(player)  # Resets player properties
             print(f"""
-Returning with {Fore.LIGHTBLUE_EX}{player.name}{Style.RESET_ALL}.
-            """)
+Returning with {Fore.LIGHTBLUE_EX}{player.name}{Style.RESET_ALL}.""")
             print(f"""
 Proceeding to {Fore.CYAN}The Tavern...{Style.RESET_ALL}""")
             press_enter_to_continue()
@@ -248,6 +247,7 @@ Welcome intrepid adventurer! And say
     '{Fore.LIGHTGREEN_EX}Hello World!{Style.RESET_ALL}'
 
 to the world of {Fore.MAGENTA}{Style.BRIGHT}Pythonia{Style.RESET_ALL}!
+
 You, a daring youth in search of fortune,
 may one day soon be asked to answer
 {Fore.CYAN}The Call to Adventure{Style.RESET_ALL}.
@@ -257,16 +257,17 @@ In {Fore.MAGENTA}{Style.BRIGHT}Pythonia{Style.RESET_ALL}, bravery, wit, and a
 little bit of luck will determine your fate.
 
 A treasure lies hidden in the depths of a
-{Fore.CYAN}Haunted Castle{Style.RESET_ALL},
-but only those strong enough to overcome the challenges may claim it.
+Haunted Castle, but only those strong enough
+to overcome the challenges may claim it.
 
-First, let's get to know who are you, and what you look like?
+First, let's get to know who are you,
+and what you look like?
     """)
     player = Player.create_player()
     player.show_stats()
     if call_to_adventure(player):
         print(f"""
-        Proceed to {Fore.CYAN}The Tavern...{Style.RESET_ALL}""")
+Proceed to {Fore.CYAN}The Tavern...{Style.RESET_ALL}""")
         press_enter_to_continue()
     else:
         press_enter_to_continue()
@@ -280,39 +281,35 @@ def call_to_adventure(player):
     Presents the player with the call to adventure.
     """
     print(f"""
-A {Fore.LIGHTCYAN_EX}Stranger{Style.RESET_ALL}
-approaches you as you rest by the fire.
-{Fore.LIGHTCYAN_EX}"{Style.RESET_ALL}{Fore.LIGHTBLUE_EX}{player.name}{Style.RESET_ALL}{Fore.LIGHTCYAN_EX},
-I have been watching you. You seem like someone
-destined for great things.
+A mysterious stranger approaches you as you rest by the fire.
+{Fore.LIGHTCYAN_EX}
+'Brave {player.name}, I have been watching you.
+You seem like someone destined for great things.
 
-It is prophecied that a brave,{Style.RESET_ALL}
-{Fore.LIGHTBLUE_EX}{player.height}{Style.RESET_ALL}{Fore.LIGHTCYAN_EX},
-{Style.RESET_ALL} {Fore.LIGHTBLUE_EX}{player.sex}{Style.RESET_ALL}
-{Fore.LIGHTCYAN_EX}like you will some day make it to the{Style.RESET_ALL}
-{Fore.RED}{Style.BRIGHT}Beast Lord's Castle{Style.RESET_ALL}
+It is prophecied that a brave, {player.height}, {player.sex}
+like you will some day make it to
+{Fore.RED}{Style.BRIGHT}
+    The Beast Lord's Castle{Style.RESET_ALL}
+
 {Fore.LIGHTCYAN_EX}and end his tyrannous reign.
 
-I can guide you to a{Style.RESET_ALL} {Fore.CYAN}Tavern{Style.RESET_ALL}
-{Fore.LIGHTCYAN_EX}frequented by smugglers and mercenaries
-who know ways of entering{Style.RESET_ALL}
-{Fore.CYAN}The Castle{Style.RESET_ALL}{Fore.LIGHTCYAN_EX}.
+I can guide you to a tavern frequented by smugglers
+and mercenaries who know ways of entering
+The Castle.
 
-However, you first must make the choice. Will you answer{Style.RESET_ALL}
-{Fore.CYAN}The Call To Adventure{Style.RESET_ALL}{Fore.LIGHTCYAN_EX},
-claim untold riches, and liberate the people of{Style.RESET_ALL}
-{Fore.MAGENTA}{Style.BRIGHT}Pythonia{Style.RESET_ALL}
-{Fore.LIGHTCYAN_EX}or will you sit here by the fire and live a quiet life?"
-    """)
+However, you first must make the choice.
+Will you answer The Call To Adventure,
+claim untold riches, and liberate the people of Pythonia?
+Or will you sit here by the fire and live a quiet life?'""")
 
     while True:
         choice = get_input_with_length("""
-        Do you accept The Call to Adventure?
-        (yes/no):\n""").lower()
+Do you accept The Call to Adventure?
+(yes/no):\n""").lower()
         if choice == "yes":
             print(f"""
-            Brave {Fore.LIGHTBLUE_EX}{player.name}{Style.RESET_ALL},
-            you will now begin your adventure!\n""")
+Brave {Fore.LIGHTBLUE_EX}{player.name}{Style.RESET_ALL},
+you will now begin your adventure!""")
             return True
         elif choice == "no":
             print(f"""
@@ -332,15 +329,14 @@ def tavern(player):
 
 
 def initial_dialogue_tavern(player):
-    print(f"""
-    The {Fore.LIGHTCYAN_EX}Stranger{Style.RESET_ALL} leads
-    you to a murky {Fore.CYAN}Tavern{Style.RESET_ALL}.\n
-    As you approach you hear raucous laughter and the door swings open.
-    A rotten drunk, mostly toothless, sailor is being dragged by
-    the scruff of the neck and thrown out the door.
+    print(f"""The stranger leads you to a murky Tavern.
 
-    {Fore.LIGHTGREEN_EX}'And STAY OUT!' shouts the Innkeeper{Style.RESET_ALL}
-    as he spots you and the {Fore.LIGHTCYAN_EX}Stranger{Style.RESET_ALL}.\n""")
+As you approach you hear raucous laughter and the door swings open.
+A rotten drunk, mostly toothless, sailor is being dragged by
+the scruff of the neck and thrown out the door.
+
+{Fore.LIGHTGREEN_EX}'And STAY OUT!' shouts the Innkeeper{Style.RESET_ALL}
+as he spots you and the stranger.""")
     if player.height == "short":
         print(f"""{Fore.LIGHTGREEN_EX}
 'Awoite shortarse, in or out. Same goes for your creepy mate.'""")
@@ -427,8 +423,7 @@ def bet_game(player, min_bet, game):
         return
 
     print("""
-In each game, if you win, you earn what you staked. If not, you lose it.
-""")
+In each game, if you win, you earn what you staked. If not, you lose it.""")
 
     bet = get_bet(player, min_bet)
 
@@ -459,28 +454,29 @@ def dice_game(player, bet):
     Handle the dice game logic where the player rolls against the Innkeeper.
     """
     print(f"""
-You challenge the {Fore.LIGHTGREEN_EX}Innkeeper{Style.RESET_ALL} to dice.
+You challenge the Innkeeper to a game of dice.
 """)
-    print("\nIf you roll higher you win.")
+    print("If you roll higher you win.")
     player_roll = random.randint(1, 6)
     keeper_roll = random.randint(1, 6)
     print(f"""
 You rolled {player_roll}.
-The {Fore.LIGHTGREEN_EX}Innkeeper{Style.RESET_ALL} rolled {keeper_roll}.
-""")
+
+The Innkeeper rolled {keeper_roll}.""")
 
     if player_roll > keeper_roll:
         player.gold += bet
         player.dice_wins += 1
         print(f"""
 {Fore.GREEN}{Style.BRIGHT}You win {bet} gold!{Style.RESET_ALL}
+
 You now have {player.gold} gold pieces.""")
         press_enter_to_continue()
     else:
         player.gold -= bet
         player.dice_losses += 1
-        print(f"""
-{Fore.RED}You lose {bet} gold!{Style.RESET_ALL}
+        print(f"""{Fore.RED}You lose {bet} gold!{Style.RESET_ALL}
+
 You now have {player.gold} gold pieces.""")
         press_enter_to_continue()
 
@@ -490,8 +486,7 @@ def coin_flip_game(player, bet):
     Handle the coin flip game where the player calls heads or tails.
     """
     print(f"""
-You bet the {Fore.LIGHTGREEN_EX}Innkeeper{Style.RESET_ALL}
-that you can call a coin toss.
+You bet the Innkeeper that you can call a coin toss.
 """)
 
     while True:
@@ -529,8 +524,7 @@ def listen_for_treasure_info(player):
     print(f"""
 You overhear a {Fore.LIGHTYELLOW_EX}Drunken Smuggler{Style.RESET_ALL}
 talking about {Fore.RED}{Style.BRIGHT}The Beast Lord's Castle{Style.RESET_ALL}.
-""")
-    print(f"""
+
 {Fore.LIGHTYELLOW_EX}*Hiccup* 'That bloody Guard!' *Hiccup*
 'I tell ya, he's got some bloody gaul!'
 'Trying to take me for 30 pieces!? Pah!'
@@ -538,11 +532,7 @@ talking about {Fore.RED}{Style.BRIGHT}The Beast Lord's Castle{Style.RESET_ALL}.
 that I know...
 which he don't know...
 but I do that there's...'""")
-    print("\nThe smuggler takes a moment to belch loudly.\n")
-    print(f"{Fore.LIGHTYELLOW_EX}")
-    print(f"""
-{Fore.LIGHTYELLOW_EX}""")
-
+    print("\nThe smuggler takes a moment to belch loudly.")
     print(f"""
 {Fore.LIGHTYELLOW_EX}'A bloody Secret Passageway!
 In the shadows to the east side of The Castle!'
@@ -752,9 +742,14 @@ def riddles_game(player):
     Troll asks riddles, and player must answer correctly to proceed.
     """
     riddles = [
-        {"question": "What has keys but can't open locks?", "answer": "piano"},
-        {"question": "The more you take, the more you leave behind. What am I?", "answer": "footsteps"},
-        {"question": "What comes once in a minute, twice in a moment, but never in a thousand years?", "answer": "m"}
+        {"question": ("What has keys but can't open locks?"),
+         "answer": "piano"},
+        {"question": ("The more you take, the more you leave behind. "
+                      "What am I?"),
+         "answer": "footsteps"},
+        {"question": ("What comes once in a minute, twice in a moment, "
+                      "but never in a thousand years?"),
+         "answer": "m"}
     ]
 
     print(f"""{Fore.LIGHTGREEN_EX}{Style.BRIGHT}
