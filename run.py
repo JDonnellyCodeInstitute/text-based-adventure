@@ -59,6 +59,7 @@ class Player:
         print(Fore.LIGHTBLUE_EX + Style.BRIGHT + f"Height: {self.height}")
         print(Fore.LIGHTBLUE_EX + Style.BRIGHT + f"Sex: {self.sex}")
         print(Fore.LIGHTBLUE_EX + Style.BRIGHT + f"Gold: {self.gold} pieces")
+        press_enter_to_continue()
 
     def get_name(self):
         """
@@ -280,12 +281,10 @@ def call_to_adventure(player):
     """
     Presents the player with the call to adventure.
     """
-    print(f"""
-As you rest by the fire you are approached by a
+    print(f"""As you rest by the fire you are approached by a
 {Fore.LIGHTCYAN_EX}Mysterious Stranger
 
 'Brave {player.name}, I have been watching you.
-You seem like someone destined for great things.
 
 It is prophecied that a brave, {player.height}, {player.sex}
 like you will some day make it to
@@ -296,7 +295,7 @@ like you will some day make it to
 
 I can guide you to a tavern frequented by smugglers
 and mercenaries who know ways of entering
-The Castle.
+{Fore.RED}The Castle{Fore.LIGHTCYAN_EX}.
 
 However, you first must make the choice.
 Will you answer The Call To Adventure,
