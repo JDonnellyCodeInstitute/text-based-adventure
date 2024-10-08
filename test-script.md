@@ -83,4 +83,4 @@ Action | Expectation | Pass/Fail
 ----- | ----- | -----
 Action all of the above tests in Google Chrome | All tests should pass | Pass
 Action all of the above tests in Microsoft Edge | All tests should pass | Pass
-Action all of the above tests in Safari | All tests should pass | Pass
+Action all of the above tests in Firefox | All tests should pass | Pass
