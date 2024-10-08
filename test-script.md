@@ -76,6 +76,8 @@ RPS user makes a valid input and loses | Notified in console they lose the round
 RPS user makes a valid input and ties | Notified in console they draw the round, scores displayed | Pass
 User wins two games of RPS | The console is populated with the closing sequence of text followed by a game over | Pass
 User loses two games of RPS | Player gets a game over | Pass
+PEP8 Validation Corrections | |
+I run flake8 . in the terminal | Wide range of code smell issues appear. Line length, additional white space, unused variables, over-indentation. ALL CORRECTED | Pass
 
 Browsers: 
 
