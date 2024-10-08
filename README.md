@@ -107,6 +107,17 @@ Dungeons and Flaggons is a text based adventure game with a dab of roll play, a 
     - Command users can use to check their gold amount
     - Command users can use to quit/restart game mid-session
 
+## Data Model
+
+This project employs an object-oriented data model that revolves around the use of Python classes to represent key game entities. The primary class is the Player, which stores player attributes such as name, height, sex, and in-game statistics (e.g., gold, riddles_won, riddles_lost, guard_bribed). The game also includes additional classes or methods for specific game mechanics, such as interacting with the tavern, solving riddles, and encountering characters like the troll or the guard.
+
+In this model:
+- Encapsulation is used to bundle the player’s attributes and actions together within the Player class.
+- State management is handled through instance variables, which store the player’s current status (e.g., amount of gold, victories, losses).
+- Game Flow is managed through interactions between classes and methods that modify the player’s attributes, based on decisions or outcomes (e.g., losing a bet or winning a riddle challenge).
+
+This approach provides a structured, modular way to track and modify game data dynamically as the player progresses through different stages of the adventure.
+
 ## Bugs
 
     - OUTSTANDING// Occassionally an error will come through when the program is initiated, API related, the console will say 'wait thirty seconds and run it again'. Seems to be an issue on the Google Server, out of scope for this project to fix.
